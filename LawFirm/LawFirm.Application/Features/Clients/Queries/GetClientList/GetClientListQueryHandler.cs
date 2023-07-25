@@ -5,12 +5,12 @@ using MediatR;
 
 namespace LawFirm.Application.Features.Clients.Queries.GetClientList;
 
-public class GetEventsListQueryHandler : IRequestHandler<GetClientListQuery, List<ClientListVm>>
+public class GetClientListQueryHandler : IRequestHandler<GetClientListQuery, List<ClientListVm>>
 {
     private readonly IMapper _mapper;
     private readonly IAsyncRepository<Client> _clientRepository;
 
-    public GetEventsListQueryHandler(IMapper mapper,
+    public GetClientListQueryHandler(IMapper mapper,
         IAsyncRepository<Client> clientRepository)
     {
         _mapper = mapper;

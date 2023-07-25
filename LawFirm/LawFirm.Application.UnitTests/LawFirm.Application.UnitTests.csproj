@@ -25,4 +25,8 @@
 		</PackageReference>
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\LawFirm.Application\LawFirm.Application.csproj" />
+	</ItemGroup>
+
 </Project>

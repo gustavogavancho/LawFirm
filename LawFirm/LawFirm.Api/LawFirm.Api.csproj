@@ -20,7 +20,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <Folder Include="logs\" />
+    <Folder Include="Utility\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LawFirm.Application\LawFirm.Application.csproj" />
+    <ProjectReference Include="..\LawFirm.Identity\LawFirm.Identity.csproj" />
+    <ProjectReference Include="..\LawFirm.Infrastructure\LawFirm.Infrastructure.csproj" />
+    <ProjectReference Include="..\LawFirm.Persistence\LawFirm.Persistence.csproj" />
   </ItemGroup>
 
 </Project>
