@@ -7,6 +7,7 @@ using LawFirm.Infrastructure;
 using LawFirm.Persistence;
 using LawFirm.Identity;
 using Microsoft.EntityFrameworkCore;
+using LawFirm.Api.Utility;
 
 namespace LawFirm.Api;
 
@@ -103,6 +104,8 @@ public static class StartupExtensions
                 Title = "GloboTicket Ticket Management API",
 
             });
+
+            c.OperationFilter<FileResultContentTypeOperationFilter>();
         });
     }
 

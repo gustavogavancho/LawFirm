@@ -5,21 +5,20 @@ Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
     .CreateBootstrapLogger();
 
-Log.Information("GloboTicket API starting");
+Log.Information("LawFirm API starting");
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseSerilog((context, loggerConfiguration) => loggerConfiguration
      .WriteTo.Console()
-     .ReadFrom.Configuration(context.Configuration));
+     .ReadFrom.Configuration(context.Configuration),
+     true);
 
 var app = builder
     .ConfigureServices()
     .ConfigurePipeline();
 
 app.UseSerilogRequestLogging();
-
-await app.ResetDatabaseAsync();
 
 app.Run();
 
