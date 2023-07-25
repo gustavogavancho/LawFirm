@@ -1,6 +1,7 @@
-﻿using LawFirm.Application.Models.Authentication;
+﻿using LawFirm.Application.Contracts.Identity;
+using LawFirm.Application.Models.Authentication;
 using LawFirm.Identity.Models;
-using Microsoft.AspNetCore.Authentication;
+using LawFirm.Identity.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;

@@ -1,10 +1,12 @@
 ﻿using LawFirm.Application.Features.Clients.Commands.CreateClient;
 using LawFirm.Application.Features.Clients.Queries.GetClientList;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LawFirm.Api.Controllers;
 
+[Authorize]
 [Route("api/[controller]")]
 [ApiController]
 public class ClientController : ControllerBase
