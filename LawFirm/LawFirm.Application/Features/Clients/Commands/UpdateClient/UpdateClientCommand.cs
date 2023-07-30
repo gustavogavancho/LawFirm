@@ -1,9 +1,10 @@
 ﻿using MediatR;
 
-namespace LawFirm.Application.Features.Clients.Commands.CreateClient;
+namespace LawFirm.Application.Features.Clients.Commands.UpdateClient;
 
-public record CreateClientCommand : IRequest<CreateClientCommandResponse>
+public class UpdateClientCommand : IRequest
 {
+    public Guid ClientId { get; set; }
     public string Name { get; set; } = default!;
     public string LastName { get; set; } = default!;
     public long Nit { get; set; }

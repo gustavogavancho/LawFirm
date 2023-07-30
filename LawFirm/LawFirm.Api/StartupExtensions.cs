@@ -101,7 +101,7 @@ public static class StartupExtensions
             c.SwaggerDoc("v1", new OpenApiInfo
             {
                 Version = "v1",
-                Title = "GloboTicket Ticket Management API",
+                Title = "Law Firm API",
 
             });
 

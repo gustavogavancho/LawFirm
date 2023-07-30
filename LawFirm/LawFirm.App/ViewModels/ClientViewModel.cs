@@ -1,9 +1,8 @@
-﻿using MediatR;
+﻿namespace LawFirm.App.ViewModels;
 
-namespace LawFirm.Application.Features.Clients.Commands.CreateClient;
-
-public record CreateClientCommand : IRequest<CreateClientCommandResponse>
+public class ClientViewModel
 {
+    public Guid Id { get; set; }
     public string Name { get; set; } = default!;
     public string LastName { get; set; } = default!;
     public long Nit { get; set; }

@@ -1,4 +1,7 @@
 ﻿using LawFirm.Application.Features.Clients.Commands.CreateClient;
+using LawFirm.Application.Features.Clients.Commands.DeleteClient;
+using LawFirm.Application.Features.Clients.Commands.UpdateClient;
+using LawFirm.Application.Features.Clients.Queries.GetClientDetail;
 using LawFirm.Application.Features.Clients.Queries.GetClientList;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -31,6 +34,35 @@ public class ClientController : ControllerBase
     public async Task<ActionResult<Guid>> Create([FromBody] CreateClientCommand createClientCommand)
     {
         var id = await _mediator.Send(createClientCommand);
-        return Ok(id);
+
+        return CreatedAtAction(nameof(GetEventById), new { id }, id);
+    }
+
+    [HttpGet("{id}", Name = "GetClientById")]
+    public async Task<ActionResult<ClientDetailVm>> GetEventById(Guid id)
+    {
+        var getEventDetailQuery = new GetClientDetailQuery() { Id = id };
+        return Ok(await _mediator.Send(getEventDetailQuery));
+    }
+
+    [HttpPut(Name = "UpdateClient")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesDefaultResponseType]
+    public async Task<ActionResult> Update([FromBody] UpdateClientCommand updateClientCommand)
+    {
+        await _mediator.Send(updateClientCommand);
+        return NoContent();
+    }
+
+    [HttpDelete("{id}", Name = "DeleteClient")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesDefaultResponseType]
+    public async Task<ActionResult> Delete(Guid id)
+    {
+        var deleteEventCommand = new DeleteClientCommand() { ClientId = id };
+        await _mediator.Send(deleteEventCommand);
+        return NoContent();
     }
 }
