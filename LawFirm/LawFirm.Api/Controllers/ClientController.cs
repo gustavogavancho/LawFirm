@@ -33,13 +33,13 @@ public class ClientController : ControllerBase
     [HttpPost(Name = "AddEvent")]
     public async Task<ActionResult<Guid>> Create([FromBody] CreateClientCommand createClientCommand)
     {
-        var id = await _mediator.Send(createClientCommand);
+        var entity = await _mediator.Send(createClientCommand);
 
-        return CreatedAtAction(nameof(GetEventById), new { id }, id);
+        return CreatedAtAction(nameof(GetClientById), new { entity.Id }, entity);
     }
 
     [HttpGet("{id}", Name = "GetClientById")]
-    public async Task<ActionResult<ClientDetailVm>> GetEventById(Guid id)
+    public async Task<ActionResult<ClientDetailVm>> GetClientById(Guid id)
     {
         var getEventDetailQuery = new GetClientDetailQuery() { Id = id };
         return Ok(await _mediator.Send(getEventDetailQuery));

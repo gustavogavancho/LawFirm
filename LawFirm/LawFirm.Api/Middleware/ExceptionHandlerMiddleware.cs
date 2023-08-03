@@ -1,7 +1,6 @@
 ﻿using System.Net;
 using System.Text.Json;
 using LawFirm.Application.Exceptions;
-using ValidationException = LawFirm.Application.Exceptions.ValidationException;
 
 namespace LawFirm.Api.Middleware;
 
@@ -37,7 +36,7 @@ public class ExceptionHandlerMiddleware
         switch (exception)
         {
             case ValidationException validationException:
-                httpStatusCode = HttpStatusCode.BadRequest;
+                httpStatusCode = HttpStatusCode.UnprocessableEntity;
                 result = JsonSerializer.Serialize(validationException.ValdationErrors);
                 break;
             case BadRequestException badRequestException:

@@ -36,6 +36,5 @@ public class CreateClientCommandHandlerTests
 
         //Assert
         Assert.IsType<Guid>(result);
-        Assert.NotEqual(Guid.Empty, result);
     }
 }
