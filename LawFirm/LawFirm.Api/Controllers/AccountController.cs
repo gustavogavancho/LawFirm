@@ -1,5 +1,6 @@
 ﻿using LawFirm.Application.Contracts.Identity;
 using LawFirm.Application.Models.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LawFirm.Api.Controllers;

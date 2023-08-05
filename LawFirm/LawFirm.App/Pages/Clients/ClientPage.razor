@@ -1,0 +1,53 @@
+﻿@page "/clients"
+
+@inject IClientDataService ClientDataService
+@inject NavigationManager NavigationManager
+@inject HttpClient HttpClient
+@attribute [Authorize]
+
+<h3>ClientPage</h3>
+
+@if (Clients == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Event name</th>
+                <th>Event date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var ev in Clients)
+            {
+                <tr>
+                    <td class="event-name">@ev.Name </td>
+                    <td class="event-date">@ev.LastName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+
+@code {
+    public ICollection<ClientViewModel> Clients { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            Clients = await ClientDataService.GetAllClients();
+        }
+        catch (Exception ex)
+        {
+            
+            throw;
+        }
+        
+    }
+}
