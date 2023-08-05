@@ -3,7 +3,7 @@
 <div class="container text-end">
     <AuthorizeView>
         <div>
-            Hello, @context.User.Identity!.Name
+            Hello, @context.User!.Claims.FirstOrDefault(c => c.Type == "email")!.Value
             <a href="#" @onclick="BeginSignOut">Log out</a>
         </div>
     </AuthorizeView>

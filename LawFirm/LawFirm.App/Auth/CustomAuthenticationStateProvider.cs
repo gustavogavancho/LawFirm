@@ -26,9 +26,9 @@ public class CustomAuthenticationStateProvider : AuthenticationStateProvider
         return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity(ParseTokenClaims(savedToken), "jwt")));
     }
 
-    public void SetUserAuthenticated(string email)
+    public void SetUserAuthenticated(string token)
     {
-        var authUser = new ClaimsPrincipal(new ClaimsIdentity(new[] { new Claim(ClaimTypes.Name, email) }, "apiauth"));
+        var authUser = new ClaimsPrincipal(new ClaimsIdentity(ParseTokenClaims(token), "jwt"));
         var authState = Task.FromResult(new AuthenticationState(authUser));
         NotifyAuthenticationStateChanged(authState);
     }

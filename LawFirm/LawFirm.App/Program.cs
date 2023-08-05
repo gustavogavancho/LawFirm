@@ -17,7 +17,6 @@ builder.Services.AddBlazoredLocalStorage();
 
 builder.Services.AddAuthorizationCore();
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
-
 builder.Services.AddSingleton(new HttpClient
 {
     BaseAddress = new Uri("https://localhost:7024")
@@ -27,7 +26,7 @@ builder.Services.AddTransient<CustomAuthorizationMessageHandler>();
 builder.Services.AddHttpClient<IClient, Client>(client => client.BaseAddress = new Uri("https://localhost:7024"))
     .AddHttpMessageHandler<CustomAuthorizationMessageHandler>();
 
-builder.Services.AddScoped<IClientDataService, ClientDataService>();
+builder.Services.AddScoped<IClientDataService, ClientDataService>(); 
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 
 await builder.Build().RunAsync();
