@@ -1,7 +1,7 @@
 ﻿@page "/clients"
 
 @inject IClientDataService ClientDataService
-@inject NavigationManager NavigationManager
+@inject NavigationManager Navigation
 @inject HttpClient HttpClient
 @attribute [Authorize]
 
@@ -43,11 +43,9 @@ else
         {
             Clients = await ClientDataService.GetAllClients();
         }
-        catch (Exception ex)
+        catch (ApiException ex) when (ex.Message.Contains("401"))
         {
-            
-            throw;
+            Navigation.NavigateTo("/logout");
         }
-        
     }
 }

@@ -23,6 +23,7 @@ public class ClientController : ControllerBase
 
     [HttpGet(Name = "GetAllClients")]
     [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
     [ProducesDefaultResponseType]
     public async Task<ActionResult<List<ClientListVm>>> GetAllClients()
     {
@@ -31,7 +32,10 @@ public class ClientController : ControllerBase
     }
 
     [HttpPost(Name = "AddEvent")]
-    public async Task<ActionResult<Guid>> Create([FromBody] CreateClientCommand createClientCommand)
+    [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(CreateClientDto))]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
+    public async Task<ActionResult<CreateClientDto>> Create([FromBody] CreateClientCommand createClientCommand)
     {
         var entity = await _mediator.Send(createClientCommand);
 
@@ -39,6 +43,8 @@ public class ClientController : ControllerBase
     }
 
     [HttpGet("{id}", Name = "GetClientById")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult<ClientDetailVm>> GetClientById(Guid id)
     {
         var getEventDetailQuery = new GetClientDetailQuery() { Id = id };
@@ -48,6 +54,8 @@ public class ClientController : ControllerBase
     [HttpPut(Name = "UpdateClient")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesDefaultResponseType]
     public async Task<ActionResult> Update([FromBody] UpdateClientCommand updateClientCommand)
     {
@@ -58,6 +66,7 @@ public class ClientController : ControllerBase
     [HttpDelete("{id}", Name = "DeleteClient")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesDefaultResponseType]
     public async Task<ActionResult> Delete(Guid id)
     {
