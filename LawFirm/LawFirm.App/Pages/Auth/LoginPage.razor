@@ -1,34 +1,29 @@
 ﻿@page "/login"
-@using System.Web;
 
-<div class="mt-5 row">
-    <div class="card col-12 col-lg-6 me-auto ms-auto p-3">
-        <h3 class="card-title">Login to GloboTicket</h3>
-        <div class="card-body">
-            <EditForm Model="@LoginViewModel" OnValidSubmit="HandleValidSubmit">
-                <div class="row mt-2">
-                    <label class="col-12 col-md-4 p-0 form-label" for="userName">Email:</label>
-                    <div class="col-12 col-md-8">
-                        <InputText id="userName" class="form-control login-field" @bind-Value="LoginViewModel.Email"></InputText>
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <label class="col-12 col-md-4 p-0 form-label" for="password">Password:</label>
-                    <div class="col-12 col-md-8">
-                        <InputText type="password" id="password" class="form-control login-field" @bind-Value="@LoginViewModel.Password"></InputText>
-                    </div>
-                </div>
-                <div class="row mt-2">
-                    <div class="offset-md-4">
-                        <button class="m-2 p-2 ms-0">Login</button>
-                    </div>
-                </div>
-            </EditForm>
-        </div>
+@layout AuthLayout
+
+<div class="d-flex align-items-center justify-content-center" style="min-height: 100vh;">
+    <div class="card p-4 shadow" style="width: 400px;">
+        <h2 class="text-center mb-4">Login</h2>
+        <EditForm Model="@LoginViewModel" OnValidSubmit="HandleValidSubmit">
+            <FluentValidationValidator />
+
+            <p class="text-center text-danger">@Message</p>
+
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <InputText id="username" class="form-control" @bind-Value="LoginViewModel.Email" />
+                <ValidationMessage For="(()=>LoginViewModel.Email)"></ValidationMessage>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <InputText id="password" type="password" class="form-control" @bind-Value="@LoginViewModel.Password" />
+                <ValidationMessage For="(()=>LoginViewModel.Password)"></ValidationMessage>
+            </div>
+            <button class="btn btn-primary">Login</button>
+        </EditForm>
     </div>
 </div>
-
-<span class="label label-error">@Message</span>
 
 @code {
 
@@ -68,5 +63,6 @@
             //NavigationManager.NavigateTo("home");
         }
         Message = "Username/password combination unknown";
+        StateHasChanged();
     }
 }
