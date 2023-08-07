@@ -1,0 +1,15 @@
+﻿@page "/user"
+
+<PageTitle>User - Law Firm</PageTitle>
+
+<GeneralPrompt Title="Do you want to create a new user?">
+    <span class="text-nowrap">
+        Please
+        <a class="font-weight-bold link-dark" href="user-upsert">Add it here.</a>
+    </span>
+</GeneralPrompt>
+
+@code {
+    public UserViewModel UserViewModel { get; set; }
+
+}
