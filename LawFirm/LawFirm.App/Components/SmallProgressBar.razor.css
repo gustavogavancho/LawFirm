@@ -1,0 +1,26 @@
+﻿.loading-progress {
+    position: relative;
+    width: 100%;
+    height: 4px;
+    background-color: white;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.loading-animation {
+    position: absolute;
+    width: 0;
+    height: 100%;
+    background-color: #151f42;
+    animation: loadingAnimation 1s linear infinite; /* Adjusted animation duration */
+}
+
+@keyframes loadingAnimation {
+    0% {
+        width: 0;
+    }
+
+    100% {
+        width: 100%;
+    }
+}
