@@ -2,13 +2,14 @@
 
 namespace LawFirm.App.ViewModels;
 
-public class UserViewModel
+public record UserViewModel
 {
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;
     public string UserName { get; set; } = string.Empty;
     public string Password { get; set; } = string.Empty;
+    public string ConfirmPassword { get; set; } = string.Empty;
 }
 
 public class UserViewModelValidation : AbstractValidator<UserViewModel>
@@ -20,5 +21,6 @@ public class UserViewModelValidation : AbstractValidator<UserViewModel>
         RuleFor(x => x.Email).NotEmpty().EmailAddress();
         RuleFor(x => x.UserName).NotEmpty();
         RuleFor(x => x.Password).NotEmpty();
+        RuleFor(x => x.ConfirmPassword).Equal(x => x.Password).WithMessage("Password and Confirm Password must match");
     }
 }

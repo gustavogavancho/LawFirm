@@ -1,7 +1,9 @@
-﻿using Blazored.LocalStorage;
+﻿using AutoMapper;
+using Blazored.LocalStorage;
 using LawFirm.App.Auth;
 using LawFirm.App.Contracts;
 using LawFirm.App.Services.Base;
+using LawFirm.App.ViewModels;
 using Microsoft.AspNetCore.Components.Authorization;
 using System.Net.Http.Headers;
 
@@ -10,10 +12,15 @@ namespace LawFirm.App.Services;
 public class AuthenticationService : BaseDataService, IAuthenticationService
 {
     private readonly AuthenticationStateProvider _authenticationStateProvider;
+    private readonly IMapper _mapper;
 
-    public AuthenticationService(IClient client, ILocalStorageService localStorage, AuthenticationStateProvider authenticationStateProvider) : base(client, localStorage)
+    public AuthenticationService(IClient client, 
+        ILocalStorageService localStorage, 
+        AuthenticationStateProvider authenticationStateProvider,
+        IMapper mapper) : base(client, localStorage)
     {
         _authenticationStateProvider = authenticationStateProvider;
+        _mapper = mapper;
     }
 
     public async Task<bool> Authenticate(string email, string password)
@@ -55,5 +62,16 @@ public class AuthenticationService : BaseDataService, IAuthenticationService
         await _localStorage.RemoveItemAsync("token");
         ((CustomAuthenticationStateProvider)_authenticationStateProvider).SetUserLoggedOut();
         _client.HttpClient.DefaultRequestHeaders.Authorization = null;
+    }
+
+    public async Task<List<UserListViewModel>> GetUsers()
+    {
+        await AddBearerToken();
+
+        var users = await _client.UsersAsync();
+
+        var mappedUsers = _mapper.Map<List<UserListViewModel>>(users);
+
+        return mappedUsers;
     }
 }

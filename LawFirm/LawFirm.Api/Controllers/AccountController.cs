@@ -1,5 +1,7 @@
 ﻿using LawFirm.Application.Contracts.Identity;
 using LawFirm.Application.Models.Authentication;
+using LawFirm.Identity.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LawFirm.Api.Controllers;
@@ -24,5 +26,12 @@ public class AccountController : ControllerBase
     public async Task<ActionResult<RegistrationResponse>> RegisterAsync(RegistrationRequest request)
     {
         return Ok(await _authenticationService.RegisterAsync(request));
+    }
+
+    [HttpGet("users")]
+    [Authorize]
+    public async Task<ActionResult<List<ApplicationUser>>> GeUsersAsync()
+    {
+        return Ok(await _authenticationService.GetUsers());
     }
 }

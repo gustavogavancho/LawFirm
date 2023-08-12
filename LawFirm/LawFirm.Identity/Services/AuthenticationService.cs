@@ -2,6 +2,7 @@
 using LawFirm.Application.Models.Authentication;
 using LawFirm.Identity.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -52,6 +53,13 @@ public class AuthenticationService : IAuthenticationService
         };
 
         return response;
+    }
+
+    public async Task<List<ApplicationUser>> GetUsers()
+    {
+        var users = await _userManager.Users.ToListAsync();
+
+        return users;
     }
 
     public async Task<RegistrationResponse> RegisterAsync(RegistrationRequest request)

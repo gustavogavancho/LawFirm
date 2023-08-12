@@ -1,17 +1,31 @@
 ﻿@page "/user-upsert"
 
 @inject NavigationManager Navigation
+@inject IAuthenticationService AuthenticationService
 
 <PageTitle>Add User - Law Firm</PageTitle>
 
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="user">User</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Add User</li>
-    </ol>
-</nav>
+<div class="alert alert-secondary">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb" style="margin-bottom: 0;">
+            <li class="breadcrumb-item"><a href="user">User</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Add User</li>
+        </ol>
+    </nav>
+</div>
+
+@if (SubmitSuccessful)
+{
+    <SuccessAlert Message="The user has been added successfully!" />
+}
+else if (_errorMessage is not null)
+{
+    <ErrorAlert Message="@_errorMessage" />
+}
 
 <EditForm Model="userViewModel" OnValidSubmit="HandleValidSubmit">
+
+    <FluentValidationValidator />
 
     <FormSection Title="User details" HelpText="A person or entity that engages with a product, service, or system in some way, such as by using it, interacting with it, or consuming it.">
         <FormFieldSet Width="col-11">
@@ -42,6 +56,11 @@
             <InputText type="password" @bind-Value="userViewModel.Password" class=" form-control" id="password" />
             <ValidationMessage For="@(() => userViewModel.Password)" />
         </FormFieldSet>
+        <FormFieldSet Width="col-11">
+            <label for="confirmPassword" class="form-label text-muted"><b>Confirm Password</b></label>
+            <InputText type="password" @bind-Value="userViewModel.ConfirmPassword" class=" form-control" id="confirmPassword" />
+            <ValidationMessage For="@(() => userViewModel.ConfirmPassword)" />
+        </FormFieldSet>
     </FormSection>
 
     <div class="mt-4 mb-2">
@@ -58,9 +77,31 @@
 @code {
     private UserViewModel userViewModel = new UserViewModel();
 
-    private void HandleValidSubmit()
+    private bool SubmitSuccessful;
+    private string? _errorMessage;
+
+    private async Task HandleValidSubmit()
     {
-        // Handle form submission and saving user data here
+        try
+        {
+            var result = await AuthenticationService.Register(userViewModel.FirstName, userViewModel.LastName, userViewModel.UserName, userViewModel.Email, userViewModel.Password);
+
+            if (result)
+            {
+                SubmitSuccessful = true;
+                userViewModel = new();
+
+            }
+            else
+            {
+                SubmitSuccessful = false;
+                _errorMessage = "There was a problem saving your ticket.";
+            }
+        }
+        catch (ApiException ex) when (ex.Message.Contains("exists"))
+        {
+            _errorMessage = "Username or email already exists.";
+        }
     }
 
     private void HandleCancel()
