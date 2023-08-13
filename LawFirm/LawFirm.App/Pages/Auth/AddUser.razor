@@ -1,0 +1,116 @@
+﻿@page "/user-add"
+
+@inject NavigationManager Navigation
+@inject IAuthenticationService AuthenticationService
+@inject IJSRuntime JsRuntime
+
+@attribute [Authorize]
+
+<PageTitle>Add User - Law Firm</PageTitle>
+
+<div class="alert alert-secondary">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb" style="margin-bottom: 0;">
+            <li class="breadcrumb-item"><a class="font-weight-bold link-dark" href="user">User</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Add User</li>
+        </ol>
+    </nav>
+</div>
+
+@if (SubmitSuccessful)
+{
+    <SuccessAlert Message="The user has been added successfully!" />
+}
+else if (_errorMessage is not null)
+{
+    <ErrorAlert Message="@_errorMessage" />
+}
+
+<EditForm Model="userViewModel" OnValidSubmit="HandleValidSubmit">
+
+    <FluentValidationValidator />
+
+    <FormSection Title="User details" HelpText="A person or entity that engages with a product, service, or system in some way, such as by using it, interacting with it, or consuming it.">
+        <FormFieldSet Width="col-11">
+            <label for="firstName" class="form-label text-muted"><b>First Name</b></label>
+            <InputText @bind-Value="userViewModel.FirstName" class=" form-control" id="firstName" />
+            <ValidationMessage For="@(() => userViewModel.FirstName)" />
+        </FormFieldSet>
+        <FormFieldSet Width="col-11">
+            <label for="lastName" class="form-label text-muted"><b>Last Name</b></label>
+            <InputText @bind-Value="userViewModel.LastName" class=" form-control" id="lastName" />
+            <ValidationMessage For="@(() => userViewModel.LastName)" />
+        </FormFieldSet>
+        <FormFieldSet Width="col-11">
+            <label for="email" class="form-label text-muted"><b>Email</b></label>
+            <InputText @bind-Value="userViewModel.Email" class=" form-control" id="email" />
+            <ValidationMessage For="@(() => userViewModel.Email)" />
+        </FormFieldSet>
+    </FormSection>
+
+    <FormSection Title="Credentials" HelpText="verification of identity or tools for authentication.">
+        <FormFieldSet Width="col-11">
+            <label for="userName" class="form-label text-muted"><b>User Name</b></label>
+            <InputText @bind-Value="userViewModel.UserName" class=" form-control" id="userName" />
+            <ValidationMessage For="@(() => userViewModel.UserName)" />
+        </FormFieldSet>
+        <FormFieldSet Width="col-11">
+            <label for="password" class="form-label text-muted"><b>Password</b></label>
+            <InputText type="password" @bind-Value="userViewModel.Password" class=" form-control" id="password" />
+            <ValidationMessage For="@(() => userViewModel.Password)" />
+        </FormFieldSet>
+        <FormFieldSet Width="col-11">
+            <label for="confirmPassword" class="form-label text-muted"><b>Confirm Password</b></label>
+            <InputText type="password" @bind-Value="userViewModel.ConfirmPassword" class=" form-control" id="confirmPassword" />
+            <ValidationMessage For="@(() => userViewModel.ConfirmPassword)" />
+        </FormFieldSet>
+    </FormSection>
+
+    <div class="mt-4 mb-2">
+        <div class="row">
+            <div class="offset-4 col-8 text-end">
+                <button class="btn btn-primary" type="submit">Submit</button>
+                <button class="btn btn-outline-secondary" type="button" @onclick="HandleCancel">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+</EditForm>
+
+@code {
+    private UserViewModel userViewModel = new UserViewModel();
+
+    private bool SubmitSuccessful;
+    private string? _errorMessage;
+
+    private async Task HandleValidSubmit()
+    {
+        try
+        {
+            var result = await AuthenticationService.Register(userViewModel.FirstName, userViewModel.LastName, userViewModel.UserName, userViewModel.Email, userViewModel.Password);
+
+            if (result)
+            {
+                SubmitSuccessful = true;
+                userViewModel = new();
+
+            }
+            else
+            {
+                SubmitSuccessful = false;
+                _errorMessage = "There was a problem saving your ticket.";
+            }
+        }
+        catch (ApiException ex) when (ex.Message.Contains("exists"))
+        {
+            _errorMessage = "Username or email already exists.";
+        }
+
+        await JsRuntime.InvokeVoidAsync("scrollUtils.scrollToTop");
+    }
+
+    private void HandleCancel()
+    {
+        Navigation.NavigateTo("user");
+    }
+}

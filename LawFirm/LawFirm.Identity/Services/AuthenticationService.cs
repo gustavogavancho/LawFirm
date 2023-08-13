@@ -1,6 +1,7 @@
 ﻿using LawFirm.Application.Contracts.Identity;
 using LawFirm.Application.Models.Authentication;
 using LawFirm.Identity.Models;
+using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -98,6 +99,28 @@ public class AuthenticationService : IAuthenticationService
         else
         {
             throw new Exception($"Email {request.Email} already exists.");
+        }
+    }
+
+    public async Task<bool> ChangePassword(string id, string password)
+    {
+        var userSelected = await _userManager.FindByIdAsync(id);
+
+        if (userSelected == null)
+        {
+            throw new Exception($"User with {id} not found.");
+        }
+
+        var token = await _userManager.GeneratePasswordResetTokenAsync(userSelected);
+        var result = await _userManager.ResetPasswordAsync(userSelected, token, password);
+
+        if (result.Succeeded)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 

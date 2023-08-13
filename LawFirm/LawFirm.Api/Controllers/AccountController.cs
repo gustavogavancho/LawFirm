@@ -34,4 +34,10 @@ public class AccountController : ControllerBase
     {
         return Ok(await _authenticationService.GetUsers());
     }
+
+    [HttpPost("changePassword")]
+    public async Task<ActionResult<bool>> ChangePasswordAsync(ChangePasswordRequest changePasswordRequest)
+    {
+        return Ok(await _authenticationService.ChangePassword(changePasswordRequest.Id, changePasswordRequest.Password));
+    }
 }

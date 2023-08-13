@@ -1,0 +1,81 @@
+﻿@page "/user"
+
+@inject IAuthenticationService AuthenticationService
+@inject NavigationManager Navigation
+
+@attribute [Authorize]
+
+<PageTitle>User - Law Firm</PageTitle>
+
+<div class="alert alert-secondary">
+    <span class="bi bi-plus-square-fill" aria-hidden="true"></span>
+    <strong>Do you want to create a new user?</strong>
+    <span class="text-nowrap">
+        Please
+        <a class="font-weight-bold link-dark" href="user-add">Add it here.</a>
+    </span>
+</div>
+
+<div class="responsive-table">
+    @if (userList is null)
+    {
+        <p>Loading Users...</p>
+    }
+    else
+    {
+        @if (userList.Any())
+        {
+            <TableView Items="userList" Context="user">
+                <HeaderTemplate>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Username</th>
+                    <th></th>
+                </HeaderTemplate>
+                <RowTemplate>
+                    <th scope="col">@user.FirstName</th>
+                    <td>@user.LastName</td>
+                    <td>@user.Email</td>
+                    <td>@user.UserName</td>
+                    <td class="text-end">
+                        <AuthorizeView>
+                            <button title="Edit" class="btn btn-primary" @onclick="@(() => Navigation.NavigateTo($"/change-password/{user.Id}"))">
+                                <i class="bi bi-shield-lock-fill"></i>
+                            </button>
+                            <button title="Delete" class="btn btn-danger">
+                                <i class="bi bi-trash3"></i>
+                            </button>
+                        </AuthorizeView>
+                    </td>
+                </RowTemplate>
+            </TableView>
+        }
+        else
+        {
+            <div class="no-items">
+                <svg viewBox="0 0 16 16" class="bi bi-tree" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M8 0a.5.5 0 0 1 .416.223l3 4.5A.5.5 0 0 1 11 5.5h-.098l2.022 3.235a.5.5 0 0 1-.424.765h-.191l1.638 3.276a.5.5 0 0 1-.447.724h-11a.5.5 0 0 1-.447-.724L3.69 9.5H3.5a.5.5 0 0 1-.424-.765L5.098 5.5H5a.5.5 0 0 1-.416-.777l3-4.5A.5.5 0 0 1 8 0zM5.934 4.5H6a.5.5 0 0 1 .424.765L4.402 8.5H4.5a.5.5 0 0 1 .447.724L3.31 12.5h9.382l-1.638-3.276A.5.5 0 0 1 11.5 8.5h.098L9.576 5.265A.5.5 0 0 1 10 4.5h.066L8 1.401 5.934 4.5z" />
+                    <path d="M7 13.5h2V16H7v-2.5z" />
+                </svg>
+                <h3 class="text-muted font-weight-light">You don't have users tickets, <a href="user-upsert">why not add one?</a></h3>
+            </div>
+        }
+    }
+</div>
+
+@code {
+    private List<UserListViewModel> userList;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            userList = await AuthenticationService.GetUsers();
+        }
+        catch (ApiException ex) when (ex.Message.Contains("401"))
+        {
+            Navigation.NavigateTo("/logout");
+        }
+    }
+}

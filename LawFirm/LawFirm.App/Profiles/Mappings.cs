@@ -11,5 +11,6 @@ public class Mappings : Profile
 		CreateMap<ClientViewModel, ClientDetailVm>().ReverseMap();
 		CreateMap<ClientViewModel, ClientListVm>().ReverseMap();
 		CreateMap<UserListViewModel, ApplicationUser>().ReverseMap();
+		CreateMap<ChangePasswordViewModel, ChangePasswordRequest>().ReverseMap();
 	}
 }
