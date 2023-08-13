@@ -97,3 +97,14 @@ a, .btn-link {
         transform: translateX(500px);
     }
 }
+
+.no-items {
+    text-align: center;
+    margin-top: 100px;
+}
+
+    .no-items svg {
+        width: 200px;
+        color: #dee2e6;
+        margin-bottom: 30px;
+    }

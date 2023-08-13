@@ -2,13 +2,16 @@
 
 @inject NavigationManager Navigation
 @inject IAuthenticationService AuthenticationService
+@inject IJSRuntime JsRuntime
+
+@attribute [Authorize]
 
 <PageTitle>Add User - Law Firm</PageTitle>
 
 <div class="alert alert-secondary">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb" style="margin-bottom: 0;">
-            <li class="breadcrumb-item"><a href="user">User</a></li>
+            <li class="breadcrumb-item"><a class="font-weight-bold link-dark" href="user">User</a></li>
             <li class="breadcrumb-item active" aria-current="page">Add User</li>
         </ol>
     </nav>
@@ -102,6 +105,8 @@ else if (_errorMessage is not null)
         {
             _errorMessage = "Username or email already exists.";
         }
+
+        await JsRuntime.InvokeVoidAsync("scrollUtils.scrollToTop");
     }
 
     private void HandleCancel()

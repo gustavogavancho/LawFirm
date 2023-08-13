@@ -2,6 +2,7 @@
 
 @inject IClientDataService ClientDataService
 @inject NavigationManager Navigation
+
 @attribute [Authorize]
 
 <h3>ClientPage</h3>
@@ -38,13 +39,6 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        try
-        {
-            Clients = await ClientDataService.GetAllClients();
-        }
-        catch (ApiException ex) when (ex.Message.Contains("401"))
-        {
-            Navigation.NavigateTo("/logout");
-        }
+        Clients = await ClientDataService.GetAllClients();
     }
 }
