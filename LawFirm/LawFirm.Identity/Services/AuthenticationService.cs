@@ -1,7 +1,6 @@
 ﻿using LawFirm.Application.Contracts.Identity;
 using LawFirm.Application.Models.Authentication;
 using LawFirm.Identity.Models;
-using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;

@@ -74,4 +74,15 @@ public class AuthenticationService : BaseDataService, IAuthenticationService
 
         return mappedUsers;
     }
+
+    public async Task<bool> ChangePassword(ChangePasswordViewModel changePasswordViewModel)
+    {
+        await AddBearerToken();
+
+        var request = _mapper.Map<ChangePasswordRequest>(changePasswordViewModel);
+
+        var response = await _client.ChangePasswordAsync(request);
+
+        return response;
+    }
 }

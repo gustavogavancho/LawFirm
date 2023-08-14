@@ -13,7 +13,6 @@ public class ChangePasswordViewModelValidation : AbstractValidator<ChangePasswor
 {
     public ChangePasswordViewModelValidation()
     {
-        RuleFor(x => x.Id).NotNull().NotEmpty();
         RuleFor(x => x.Password).NotEmpty();
         RuleFor(x => x.ConfirmPassword).Equal(x => x.Password).WithMessage("Password and Confirm Password must match");
     }
