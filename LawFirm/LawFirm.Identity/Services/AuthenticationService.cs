@@ -1,6 +1,7 @@
 ﻿using LawFirm.Application.Contracts.Identity;
 using LawFirm.Application.Models.Authentication;
 using LawFirm.Identity.Models;
+using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -55,7 +56,7 @@ public class AuthenticationService : IAuthenticationService
         return response;
     }
 
-    public async Task<List<ApplicationUser>> GetUsers()
+    public async Task<List<ApplicationUser>> GetUsersAsync()
     {
         var users = await _userManager.Users.ToListAsync();
 
@@ -101,7 +102,7 @@ public class AuthenticationService : IAuthenticationService
         }
     }
 
-    public async Task<bool> ChangePassword(string id, string password)
+    public async Task<bool> ChangePasswordAsync(string id, string password)
     {
         var userSelected = await _userManager.FindByIdAsync(id);
 
@@ -155,5 +156,16 @@ public class AuthenticationService : IAuthenticationService
             expires: DateTime.UtcNow.AddMinutes(_jwtSettings.DurationInMinutes),
             signingCredentials: signingCredentials);
         return jwtSecurityToken;
+    }
+
+    public async Task DeleteUserAsync(string id)
+    {
+        var user = await _userManager.FindByIdAsync(id);
+
+        if (user == null) throw new Exception($"User with {id} not found.");
+
+        var result = await _userManager.DeleteAsync(user);
+
+        if (!result.Succeeded) throw new Exception($"Couldn't delete the user selected, please try again or contact you supplier.");
     }
 }

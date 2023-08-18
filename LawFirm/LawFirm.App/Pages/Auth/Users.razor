@@ -21,6 +21,15 @@
     </span>
 </div>
 
+@if (submitSuccessful)
+{
+    <SuccessAlert Message="The user has been deleted successfully!" />
+}
+else if (errorMessage is not null)
+{
+    <ErrorAlert Message="@errorMessage" />
+}
+
 <div class="responsive-table">
     @if (userList is null)
     {
@@ -48,7 +57,7 @@
                             <button title="Edit" class="btn btn-primary" @onclick="@(() => Navigation.NavigateTo($"/user-password/{user.Id}"))">
                                 <i class="bi bi-shield-lock-fill"></i>
                             </button>
-                            <button title="Delete" class="btn btn-danger" @onclick="ShowConfirmationModal">
+                            <button title="Delete" class="btn btn-danger" @onclick="@(() => ShowConfirmationModal(user.Id))">
                                 <i class="bi bi-trash3"></i>
                             </button>
                         </AuthorizeView>
@@ -71,10 +80,12 @@
 
 @code {
     private List<UserListViewModel> userList;
-    private YesNoModal yesNoModal;
+    private Guid userIdSelected;
     private bool showConfirmationDialog;
+    private bool submitSuccessful;
+    private string errorMessage;
 
-    protected override async Task OnInitializedAsync()
+    public async Task GetUsersAsync()
     {
         try
         {
@@ -86,17 +97,35 @@
         }
     }
 
-    private void ShowConfirmationModal()
+    protected override async Task OnInitializedAsync()
     {
+        await GetUsersAsync();
+    }
+
+    private void ShowConfirmationModal(Guid id)
+    {
+        userIdSelected = id;
         showConfirmationDialog = true;
     }
 
     private async Task HandleConfirmation(bool confirmed)
     {
-        if(confirmed)
+        try
         {
-
+            if (confirmed)
+            {
+                await AuthenticationService.DeleteUser(userIdSelected);
+                await GetUsersAsync();
+                submitSuccessful = true;
+            }
         }
-        showConfirmationDialog = false;
+        catch (Exception)
+        {
+            errorMessage = "Something went wrong, please try again or contact your supplier.";
+        }
+        finally
+        {
+            showConfirmationDialog = false;
+        }
     }
 }

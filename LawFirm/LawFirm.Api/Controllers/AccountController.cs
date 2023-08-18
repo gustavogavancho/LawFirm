@@ -32,12 +32,24 @@ public class AccountController : ControllerBase
     [Authorize]
     public async Task<ActionResult<List<ApplicationUser>>> GeUsersAsync()
     {
-        return Ok(await _authenticationService.GetUsers());
+        return Ok(await _authenticationService.GetUsersAsync());
     }
 
     [HttpPost("changePassword")]
+    [Authorize]
     public async Task<ActionResult<bool>> ChangePasswordAsync(ChangePasswordRequest changePasswordRequest)
     {
-        return Ok(await _authenticationService.ChangePassword(changePasswordRequest.Id, changePasswordRequest.Password));
+        return Ok(await _authenticationService.ChangePasswordAsync(changePasswordRequest.Id, changePasswordRequest.Password));
+    }
+
+    [Authorize]
+    [HttpDelete("deleteUser/{id:Guid}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<bool>> DeleteUserAsync(Guid id)
+    {
+        await _authenticationService.DeleteUserAsync(id.ToString());
+
+        return NoContent();
     }
 }

@@ -85,4 +85,11 @@ public class AuthenticationService : BaseDataService, IAuthenticationService
 
         return response;
     }
+
+    public async Task DeleteUser(Guid id)
+    {
+        await AddBearerToken();
+
+        await _client.DeleteUserAsync(id);
+    }
 }

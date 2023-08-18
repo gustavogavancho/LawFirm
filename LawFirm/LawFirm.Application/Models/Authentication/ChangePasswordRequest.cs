@@ -2,7 +2,7 @@
 
 namespace LawFirm.Application.Models.Authentication;
 
-public class ChangePasswordRequest
+public record ChangePasswordRequest
 {
 
     [Required]
