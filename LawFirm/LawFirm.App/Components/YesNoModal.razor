@@ -26,6 +26,6 @@
 
     private async Task Confirm(bool confirm)
     {
-        await OnConfirmation.InvokeAsync(true);
+        await OnConfirmation.InvokeAsync(confirm);
     }
 }
