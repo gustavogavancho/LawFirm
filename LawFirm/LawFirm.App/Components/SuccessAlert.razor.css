@@ -1,0 +1,25 @@
+﻿.close-button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s;
+}
+
+.close-icon {
+    font-size: 1.5rem;
+    color: #555;
+    transition: color 0.2s;
+}
+
+.close-button:hover {
+    transform: scale(1.2);
+}
+
+.close-button:focus .close-icon {
+    color: #FF5733; /* Change this color to your desired focus color */
+}
