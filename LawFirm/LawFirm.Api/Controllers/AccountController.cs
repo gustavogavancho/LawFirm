@@ -29,6 +29,8 @@ public class AccountController : ControllerBase
     }
 
     [HttpGet("users")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [Authorize]
     public async Task<ActionResult<List<ApplicationUser>>> GeUsersAsync()
     {

@@ -5,6 +5,7 @@ using LawFirm.App.Contracts;
 using LawFirm.App.Services.Base;
 using LawFirm.App.ViewModels;
 using Microsoft.AspNetCore.Components.Authorization;
+using System.Net;
 using System.Net.Http.Headers;
 
 namespace LawFirm.App.Services;
@@ -66,19 +67,24 @@ public class AuthenticationService : BaseDataService, IAuthenticationService
 
     public async Task<List<UserListViewModel>> GetUsers()
     {
-        await AddBearerToken();
+        List<UserListViewModel> mappedUsers = default!;
+        try
+        {
+            var users = await _client.UsersAsync();
 
-        var users = await _client.UsersAsync();
+            mappedUsers = _mapper.Map<List<UserListViewModel>>(users);
 
-        var mappedUsers = _mapper.Map<List<UserListViewModel>>(users);
+            
+        }
+        catch (ApiException ex) when(ex.StatusCode == 401)
+        {
 
+        }
         return mappedUsers;
     }
 
     public async Task<bool> ChangePassword(ChangePasswordViewModel changePasswordViewModel)
     {
-        await AddBearerToken();
-
         var request = _mapper.Map<ChangePasswordRequest>(changePasswordViewModel);
 
         var response = await _client.ChangePasswordAsync(request);
@@ -88,8 +94,6 @@ public class AuthenticationService : BaseDataService, IAuthenticationService
 
     public async Task DeleteUser(Guid id)
     {
-        await AddBearerToken();
-
         await _client.DeleteUserAsync(id);
     }
 }
