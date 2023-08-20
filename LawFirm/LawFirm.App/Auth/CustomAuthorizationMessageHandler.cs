@@ -1,7 +1,5 @@
 ﻿using Blazored.LocalStorage;
-using LawFirm.App.Services.Base;
 using Microsoft.AspNetCore.Components;
-using System.Net;
 using System.Net.Http.Headers;
 
 namespace LawFirm.App.Auth;

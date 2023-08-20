@@ -19,11 +19,11 @@
 
 @if (SubmitSuccessful)
 {
-    <SuccessAlert Message="The user has been added successfully!" />
+    <Alert Message="The user has been added successfully!" AlertType="success" />
 }
-else if (_errorMessage is not null)
+else if (errorMessage is not null)
 {
-    <ErrorAlert Message="@_errorMessage" />
+    <Alert Message="@errorMessage" AlertType="danger" />
 }
 
 <EditForm Model="userViewModel" OnValidSubmit="HandleValidSubmit">
@@ -81,7 +81,7 @@ else if (_errorMessage is not null)
     private UserViewModel userViewModel = new UserViewModel();
 
     private bool SubmitSuccessful;
-    private string? _errorMessage;
+    private string? errorMessage;
 
     private async Task HandleValidSubmit()
     {
@@ -98,12 +98,12 @@ else if (_errorMessage is not null)
             else
             {
                 SubmitSuccessful = false;
-                _errorMessage = "There was a problem saving your ticket.";
+                errorMessage = "There was a problem saving your ticket.";
             }
         }
         catch (ApiException ex) when (ex.Message.Contains("exists"))
         {
-            _errorMessage = "Username or email already exists.";
+            errorMessage = "Username or email already exists.";
         }
 
         await JsRuntime.InvokeVoidAsync("scrollUtils.scrollToTop");

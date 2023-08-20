@@ -23,11 +23,11 @@
 
 @if (submitSuccessful)
 {
-    <SuccessAlert Message="The user has been deleted successfully!" />
+    <Alert Message="The user has been deleted successfully!" AlertType="success" />
 }
 else if (errorMessage is not null)
 {
-    <ErrorAlert Message="@errorMessage" />
+    <Alert Message="@errorMessage" AlertType="danger" />
 }
 
 <div class="responsive-table">
