@@ -5,7 +5,6 @@ using LawFirm.App.Contracts;
 using LawFirm.App.Services.Base;
 using LawFirm.App.ViewModels;
 using Microsoft.AspNetCore.Components.Authorization;
-using System.Net;
 using System.Net.Http.Headers;
 
 namespace LawFirm.App.Services;
@@ -72,24 +71,21 @@ public class AuthenticationService : BaseDataService, IAuthenticationService
         {
             var users = await _client.UsersAsync();
 
-            mappedUsers = _mapper.Map<List<UserListViewModel>>(users);
-
-            
+            mappedUsers = _mapper.Map<List<UserListViewModel>>(users);            
         }
         catch (ApiException ex) when(ex.StatusCode == 401)
         {
 
         }
+
         return mappedUsers;
     }
 
-    public async Task<bool> ChangePassword(ChangePasswordViewModel changePasswordViewModel)
+    public async Task ChangePassword(ChangePasswordViewModel changePasswordViewModel)
     {
         var request = _mapper.Map<ChangePasswordRequest>(changePasswordViewModel);
 
-        var response = await _client.ChangePasswordAsync(request);
-
-        return response;
+        await _client.ChangePasswordAsync(request);
     }
 
     public async Task DeleteUser(Guid id)

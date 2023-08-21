@@ -17,38 +17,44 @@ public class AccountController : ControllerBase
     }
 
     [HttpPost("authenticate")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<AuthenticationResponse>> AuthenticateAsync(AuthenticationRequest request)
     {
         return Ok(await _authenticationService.AuthenticateAsync(request));
     }
 
     [HttpPost("register")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<RegistrationResponse>> RegisterAsync(RegistrationRequest request)
     {
         return Ok(await _authenticationService.RegisterAsync(request));
     }
 
+    [Authorize]
     [HttpGet("users")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    [Authorize]
     public async Task<ActionResult<List<ApplicationUser>>> GeUsersAsync()
     {
         return Ok(await _authenticationService.GetUsersAsync());
     }
 
-    [HttpPost("changePassword")]
     [Authorize]
-    public async Task<ActionResult<bool>> ChangePasswordAsync(ChangePasswordRequest changePasswordRequest)
+    [HttpPost("changePassword")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    public async Task<ActionResult> ChangePasswordAsync(ChangePasswordRequest changePasswordRequest)
     {
-        return Ok(await _authenticationService.ChangePasswordAsync(changePasswordRequest.Id, changePasswordRequest.Password));
+        await _authenticationService.ChangePasswordAsync(changePasswordRequest.Id, changePasswordRequest.Password);
+
+        return NoContent();
     }
 
     [Authorize]
     [HttpDelete("deleteUser/{id:Guid}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<bool>> DeleteUserAsync(Guid id)
+    public async Task<ActionResult> DeleteUserAsync(Guid id)
     {
         await _authenticationService.DeleteUserAsync(id.ToString());
 

@@ -1,7 +1,6 @@
 ﻿using LawFirm.Application.Contracts.Identity;
 using LawFirm.Application.Models.Authentication;
 using LawFirm.Identity.Models;
-using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -102,7 +101,7 @@ public class AuthenticationService : IAuthenticationService
         }
     }
 
-    public async Task<bool> ChangePasswordAsync(string id, string password)
+    public async Task ChangePasswordAsync(string id, string password)
     {
         var userSelected = await _userManager.FindByIdAsync(id);
 
@@ -112,16 +111,10 @@ public class AuthenticationService : IAuthenticationService
         }
 
         var token = await _userManager.GeneratePasswordResetTokenAsync(userSelected);
-        var result = await _userManager.ResetPasswordAsync(userSelected, token, password);
 
-        if (result.Succeeded)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        var user = await _userManager.ResetPasswordAsync(userSelected, token, password);
+
+        if (!user.Succeeded) throw new Exception($"Something went wrong, please try again or contact your supplier.");
     }
 
     private async Task<JwtSecurityToken> GenerateToken(ApplicationUser user)
