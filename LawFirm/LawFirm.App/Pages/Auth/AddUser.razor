@@ -101,9 +101,9 @@ else if (errorMessage is not null)
                 errorMessage = "There was a problem saving your ticket.";
             }
         }
-        catch (ApiException ex) when (ex.Message.Contains("exists"))
+        catch (ApiException)
         {
-            errorMessage = "Username or email already exists.";
+            errorMessage = "Something went wrong, please try again or contact your supplier.";
         }
 
         await JsRuntime.InvokeVoidAsync("scrollUtils.scrollToTop");

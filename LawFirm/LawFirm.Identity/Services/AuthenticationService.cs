@@ -57,9 +57,9 @@ public class AuthenticationService : IAuthenticationService
 
     public async Task<List<ApplicationUser>> GetUsersAsync()
     {
-        var users = await _userManager.Users.ToListAsync();
+        var users = await _userManager.GetUsersInRoleAsync("USER");
 
-        return users;
+        return users.ToList();
     }
 
     public async Task<RegistrationResponse> RegisterAsync(RegistrationRequest request)
@@ -88,6 +88,8 @@ public class AuthenticationService : IAuthenticationService
 
             if (result.Succeeded)
             {
+                await _userManager.AddToRoleAsync(user, "USER");
+
                 return new RegistrationResponse() { UserId = user.Id };
             }
             else

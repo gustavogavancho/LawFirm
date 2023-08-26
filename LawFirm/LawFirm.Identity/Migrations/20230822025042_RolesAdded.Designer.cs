@@ -3,6 +3,7 @@ using System;
 using LawFirm.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LawFirm.Identity.Migrations
 {
     [DbContext(typeof(LawFirmIdentityContext))]
-    partial class LawFirmIdentityContextModelSnapshot : ModelSnapshot
+    [Migration("20230822025042_RolesAdded")]
+    partial class RolesAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.20");
@@ -87,26 +89,6 @@ namespace LawFirm.Identity.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "23f94478-ccca-497c-8681-d3b84ad96cc3",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "283e8ef8-37f7-4646-ba34-e9f9336f72fb",
-                            Email = "ggavancholeon@gmail.com",
-                            EmailConfirmed = false,
-                            FirstName = "",
-                            LastName = "",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "GGAVANCHOLEON@GMAIL.COM",
-                            NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEElfJmERARcDLHydrSsdNWfZYsXNxkNi+sAnXn7ejMw/awHcEcZ7yGRp/SlsQaHZGg==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "0801c14e-3b3c-47db-9f57-1ba013eebfeb",
-                            TwoFactorEnabled = false,
-                            UserName = "admin"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -137,15 +119,15 @@ namespace LawFirm.Identity.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "dc4d9c4c-76e0-4a6f-9a95-2e39e0bf8083",
-                            ConcurrencyStamp = "54337a26-7ff4-4b68-a8f8-0fde7e2b8146",
+                            Id = "d91a22c4-5911-4f1e-b8be-4b847e225c38",
+                            ConcurrencyStamp = "582f5f0b-a72c-44fb-bdb1-89c951273f6b",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "2619d998-5484-412b-9e8a-64706fc3356d",
-                            ConcurrencyStamp = "0ff6abcd-f67e-4a13-ba7b-ae111e8ac17c",
+                            Id = "fc7d9938-bdfa-40a6-93ce-9fdca75cdd31",
+                            ConcurrencyStamp = "b51c47b2-7388-4b96-ac63-e44dc00ef63b",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -232,13 +214,6 @@ namespace LawFirm.Identity.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "23f94478-ccca-497c-8681-d3b84ad96cc3",
-                            RoleId = "dc4d9c4c-76e0-4a6f-9a95-2e39e0bf8083"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
