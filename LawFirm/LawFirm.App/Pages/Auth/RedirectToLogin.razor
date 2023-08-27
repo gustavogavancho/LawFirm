@@ -7,26 +7,26 @@
 
 @code {
     [CascadingParameter]
-    public Task<AuthenticationState> _authState { get; set; }
+    public Task<AuthenticationState> AuthState { get; set; }
     [Inject]
-    public NavigationManager _navigationManager { get; set; }
+    private NavigationManager navigationManager { get; set; }
 
     bool notAuthorized { get; set; } = false;
 
     protected override async Task OnInitializedAsync()
     {
-        var authState = await _authState;
+        var authState = await AuthState;
 
         if (authState?.User?.Identity is null || !authState.User.Identity.IsAuthenticated)
         {
-            var returnUrl = _navigationManager.ToBaseRelativePath(_navigationManager.Uri);
+            var returnUrl = navigationManager.ToBaseRelativePath(navigationManager.Uri);
             if (string.IsNullOrEmpty(returnUrl))
             {
-                _navigationManager.NavigateTo("login");
+                navigationManager.NavigateTo("login");
             }
             else
             {
-                _navigationManager.NavigateTo($"login?returnUrl={returnUrl}");
+                navigationManager.NavigateTo($"login?returnUrl={returnUrl}");
             }
         }
         else

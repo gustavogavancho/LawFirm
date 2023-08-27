@@ -24,11 +24,13 @@ public class CustomAuthorizationMessageHandler : DelegatingHandler
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
         }
 
+        var returnUrl = _navigation.ToBaseRelativePath(_navigation.Uri);
+
         var response = await base.SendAsync(request, cancellationToken);
 
         if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
         {
-            _navigation.NavigateTo("/logout");
+            _navigation.NavigateTo($"login?returnUrl={returnUrl}");
         }
 
         return response;
