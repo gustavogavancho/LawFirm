@@ -68,21 +68,21 @@ namespace LawFirm.App.Services.Base
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ClientListVm>> GetAllClientsAsync();
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ClientListVm>> GetClientsAsync();
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ClientListVm>> GetAllClientsAsync(System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ClientListVm>> GetClientsAsync(System.Threading.CancellationToken cancellationToken);
 
         /// <returns>Created</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<CreateClientDto> AddEventAsync(CreateClientCommand body);
+        System.Threading.Tasks.Task<CreateClientDto> CreateClientAsync(CreateClientCommand body);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Created</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<CreateClientDto> AddEventAsync(CreateClientCommand body, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<CreateClientDto> CreateClientAsync(CreateClientCommand body, System.Threading.CancellationToken cancellationToken);
 
         /// <returns>No Content</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
@@ -95,12 +95,12 @@ namespace LawFirm.App.Services.Base
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<ClientDetailVm> GetClientByIdAsync(System.Guid id);
+        System.Threading.Tasks.Task<ClientDetailVm> GetClientAsync(System.Guid id);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<ClientDetailVm> GetClientByIdAsync(System.Guid id, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<ClientDetailVm> GetClientAsync(System.Guid id, System.Threading.CancellationToken cancellationToken);
 
         /// <returns>No Content</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
@@ -546,15 +546,15 @@ namespace LawFirm.App.Services.Base
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ClientListVm>> GetAllClientsAsync()
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ClientListVm>> GetClientsAsync()
         {
-            return GetAllClientsAsync(System.Threading.CancellationToken.None);
+            return GetClientsAsync(System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ClientListVm>> GetAllClientsAsync(System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<ClientListVm>> GetClientsAsync(System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append("api/Client");
@@ -630,15 +630,15 @@ namespace LawFirm.App.Services.Base
 
         /// <returns>Created</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<CreateClientDto> AddEventAsync(CreateClientCommand body)
+        public virtual System.Threading.Tasks.Task<CreateClientDto> CreateClientAsync(CreateClientCommand body)
         {
-            return AddEventAsync(body, System.Threading.CancellationToken.None);
+            return CreateClientAsync(body, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Created</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<CreateClientDto> AddEventAsync(CreateClientCommand body, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<CreateClientDto> CreateClientAsync(CreateClientCommand body, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append("api/Client");
@@ -834,15 +834,15 @@ namespace LawFirm.App.Services.Base
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<ClientDetailVm> GetClientByIdAsync(System.Guid id)
+        public virtual System.Threading.Tasks.Task<ClientDetailVm> GetClientAsync(System.Guid id)
         {
-            return GetClientByIdAsync(id, System.Threading.CancellationToken.None);
+            return GetClientAsync(id, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<ClientDetailVm> GetClientByIdAsync(System.Guid id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<ClientDetailVm> GetClientAsync(System.Guid id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -1383,6 +1383,11 @@ namespace LawFirm.App.Services.Base
         [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]   
         public string ClientType { get; set; }
 
+        [System.Text.Json.Serialization.JsonPropertyName("representative")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]   
+        public string Representative { get; set; }
+
         [System.Text.Json.Serialization.JsonPropertyName("phoneNumber")]
 
         [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]   
@@ -1428,6 +1433,11 @@ namespace LawFirm.App.Services.Base
 
         [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]   
         public string ClientType { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("representative")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]   
+        public string Representative { get; set; }
 
         [System.Text.Json.Serialization.JsonPropertyName("phoneNumber")]
 
@@ -1563,6 +1573,11 @@ namespace LawFirm.App.Services.Base
 
         [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]   
         public string ClientType { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("representative")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]   
+        public string Representative { get; set; }
 
         [System.Text.Json.Serialization.JsonPropertyName("phoneNumber")]
 

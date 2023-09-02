@@ -1,10 +1,7 @@
-﻿using LawFirm.Domain.Common;
+﻿namespace LawFirm.App.ViewModels;
 
-namespace LawFirm.Domain.Entities;
-
-public class Client : AuditableEntity
+public record CreateClientViiewModel
 {
-    public Guid Id { get; set; }
     public string Name { get; set; }
     public string LastName { get; set; }
     public long Nit { get; set; }

@@ -10,26 +10,38 @@ public class ClientDataService : BaseDataService, IClientDataService
 {
     private readonly IMapper _mapper;
 
-    public ClientDataService(IClient client, IMapper mapper, ILocalStorageService localStorage) : base(client, localStorage)
+    public ClientDataService(IClient client, IMapper mapper, ILocalStorageService localStorage)
+        : base(client, localStorage)
     {
         _mapper = mapper;
     }
 
-    public async Task<List<ClientViewModel>> GetAllClients()
+    public async Task<ClientViewModel> CreateClient(CreateClientViiewModel request)
     {
-        await AddBearerToken();
+        var requestMapped = _mapper.Map<CreateClientCommand>(request);
 
-        var allClients = await _client.GetAllClientsAsync();
+        var response = await _client.CreateClientAsync(requestMapped);
+
+        var responseMapped = _mapper.Map<ClientViewModel>(response);
+
+        return responseMapped;
+    }
+
+    public async Task<List<ClientViewModel>> GetClients()
+    {
+        var allClients = await _client.GetClientsAsync();
+
         var mappedClients = _mapper.Map<List<ClientViewModel>>(allClients);
+
         return mappedClients;
     }
 
-    public async Task<ClientViewModel> GetClientById(Guid id)
+    public async Task<ClientViewModel> GetClient(Guid id)
     {
-        await AddBearerToken();
+        var selectedClient = await _client.GetClientAsync(id);
 
-        var selectedClient = await _client.GetClientByIdAsync(id);
         var mappedClient = _mapper.Map<ClientViewModel>(selectedClient);
+
         return mappedClient;
     }
 }

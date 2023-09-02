@@ -31,10 +31,4 @@ public class BaseDataService
             return new ApiResponse<Guid>() { Message = "Something went wrong, please try again.", Success = false };
         }
     }
-
-    protected async Task AddBearerToken()
-    {
-        if (await _localStorage.ContainKeyAsync("token"))
-            _client.HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await _localStorage.GetItemAsync<string>("token"));
-    }
 }

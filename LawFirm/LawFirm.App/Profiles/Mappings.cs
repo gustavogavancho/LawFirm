@@ -9,6 +9,9 @@ public class Mappings : Profile
 	public Mappings()
 	{
 		CreateMap<ClientViewModel, ClientDetailVm>().ReverseMap();
+        CreateMap<ClientViewModel, CreateClientDto>().ReverseMap();
+        CreateMap<CreateClientViiewModel, CreateClientCommand>().ReverseMap();
+
 		CreateMap<ClientViewModel, ClientListVm>().ReverseMap();
 		CreateMap<UserListViewModel, ApplicationUser>().ReverseMap();
 		CreateMap<ChangePasswordViewModel, ChangePasswordRequest>().ReverseMap();

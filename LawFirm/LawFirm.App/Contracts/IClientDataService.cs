@@ -4,6 +4,7 @@ namespace LawFirm.App.Contracts;
 
 public interface IClientDataService
 {
-    Task<List<ClientViewModel>> GetAllClients();
-    Task<ClientViewModel> GetClientById(Guid id);
+    Task<ClientViewModel> CreateClient(CreateClientViiewModel request);
+    Task<List<ClientViewModel>> GetClients();
+    Task<ClientViewModel> GetClient(Guid id);
 }

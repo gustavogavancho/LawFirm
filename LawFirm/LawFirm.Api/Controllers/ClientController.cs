@@ -21,31 +21,31 @@ public class ClientController : ControllerBase
         _mediator = mediator;
     }
 
-    [HttpGet(Name = "GetAllClients")]
+    [HttpGet(Name = "GetClients")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
     [ProducesDefaultResponseType]
-    public async Task<ActionResult<List<ClientListVm>>> GetAllClients()
+    public async Task<ActionResult<List<ClientListVm>>> GetClients()
     {
         var dtos = await _mediator.Send(new GetClientListQuery());
         return Ok(dtos);
     }
 
-    [HttpPost(Name = "AddEvent")]
+    [HttpPost(Name = "CreateClient")]
     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(CreateClientDto))]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
-    public async Task<ActionResult<CreateClientDto>> Create([FromBody] CreateClientCommand createClientCommand)
+    public async Task<ActionResult<CreateClientDto>> CreateClient([FromBody] CreateClientCommand createClientCommand)
     {
         var entity = await _mediator.Send(createClientCommand);
 
-        return CreatedAtAction(nameof(GetClientById), new { entity.Id }, entity);
+        return CreatedAtAction(nameof(GetClient), new { entity.Id }, entity);
     }
 
-    [HttpGet("{id}", Name = "GetClientById")]
+    [HttpGet("{id}", Name = "GetClient")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<ClientDetailVm>> GetClientById(Guid id)
+    public async Task<ActionResult<ClientDetailVm>> GetClient(Guid id)
     {
         var getEventDetailQuery = new GetClientDetailQuery() { Id = id };
         return Ok(await _mediator.Send(getEventDetailQuery));
@@ -57,7 +57,7 @@ public class ClientController : ControllerBase
     [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesDefaultResponseType]
-    public async Task<ActionResult> Update([FromBody] UpdateClientCommand updateClientCommand)
+    public async Task<ActionResult> UpdateClient([FromBody] UpdateClientCommand updateClientCommand)
     {
         await _mediator.Send(updateClientCommand);
         return NoContent();
@@ -68,7 +68,7 @@ public class ClientController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesDefaultResponseType]
-    public async Task<ActionResult> Delete(Guid id)
+    public async Task<ActionResult> DeleteClient(Guid id)
     {
         var deleteEventCommand = new DeleteClientCommand() { ClientId = id };
         await _mediator.Send(deleteEventCommand);

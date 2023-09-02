@@ -1,0 +1,126 @@
+﻿@page "/client-upsert"
+
+@inject NavigationManager Navigation
+@inject IClientDataService ClientDataService
+@inject IJSRuntime JsRuntime
+
+@attribute [Authorize]
+
+<PageTitle>Upsert User - Law Firm</PageTitle>
+
+<div class="alert alert-secondary">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb" style="margin-bottom: 0;">
+            <li class="breadcrumb-item"><a class="font-weight-bold link-dark" href="client">Client</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Add Client</li>
+        </ol>
+    </nav>
+</div>
+
+@if (SubmitSuccessful)
+{
+    <Alert Message="The client has been added successfully!" AlertType="success" />
+}
+else if (errorMessage is not null)
+{
+    <Alert Message="@errorMessage" AlertType="danger" />
+}
+
+<EditForm Model="client" OnValidSubmit="HandleValidSubmit">
+
+    <FluentValidationValidator />
+
+    <FormSection Title="Client Details" HelpText="Any information or documentation that the Company receives from the Client">
+        <FormFieldSet Width="col-11">
+            <label for="name" class="form-label text-muted"><b>Name</b></label>
+            <InputText @bind-Value="client.Name" class=" form-control" id="userName" />
+            <ValidationMessage For="@(() => client.Name)" />
+        </FormFieldSet>
+        <FormFieldSet Width="col-11">
+            <label for="lastName" class="form-label text-muted"><b>Last Name</b></label>
+            <InputText @bind-Value="client.LastName" class=" form-control" id="lastNamev" />
+            <ValidationMessage For="@(() => client.LastName)" />
+        </FormFieldSet>
+        <FormFieldSet Width="col-11">
+            <label for="nit" class="form-label text-muted"><b>Nit</b></label>
+            <InputNumber @bind-Value="client.Nit" class=" form-control" id="nit" />
+            <ValidationMessage For="@(() => client.Nit)" />
+        </FormFieldSet>
+        <FormFieldSet Width="col-11">
+            <label for="representative" class="form-label text-muted"><b>Representative</b></label>
+            <InputText @bind-Value="client.Representative" class=" form-control" id="lastNamev" />
+            <ValidationMessage For="@(() => client.Representative)" />
+        </FormFieldSet>
+        <FormFieldSet Width="col-11">
+            <label for="clientType" class="form-label text-muted"><b>Client Type</b></label>
+            <InputSelect @bind-Value="client.ClientType" class="form-select" id="clientType">
+                <option value=""></option>
+                <option value="Natural Person">Natural Person</option>
+                <option value="Legal Person">Legal Person</option>
+            </InputSelect>
+            <ValidationMessage For="@(() => client.ClientType)" />
+        </FormFieldSet>
+        <FormFieldSet Width="col-11">
+            <label for="phoneNumber" class="form-label text-muted"><b>Phone Number</b></label>
+            <InputNumber @bind-Value="client.PhoneNumber" class=" form-control" id="phoneNumber" />
+            <ValidationMessage For="@(() => client.PhoneNumber)" />
+        </FormFieldSet>
+        <FormFieldSet Width="col-11">
+            <label for="address" class="form-label text-muted"><b>Address</b></label>
+            <InputText @bind-Value="client.Address" class=" form-control" id="address" />
+            <ValidationMessage For="@(() => client.Address)" />
+        </FormFieldSet>
+        <FormFieldSet Width="col-11">
+            <label for="email" class="form-label text-muted"><b>Email</b></label>
+            <InputText @bind-Value="client.Email" class=" form-control" id="email" />
+            <ValidationMessage For="@(() => client.Email)" />
+        </FormFieldSet>
+    </FormSection>
+
+    <div class="mt-4 mb-2">
+        <div class="row">
+            <div class="offset-4 col-8 text-end">
+                <button class="btn btn-primary" type="submit">Submit</button>
+                <button class="btn btn-outline-secondary" type="button" @onclick="HandleCancel">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+</EditForm>
+
+
+@code {
+    private CreateClientViiewModel client = new();
+
+    private bool SubmitSuccessful;
+    private string? errorMessage;
+
+    private async Task HandleValidSubmit()
+    {
+        try
+        {
+            var clientCreated = await ClientDataService.CreateClient(client);
+
+            if(clientCreated is not null)
+            {
+                SubmitSuccessful = true;
+                client = new();
+            }
+            else
+            {
+                SubmitSuccessful = false;
+                errorMessage = "There was a problem saving your tickets.";
+            }
+        }
+        catch (ApiException)
+        {
+            errorMessage = "Something went wrong, please try again or contact your supplier.";
+        }
+        await JsRuntime.InvokeVoidAsync("scrollUtils.scrollToTop");
+    }
+
+    private void HandleCancel()
+    {
+        Navigation.NavigateTo("client");
+    }
+}

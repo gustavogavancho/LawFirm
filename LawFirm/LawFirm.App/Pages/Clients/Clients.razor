@@ -1,13 +1,23 @@
-﻿@page "/clients"
+﻿@page "/client"
 
 @inject IClientDataService ClientDataService
 @inject NavigationManager Navigation
 
 @attribute [Authorize]
 
-<h3>ClientPage</h3>
+<PageTitle>Clients - LawFirm</PageTitle>
 
-@if (Clients == null)
+<div class="alert alert-secondary">
+    <span class="bi bi-plus-square-fill" aria-hidden="true"></span>
+    <strong>Do you want to create a new client?</strong>
+    <span class="text-nowrap">
+        Please
+        <a class="font-weight-bold link-dark" href="client-upsert">Add it here.</a>
+    </span>
+</div>
+
+
+@if (ClientList == null)
 {
     <p><em>Loading...</em></p>
 }
@@ -21,7 +31,7 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (var ev in Clients)
+            @foreach (var ev in ClientList)
             {
                 <tr>
                     <td class="event-name">@ev.Name </td>
@@ -35,10 +45,10 @@ else
 
 
 @code {
-    public ICollection<ClientViewModel> Clients { get; set; }
+    public ICollection<ClientViewModel> ClientList { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        Clients = await ClientDataService.GetAllClients();
+        ClientList = await ClientDataService.GetClients();
     }
 }
