@@ -27,9 +27,6 @@ public class UserViewModelValidation : AbstractValidator<UserViewModel>
 
     private bool BeFreeFromSpecialCharacters(string username)
     {
-        // Define your own logic to check for special characters.
-        // You can use regular expressions or any other method you prefer.
-        // Here's a simple example using regular expression to disallow special characters.
         return !Regex.IsMatch(username, @"[@!#$%^&*()_+{}\[\]:;<>,.?~\\/-]") && !username.Contains("ñ", StringComparison.OrdinalIgnoreCase);
     }
 }

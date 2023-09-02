@@ -19,7 +19,7 @@ public class GetClientListQueryHandler : IRequestHandler<GetClientListQuery, Lis
 
     public async Task<List<ClientListVm>> Handle(GetClientListQuery request, CancellationToken cancellationToken)
     {
-        var allEvents = (await _clientRepository.ListAllAsync()).OrderBy(x => x.Name);
+        var allEvents = (await _clientRepository.ListAllAsync()).OrderBy(x => x.FirstName);
 
         return _mapper.Map<List<ClientListVm>>(allEvents);
     }

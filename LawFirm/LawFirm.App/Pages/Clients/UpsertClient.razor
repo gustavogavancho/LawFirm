@@ -30,16 +30,30 @@ else if (errorMessage is not null)
 
     <FluentValidationValidator />
 
-    <FormSection Title="Client Details" HelpText="Any information or documentation that the Company receives from the Client">
+    <FormSection Title="Client Information" HelpText="Refers to information or data about a customer or client.">
+        <FormFieldSet Width="col-11">
+            <label for="clientType" class="form-label text-muted"><b>Client Type</b></label>
+            <InputSelect @bind-Value="client.ClientType" class="form-select" id="clientType">
+                <option value=""></option>
+                <option value="Natural Person">Natural Person</option>
+                <option value="Legal Person">Legal Person</option>
+            </InputSelect>
+            <ValidationMessage For="@(() => client.ClientType)" />
+        </FormFieldSet>
         <FormFieldSet Width="col-11">
             <label for="name" class="form-label text-muted"><b>Name</b></label>
-            <InputText @bind-Value="client.Name" class=" form-control" id="userName" />
-            <ValidationMessage For="@(() => client.Name)" />
+            <InputText @bind-Value="client.FirstName" class=" form-control" id="userName" />
+            <ValidationMessage For="@(() => client.FirstName)" />
         </FormFieldSet>
         <FormFieldSet Width="col-11">
             <label for="lastName" class="form-label text-muted"><b>Last Name</b></label>
             <InputText @bind-Value="client.LastName" class=" form-control" id="lastNamev" />
             <ValidationMessage For="@(() => client.LastName)" />
+        </FormFieldSet>
+        <FormFieldSet Width="col-11">
+            <label for="businessName" class="form-label text-muted"><b>Business Name</b></label>
+            <InputText @bind-Value="client.BusinessName" class=" form-control" id="businessName" />
+            <ValidationMessage For="@(() => client.BusinessName)" />
         </FormFieldSet>
         <FormFieldSet Width="col-11">
             <label for="nit" class="form-label text-muted"><b>Nit</b></label>
@@ -51,15 +65,9 @@ else if (errorMessage is not null)
             <InputText @bind-Value="client.Representative" class=" form-control" id="lastNamev" />
             <ValidationMessage For="@(() => client.Representative)" />
         </FormFieldSet>
-        <FormFieldSet Width="col-11">
-            <label for="clientType" class="form-label text-muted"><b>Client Type</b></label>
-            <InputSelect @bind-Value="client.ClientType" class="form-select" id="clientType">
-                <option value=""></option>
-                <option value="Natural Person">Natural Person</option>
-                <option value="Legal Person">Legal Person</option>
-            </InputSelect>
-            <ValidationMessage For="@(() => client.ClientType)" />
-        </FormFieldSet>
+    </FormSection>
+
+    <FormSection Title="Contact Details" HelpText="Information or data that allows individuals or entities to get in touch with a person, organization, or business.">
         <FormFieldSet Width="col-11">
             <label for="phoneNumber" class="form-label text-muted"><b>Phone Number</b></label>
             <InputNumber @bind-Value="client.PhoneNumber" class=" form-control" id="phoneNumber" />
@@ -101,7 +109,7 @@ else if (errorMessage is not null)
         {
             var clientCreated = await ClientDataService.CreateClient(client);
 
-            if(clientCreated is not null)
+            if (clientCreated is not null)
             {
                 SubmitSuccessful = true;
                 client = new();

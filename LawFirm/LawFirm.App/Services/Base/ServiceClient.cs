@@ -1363,15 +1363,20 @@ namespace LawFirm.App.Services.Base
     public partial class CreateClientCommand
     {
 
-        [System.Text.Json.Serialization.JsonPropertyName("name")]
+        [System.Text.Json.Serialization.JsonPropertyName("firstName")]
 
         [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]   
-        public string Name { get; set; }
+        public string FirstName { get; set; }
 
         [System.Text.Json.Serialization.JsonPropertyName("lastName")]
 
         [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]   
         public string LastName { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("businessName")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]   
+        public string BusinessName { get; set; }
 
         [System.Text.Json.Serialization.JsonPropertyName("nit")]
 
@@ -1414,15 +1419,20 @@ namespace LawFirm.App.Services.Base
         [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]   
         public System.Guid Id { get; set; }
 
-        [System.Text.Json.Serialization.JsonPropertyName("name")]
+        [System.Text.Json.Serialization.JsonPropertyName("firstName")]
 
         [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]   
-        public string Name { get; set; }
+        public string FirstName { get; set; }
 
         [System.Text.Json.Serialization.JsonPropertyName("lastName")]
 
         [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]   
         public string LastName { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("businessName")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]   
+        public string BusinessName { get; set; }
 
         [System.Text.Json.Serialization.JsonPropertyName("nit")]
 

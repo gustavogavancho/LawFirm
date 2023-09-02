@@ -6,8 +6,6 @@ public class CreateClientCommandValidator : AbstractValidator<CreateClientComman
 {
     public CreateClientCommandValidator()
     {
-        RuleFor(x => x.Name).NotEmpty();
-        RuleFor(x => x.LastName).NotEmpty();
         RuleFor(x => x.Nit).NotEmpty();
         RuleFor(x => x.Email).EmailAddress();
         RuleFor(x => x.PhoneNumber).NotEmpty();

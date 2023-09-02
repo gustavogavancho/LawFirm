@@ -108,3 +108,19 @@ a, .btn-link {
         color: #dee2e6;
         margin-bottom: 30px;
     }
+
+.responsive-table {
+    width: 100%;
+    overflow-x: auto;
+}
+
+    .responsive-table table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .responsive-table th,
+    .responsive-table td {
+        padding: 8px;
+        text-align: left;
+    }
