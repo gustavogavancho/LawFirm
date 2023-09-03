@@ -41,23 +41,26 @@ else if (errorMessage is not null)
         {
             <TableView Items="clients" Context="client">
                 <HeaderTemplate>
-                    <th>Name</th>
+                    <th>Client Type</th>
+                    <th>Firt Name</th>
                     <th>Last Name</th>
                     <th>Nit</th>
-                    <th>ClienType</th>
                     <th>Representative</th>
                     <th></th>
                 </HeaderTemplate>
                 <RowTemplate>
-                    <th scope="col">@client.FirstName</th>
+                    <th scope="col">@client.ClientType</th>
+                    <td>@client.FirstName</td>
                     <td>@client.LastName</td>
                     <td>@client.Nit</td>
-                    <td>@client.ClientType</td>
                     <td>@client.Representative</td>
                     <td class="text-end">
                         <AuthorizeView>
+                            <button title="Details" class="btn btn-primary" @onclick="@(() => Navigation.NavigateTo($"/user-password/{client.Id}"))">
+                                <i class="bi bi-list-task"></i>
+                            </button>
                             <button title="Edit" class="btn btn-primary" @onclick="@(() => Navigation.NavigateTo($"/user-password/{client.Id}"))">
-                                <i class="bi bi-shield-lock-fill"></i>
+                                <i class="bi bi-pencil-square"></i>
                             </button>
                             <button title="Delete" class="btn btn-danger" @onclick="@(() => ShowConfirmationModal(client.Id))">
                                 <i class="bi bi-trash3"></i>
