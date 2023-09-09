@@ -8,4 +8,5 @@ public interface IClientDataService
     Task<List<ClientViewModel>> GetClients();
     Task<CreateClientViewModel> GetClient(Guid id);
     Task UpdateClient(Guid id, CreateClientViewModel request);
+    Task DeleteClient(Guid id);
 }

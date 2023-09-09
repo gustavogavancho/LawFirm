@@ -10,8 +10,7 @@ public class ClientDataService : BaseDataService, IClientDataService
 {
     private readonly IMapper _mapper;
 
-    public ClientDataService(IClient client, IMapper mapper, ILocalStorageService localStorage)
-        : base(client, localStorage)
+    public ClientDataService(IClient client, IMapper mapper, ILocalStorageService localStorage) : base(client, localStorage)
     {
         _mapper = mapper;
     }
@@ -51,5 +50,10 @@ public class ClientDataService : BaseDataService, IClientDataService
         requestMapped .Id = id;
 
         await _client.UpdateClientAsync(requestMapped);
+    }
+
+    public async Task DeleteClient(Guid id)
+    {
+        await _client.DeleteClientAsync(id);
     }
 }
