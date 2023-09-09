@@ -20,9 +20,9 @@ public class UpdateEventCommandHandler : IRequestHandler<UpdateClientCommand>
 
     public async Task Handle(UpdateClientCommand request, CancellationToken cancellationToken)
     {
-        var clientToUpdate = await _clientRepository.GetByIdAsync(request.ClientId);
+        var clientToUpdate = await _clientRepository.GetByIdAsync(request.Id);
 
-        if (clientToUpdate is null) throw new NotFoundException(nameof(Client), request.ClientId);
+        if (clientToUpdate is null) throw new NotFoundException(nameof(Client), request.Id);
 
         var validator = new UpdateClientCommandValidator();
         var validationResult = await validator.ValidateAsync(request);

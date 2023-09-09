@@ -6,8 +6,8 @@ public class UpdateClientCommandValidator : AbstractValidator<UpdateClientComman
 {
     public UpdateClientCommandValidator()
     {
-        RuleFor(x => x.ClientId).NotEmpty();
-        RuleFor(x => x.Name).NotNull().NotEmpty();
+        RuleFor(x => x.Id).NotEmpty();
+        RuleFor(x => x.FirstName).NotNull().NotEmpty();
         RuleFor(x => x.LastName).NotNull().NotEmpty();
         RuleFor(x => x.Nit).NotEmpty();
         RuleFor(x => x.Email).EmailAddress();

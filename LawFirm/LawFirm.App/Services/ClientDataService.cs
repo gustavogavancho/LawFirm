@@ -16,7 +16,7 @@ public class ClientDataService : BaseDataService, IClientDataService
         _mapper = mapper;
     }
 
-    public async Task<ClientViewModel> CreateClient(CreateClientViiewModel request)
+    public async Task<ClientViewModel> CreateClient(CreateClientViewModel request)
     {
         var requestMapped = _mapper.Map<CreateClientCommand>(request);
 
@@ -36,12 +36,20 @@ public class ClientDataService : BaseDataService, IClientDataService
         return mappedClients;
     }
 
-    public async Task<ClientViewModel> GetClient(Guid id)
+    public async Task<CreateClientViewModel> GetClient(Guid id)
     {
         var selectedClient = await _client.GetClientAsync(id);
 
-        var mappedClient = _mapper.Map<ClientViewModel>(selectedClient);
+        var mappedClient = _mapper.Map<CreateClientViewModel>(selectedClient);
 
         return mappedClient;
+    }
+
+    public async Task UpdateClient(Guid id, CreateClientViewModel request)
+    {
+        var requestMapped = _mapper.Map<UpdateClientCommand>(request);
+        requestMapped .Id = id;
+
+        await _client.UpdateClientAsync(requestMapped);
     }
 }

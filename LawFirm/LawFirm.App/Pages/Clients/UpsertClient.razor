@@ -1,4 +1,5 @@
 ﻿@page "/client-upsert"
+@page "/client-upsert/{id:guid}"
 
 @inject NavigationManager Navigation
 @inject IClientDataService ClientDataService
@@ -6,13 +7,13 @@
 
 @attribute [Authorize]
 
-<PageTitle>Upsert User - Law Firm</PageTitle>
+<PageTitle>Upsert Client - Law Firm</PageTitle>
 
 <div class="alert alert-secondary">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb" style="margin-bottom: 0;">
             <li class="breadcrumb-item"><a class="font-weight-bold link-dark" href="client">Client</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Add Client</li>
+            <li class="breadcrumb-item active" aria-current="page">@(Id == Guid.Empty ? "Add" : "Edit") Client</li>
         </ol>
     </nav>
 </div>
@@ -98,26 +99,32 @@ else if (errorMessage is not null)
 
 
 @code {
-    private CreateClientViiewModel client = new();
+    [Parameter] public Guid Id { get; set; }
 
+    private CreateClientViewModel client = new();
     private bool SubmitSuccessful;
     private string? errorMessage;
+
+    protected async override Task OnInitializedAsync()
+    {
+        if(Id != Guid.Empty)
+        {
+            var check = await ClientDataService.GetClient(Id);
+            client = check;
+        }
+    }
 
     private async Task HandleValidSubmit()
     {
         try
         {
-            var clientCreated = await ClientDataService.CreateClient(client);
-
-            if (clientCreated is not null)
+            if (Id == Guid.Empty)
             {
-                SubmitSuccessful = true;
-                client = new();
+                await CreateClient();
             }
             else
             {
-                SubmitSuccessful = false;
-                errorMessage = "There was a problem saving your tickets.";
+                await UpdateClient();
             }
         }
         catch (ApiException)
@@ -130,5 +137,28 @@ else if (errorMessage is not null)
     private void HandleCancel()
     {
         Navigation.NavigateTo("client");
+    }
+
+    private async Task CreateClient()
+    {
+        var clientCreated = await ClientDataService.CreateClient(client);
+
+        if (clientCreated is not null)
+        {
+            SubmitSuccessful = true;
+            client = new();
+        }
+        else
+        {
+            SubmitSuccessful = false;
+            errorMessage = "There was a problem saving your tickets.";
+        }
+    }
+
+    private async Task UpdateClient()
+    {
+        await ClientDataService.UpdateClient(Id, client);
+
+        SubmitSuccessful = true;
     }
 }

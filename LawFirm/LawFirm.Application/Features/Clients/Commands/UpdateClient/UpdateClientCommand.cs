@@ -4,9 +4,10 @@ namespace LawFirm.Application.Features.Clients.Commands.UpdateClient;
 
 public class UpdateClientCommand : IRequest
 {
-    public Guid ClientId { get; set; }
-    public string Name { get; set; }
+    public Guid Id { get; set; }
+    public string FirstName { get; set; }
     public string LastName { get; set; }
+    public string BusinessName { get; set; }
     public long Nit { get; set; }
     public string ClientType { get; set; }
     public string Representative { get; set; }

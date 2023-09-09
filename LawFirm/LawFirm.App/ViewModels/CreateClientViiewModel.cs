@@ -1,6 +1,6 @@
 ﻿namespace LawFirm.App.ViewModels;
 
-public record CreateClientViiewModel
+public record CreateClientViewModel
 {
     public string FirstName { get; set; }
     public string LastName { get; set; }

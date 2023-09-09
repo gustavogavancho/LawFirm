@@ -59,7 +59,7 @@ else if (errorMessage is not null)
                             <button title="Details" class="btn btn-primary" @onclick="@(() => Navigation.NavigateTo($"/user-password/{client.Id}"))">
                                 <i class="bi bi-list-task"></i>
                             </button>
-                            <button title="Edit" class="btn btn-primary" @onclick="@(() => Navigation.NavigateTo($"/user-password/{client.Id}"))">
+                            <button title="Edit" class="btn btn-primary" @onclick="@(() => Navigation.NavigateTo($"/client-upsert/{client.Id}"))">
                                 <i class="bi bi-pencil-square"></i>
                             </button>
                             <button title="Delete" class="btn btn-danger" @onclick="@(() => ShowConfirmationModal(client.Id))">
