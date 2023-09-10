@@ -1,8 +1,9 @@
-﻿using MediatR;
+﻿using LawFirm.Application.Features.Clients.Models;
+using MediatR;
 
 namespace LawFirm.Application.Features.Clients.Commands.CreateClient;
 
-public record CreateClientCommand : IRequest<CreateClientDto>
+public record CreateClientCommand : IRequest<ClientVm>
 {
     public string FirstName { get; set; }
     public string LastName { get; set; }

@@ -1,6 +1,7 @@
 ﻿using LawFirm.Application.Features.Clients.Commands.CreateClient;
 using LawFirm.Application.Features.Clients.Commands.DeleteClient;
 using LawFirm.Application.Features.Clients.Commands.UpdateClient;
+using LawFirm.Application.Features.Clients.Models;
 using LawFirm.Application.Features.Clients.Queries.GetClientDetail;
 using LawFirm.Application.Features.Clients.Queries.GetClientList;
 using MediatR;
@@ -25,17 +26,17 @@ public class ClientController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
     [ProducesDefaultResponseType]
-    public async Task<ActionResult<List<ClientListVm>>> GetClients()
+    public async Task<ActionResult<List<ClientVm>>> GetClients()
     {
         var dtos = await _mediator.Send(new GetClientListQuery());
         return Ok(dtos);
     }
 
     [HttpPost(Name = "CreateClient")]
-    [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(CreateClientDto))]
+    [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(ClientVm))]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
-    public async Task<ActionResult<CreateClientDto>> CreateClient([FromBody] CreateClientCommand createClientCommand)
+    public async Task<ActionResult<ClientVm>> CreateClient([FromBody] CreateClientCommand createClientCommand)
     {
         var entity = await _mediator.Send(createClientCommand);
 
@@ -45,7 +46,7 @@ public class ClientController : ControllerBase
     [HttpGet("{id}", Name = "GetClient")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<ClientDetailVm>> GetClient(Guid id)
+    public async Task<ActionResult<ClientVm>> GetClient(Guid id)
     {
         var getEventDetailQuery = new GetClientDetailQuery() { Id = id };
         return Ok(await _mediator.Send(getEventDetailQuery));

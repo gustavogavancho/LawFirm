@@ -1,6 +1,6 @@
-﻿namespace LawFirm.Application.Features.Clients.Queries.GetClientList;
+﻿namespace LawFirm.Application.Features.Clients.Models;
 
-public class ClientListVm
+public class ClientVm
 {
     public Guid Id { get; set; }
     public string FirstName { get; set; }

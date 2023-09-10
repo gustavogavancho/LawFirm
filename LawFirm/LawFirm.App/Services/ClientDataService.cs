@@ -11,21 +11,21 @@ public class ClientDataService : BaseDataService, IClientDataService
         
     }
 
-    public async Task<CreateClientDto> CreateClient(CreateClientCommand request)
+    public async Task<ClientVm> CreateClient(CreateClientCommand request)
     {
         var response = await _client.CreateClientAsync(request);
 
         return response;
     }
 
-    public async Task<ICollection<ClientListVm>> GetClients()
+    public async Task<ICollection<ClientVm>> GetClients()
     {
         var allClients = await _client.GetClientsAsync();
 
         return allClients;
     }
 
-    public async Task<ClientDetailVm> GetClient(Guid id)
+    public async Task<ClientVm> GetClient(Guid id)
     {
         var selectedClient = await _client.GetClientAsync(id);
 

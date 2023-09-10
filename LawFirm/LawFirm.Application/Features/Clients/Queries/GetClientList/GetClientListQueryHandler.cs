@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
 using LawFirm.Application.Contracts.Persistence;
+using LawFirm.Application.Features.Clients.Models;
 using LawFirm.Domain.Entities;
 using MediatR;
 
 namespace LawFirm.Application.Features.Clients.Queries.GetClientList;
 
-public class GetClientListQueryHandler : IRequestHandler<GetClientListQuery, List<ClientListVm>>
+public class GetClientListQueryHandler : IRequestHandler<GetClientListQuery, List<ClientVm>>
 {
     private readonly IMapper _mapper;
     private readonly IAsyncRepository<Client> _clientRepository;
@@ -17,10 +18,10 @@ public class GetClientListQueryHandler : IRequestHandler<GetClientListQuery, Lis
         _clientRepository = clientRepository;
     }
 
-    public async Task<List<ClientListVm>> Handle(GetClientListQuery request, CancellationToken cancellationToken)
+    public async Task<List<ClientVm>> Handle(GetClientListQuery request, CancellationToken cancellationToken)
     {
         var allEvents = (await _clientRepository.ListAllAsync()).OrderBy(x => x.FirstName);
 
-        return _mapper.Map<List<ClientListVm>>(allEvents);
+        return _mapper.Map<List<ClientVm>>(allEvents);
     }
 }

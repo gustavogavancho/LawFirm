@@ -1,9 +1,9 @@
 ﻿@page "/client"
 
+@attribute [Authorize]
+
 @inject IClientDataService ClientDataService
 @inject NavigationManager Navigation
-
-@attribute [Authorize]
 
 <PageTitle>Clients - LawFirm</PageTitle>
 
@@ -19,6 +19,18 @@
         Please
         <a class="font-weight-bold link-dark" href="client-upsert">Add it here.</a>
     </span>
+</div>
+
+<div class="jumbotron">
+    <p class="mt-4">
+        <input @bind="searchTerm"
+               @onkeydown="SearchForTicket"
+               @bind:event="oninput"
+               @ref=myInput
+               type="text"
+               placeholder="Search for a client..."
+               class="form-control form-control-lg" />
+    </p>
 </div>
 
 @if (submitSuccessful)
@@ -87,18 +99,28 @@ else if (errorMessage is not null)
 
     private bool showConfirmationDialog;
     private Guid clientId;
-    private ICollection<ClientListVm> clients;
+    private ICollection<ClientVm> clients;
     private bool submitSuccessful;
+    private ElementReference myInput;
+    private string searchTerm = "";
     private string errorMessage;
-
-    private async Task GetClients()
-    {
-        clients = await ClientDataService.GetClients();
-    }
 
     protected override async Task OnInitializedAsync()
     {
         await GetClients();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await myInput.FocusAsync();
+        }
+    }
+
+    private async Task GetClients()
+    {
+        clients = await ClientDataService.GetClients();
     }
 
     private async Task HandleConfirmation(bool confirmed)
@@ -116,5 +138,12 @@ else if (errorMessage is not null)
     {
         clientId = id;
         showConfirmationDialog = true;
+    }
+
+    private void SearchForTicket(KeyboardEventArgs args)
+    {
+        if (args.Key != "Enter") return;
+
+        Navigation.NavigateTo($"/client/search/{searchTerm}");
     }
 }

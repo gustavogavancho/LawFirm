@@ -2,6 +2,7 @@
 using AutoMapper;
 using LawFirm.Application.Contracts.Persistence;
 using LawFirm.Application.Features.Clients.Commands.CreateClient;
+using LawFirm.Application.Features.Clients.Models;
 using LawFirm.Application.Profiles;
 using LawFirm.Domain.Entities;
 using Moq;
@@ -35,6 +36,6 @@ public class CreateClientCommandHandlerTests
         var result = await handler.Handle(clientCommand, CancellationToken.None);
 
         //Assert
-        Assert.IsType<Guid>(result);
+        Assert.IsType<ClientVm>(result);
     }
 }

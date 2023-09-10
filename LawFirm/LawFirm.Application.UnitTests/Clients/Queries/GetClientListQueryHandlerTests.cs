@@ -1,6 +1,7 @@
 ﻿using AutoFixture;
 using AutoMapper;
 using LawFirm.Application.Contracts.Persistence;
+using LawFirm.Application.Features.Clients.Models;
 using LawFirm.Application.Features.Clients.Queries.GetClientList;
 using LawFirm.Application.Profiles;
 using LawFirm.Domain.Entities;
@@ -34,7 +35,7 @@ public class GetClientListQueryHandlerTests
 
         //Assert
         Assert.NotNull(result);
-        Assert.IsType<List<ClientListVm>>(result);
+        Assert.IsType<List<ClientVm>>(result);
         Assert.Equal(3, result.Count);
     }
 }

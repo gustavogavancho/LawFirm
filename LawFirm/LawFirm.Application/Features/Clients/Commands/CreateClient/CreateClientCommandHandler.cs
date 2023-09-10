@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
 using LawFirm.Application.Contracts.Persistence;
+using LawFirm.Application.Features.Clients.Models;
 using LawFirm.Domain.Entities;
 using MediatR;
 
 namespace LawFirm.Application.Features.Clients.Commands.CreateClient;
 
-public class CreateClientCommandHandler : IRequestHandler<CreateClientCommand, CreateClientDto>
+public class CreateClientCommandHandler : IRequestHandler<CreateClientCommand, ClientVm>
 {
     private readonly IMapper _mapper;
     private readonly IClientRepository _clientRepository;
@@ -17,7 +18,7 @@ public class CreateClientCommandHandler : IRequestHandler<CreateClientCommand, C
         _clientRepository = clientRepository;
     }
 
-    public async Task<CreateClientDto> Handle(CreateClientCommand request, CancellationToken cancellationToken)
+    public async Task<ClientVm> Handle(CreateClientCommand request, CancellationToken cancellationToken)
     {
         var validator = new CreateClientCommandValidator();
         var validationResult = await validator.ValidateAsync(request, cancellationToken);
@@ -28,6 +29,6 @@ public class CreateClientCommandHandler : IRequestHandler<CreateClientCommand, C
         var @client = _mapper.Map<Client>(request);
         @client = await _clientRepository.AddAsync(@client);
 
-        return _mapper.Map<CreateClientDto>(@client);
+        return _mapper.Map<ClientVm>(@client);
     }
 }

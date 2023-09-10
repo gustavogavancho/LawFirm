@@ -1,12 +1,8 @@
 ﻿using LawFirm.Api.IntegrationTests.Base;
-using LawFirm.Application.Features.Clients.Queries.GetClientList;
-using LawFirm.Domain.Entities;
-using Microsoft.IdentityModel.Tokens;
+using LawFirm.Application.Features.Clients.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http.Headers;
 using System.Security.Claims;
-using System.Security.Cryptography;
-using System.Text;
 using System.Text.Json;
 
 namespace LawFirm.Api.IntegrationTests.Controllers;
@@ -29,7 +25,7 @@ public class ClientControllerTests : IClassFixture<CustomWebApplicationFactory<P
             new JwtSecurityToken(
                 JwtTokenProvider.Issuer,
                 JwtTokenProvider.Issuer,
-                new List<Claim> { new(ClaimTypes.Role, "Operator"), },
+                new List<Claim> { new(ClaimTypes.Role, "Admin"), },
                 expires: DateTime.Now.AddMinutes(30),
                 signingCredentials: JwtTokenProvider.SigningCredentials
             )
@@ -43,9 +39,9 @@ public class ClientControllerTests : IClassFixture<CustomWebApplicationFactory<P
 
         var responseString = await response.Content.ReadAsStringAsync();
 
-        var result = JsonSerializer.Deserialize<List<ClientListVm>>(responseString);
+        var result = JsonSerializer.Deserialize<List<ClientVm>>(responseString);
 
-        Assert.IsType<List<ClientListVm>>(result);
+        Assert.IsType<List<ClientVm>>(result);
         Assert.NotEmpty(result);
     }
 }

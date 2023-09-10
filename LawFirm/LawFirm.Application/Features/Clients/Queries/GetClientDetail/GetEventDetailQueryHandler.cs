@@ -1,10 +1,11 @@
 ﻿using AutoMapper;
 using LawFirm.Application.Contracts.Persistence;
+using LawFirm.Application.Features.Clients.Models;
 using MediatR;
 
 namespace LawFirm.Application.Features.Clients.Queries.GetClientDetail;
 
-public class GetEventDetailQueryHandler : IRequestHandler<GetClientDetailQuery, ClientDetailVm>
+public class GetEventDetailQueryHandler : IRequestHandler<GetClientDetailQuery, ClientVm>
 {
     private readonly IMapper _mapper;
     private readonly IClientRepository _clientRepository;
@@ -16,11 +17,11 @@ public class GetEventDetailQueryHandler : IRequestHandler<GetClientDetailQuery, 
         _clientRepository = clientRepository;
     }
 
-    public async Task<ClientDetailVm> Handle(GetClientDetailQuery request, CancellationToken cancellationToken)
+    public async Task<ClientVm> Handle(GetClientDetailQuery request, CancellationToken cancellationToken)
     {
         var @client = await _clientRepository.GetByIdAsync(request.Id);
 
-        var clientDetailDto = _mapper.Map<ClientDetailVm>(@client);
+        var clientDetailDto = _mapper.Map<ClientVm>(@client);
 
         return clientDetailDto;
     }
