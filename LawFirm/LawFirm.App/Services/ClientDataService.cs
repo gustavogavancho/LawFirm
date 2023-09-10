@@ -1,55 +1,42 @@
-﻿using AutoMapper;
-using Blazored.LocalStorage;
+﻿using Blazored.LocalStorage;
 using LawFirm.App.Contracts;
 using LawFirm.App.Services.Base;
-using LawFirm.App.ViewModels;
 
 namespace LawFirm.App.Services;
 
 public class ClientDataService : BaseDataService, IClientDataService
 {
-    private readonly IMapper _mapper;
-
-    public ClientDataService(IClient client, IMapper mapper, ILocalStorageService localStorage) : base(client, localStorage)
+    public ClientDataService(IClient client, ILocalStorageService localStorage) : base(client, localStorage)
     {
-        _mapper = mapper;
+        
     }
 
-    public async Task<ClientViewModel> CreateClient(CreateClientViewModel request)
+    public async Task<CreateClientDto> CreateClient(CreateClientCommand request)
     {
-        var requestMapped = _mapper.Map<CreateClientCommand>(request);
+        var response = await _client.CreateClientAsync(request);
 
-        var response = await _client.CreateClientAsync(requestMapped);
-
-        var responseMapped = _mapper.Map<ClientViewModel>(response);
-
-        return responseMapped;
+        return response;
     }
 
-    public async Task<List<ClientViewModel>> GetClients()
+    public async Task<ICollection<ClientListVm>> GetClients()
     {
         var allClients = await _client.GetClientsAsync();
 
-        var mappedClients = _mapper.Map<List<ClientViewModel>>(allClients);
-
-        return mappedClients;
+        return allClients;
     }
 
-    public async Task<CreateClientViewModel> GetClient(Guid id)
+    public async Task<ClientDetailVm> GetClient(Guid id)
     {
         var selectedClient = await _client.GetClientAsync(id);
 
-        var mappedClient = _mapper.Map<CreateClientViewModel>(selectedClient);
-
-        return mappedClient;
+        return selectedClient;
     }
 
-    public async Task UpdateClient(Guid id, CreateClientViewModel request)
+    public async Task UpdateClient(Guid id, UpdateClientCommand request)
     {
-        var requestMapped = _mapper.Map<UpdateClientCommand>(request);
-        requestMapped .Id = id;
+        request.Id = id;
 
-        await _client.UpdateClientAsync(requestMapped);
+        await _client.UpdateClientAsync(request);
     }
 
     public async Task DeleteClient(Guid id)

@@ -1,12 +1,13 @@
-﻿using LawFirm.App.ViewModels;
+﻿using LawFirm.App.Services.Base;
+using LawFirm.App.ViewModels;
 
 namespace LawFirm.App.Contracts;
 
 public interface IClientDataService
 {
-    Task<ClientViewModel> CreateClient(CreateClientViewModel request);
-    Task<List<ClientViewModel>> GetClients();
-    Task<CreateClientViewModel> GetClient(Guid id);
-    Task UpdateClient(Guid id, CreateClientViewModel request);
+    Task<CreateClientDto> CreateClient(CreateClientCommand request);
+    Task<ICollection<ClientListVm>> GetClients();
+    Task<ClientDetailVm> GetClient(Guid id);
+    Task UpdateClient(Guid id, UpdateClientCommand request);
     Task DeleteClient(Guid id);
 }

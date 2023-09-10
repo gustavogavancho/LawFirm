@@ -66,17 +66,9 @@ public class AuthenticationService : BaseDataService, IAuthenticationService
 
     public async Task<List<UserListViewModel>> GetUsers()
     {
-        List<UserListViewModel> mappedUsers = default!;
-        try
-        {
-            var users = await _client.UsersAsync();
+        var users = await _client.UsersAsync();
 
-            mappedUsers = _mapper.Map<List<UserListViewModel>>(users);            
-        }
-        catch (ApiException ex) when(ex.StatusCode == 401)
-        {
-
-        }
+        var mappedUsers = _mapper.Map<List<UserListViewModel>>(users);
 
         return mappedUsers;
     }

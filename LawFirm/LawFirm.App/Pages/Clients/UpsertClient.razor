@@ -42,18 +42,18 @@ else if (errorMessage is not null)
             <ValidationMessage For="@(() => client.ClientType)" />
         </FormFieldSet>
         <FormFieldSet Width="col-11">
-            <label for="name" class="form-label text-muted"><b>Name</b></label>
-            <InputText @bind-Value="client.FirstName" class=" form-control" id="userName" />
+            <label for="firstName" class="form-label text-muted"><b>First Name</b></label>
+            <InputText @bind-Value="client.FirstName" class=" form-control" id="firstName" disabled="@(client.ClientType == "Legal Person")" />
             <ValidationMessage For="@(() => client.FirstName)" />
         </FormFieldSet>
         <FormFieldSet Width="col-11">
             <label for="lastName" class="form-label text-muted"><b>Last Name</b></label>
-            <InputText @bind-Value="client.LastName" class=" form-control" id="lastNamev" />
+            <InputText @bind-Value="client.LastName" class=" form-control" id="lastName" disabled="@(client.ClientType == "Legal Person")" />
             <ValidationMessage For="@(() => client.LastName)" />
         </FormFieldSet>
         <FormFieldSet Width="col-11">
             <label for="businessName" class="form-label text-muted"><b>Business Name</b></label>
-            <InputText @bind-Value="client.BusinessName" class=" form-control" id="businessName" />
+            <InputText @bind-Value="client.BusinessName" class=" form-control" id="businessName" disabled="@(client.ClientType == "Natural Person")" />
             <ValidationMessage For="@(() => client.BusinessName)" />
         </FormFieldSet>
         <FormFieldSet Width="col-11">
@@ -63,7 +63,7 @@ else if (errorMessage is not null)
         </FormFieldSet>
         <FormFieldSet Width="col-11">
             <label for="representative" class="form-label text-muted"><b>Representative</b></label>
-            <InputText @bind-Value="client.Representative" class=" form-control" id="lastNamev" />
+            <InputText @bind-Value="client.Representative" class=" form-control" id="representative" disabled="@(client.ClientType == "Natural Person")" />
             <ValidationMessage For="@(() => client.Representative)" />
         </FormFieldSet>
     </FormSection>
@@ -90,7 +90,7 @@ else if (errorMessage is not null)
         <div class="row">
             <div class="offset-4 col-8 text-end">
                 <button class="btn btn-primary" type="submit">Submit</button>
-                <button class="btn btn-outline-secondary" type="button" @onclick="HandleCancel">Cancel</button>
+                <button class="btn btn-outline-secondary" type="button" @onclick="@(() => Navigation.NavigateTo("client"))">Cancel</button>
             </div>
         </div>
     </div>
@@ -101,16 +101,25 @@ else if (errorMessage is not null)
 @code {
     [Parameter] public Guid Id { get; set; }
 
-    private CreateClientViewModel client = new();
+    private CreateClientCommand client = new();
     private bool SubmitSuccessful;
     private string? errorMessage;
 
     protected async override Task OnInitializedAsync()
     {
-        if(Id != Guid.Empty)
+        if (Id != Guid.Empty)
         {
-            var check = await ClientDataService.GetClient(Id);
-            client = check;
+            var response = await ClientDataService.GetClient(Id);
+
+            client.Email = response.Email;
+            client.Representative = response.Representative;
+            client.Address = response.Address;
+            client.PhoneNumber = response.PhoneNumber;
+            client.Nit = response.Nit;
+            client.BusinessName = response.BusinessName;
+            client.LastName = response.LastName;
+            client.FirstName = response.FirstName;
+            client.ClientType = response.ClientType;
         }
     }
 
@@ -134,11 +143,6 @@ else if (errorMessage is not null)
         await JsRuntime.InvokeVoidAsync("scrollUtils.scrollToTop");
     }
 
-    private void HandleCancel()
-    {
-        Navigation.NavigateTo("client");
-    }
-
     private async Task CreateClient()
     {
         var clientCreated = await ClientDataService.CreateClient(client);
@@ -157,7 +161,18 @@ else if (errorMessage is not null)
 
     private async Task UpdateClient()
     {
-        await ClientDataService.UpdateClient(Id, client);
+        await ClientDataService.UpdateClient(Id, new UpdateClientCommand
+        {
+            Address = client.Address,
+            BusinessName = client.BusinessName,
+            ClientType = client.ClientType,
+            Email = client.Email,
+            FirstName = client.FirstName,
+            LastName = client.LastName,
+            Nit = client.Nit,
+            PhoneNumber = client.PhoneNumber,
+            Representative = client.Representative
+        });
 
         SubmitSuccessful = true;
     }
