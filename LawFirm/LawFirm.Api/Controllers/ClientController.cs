@@ -43,13 +43,22 @@ public class ClientController : ControllerBase
         return CreatedAtAction(nameof(GetClient), new { entity.Id }, entity);
     }
 
-    [HttpGet("{id}", Name = "GetClient")]
+    [HttpGet("{id:guid}", Name = "GetClient")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult<ClientVm>> GetClient(Guid id)
     {
-        var getEventDetailQuery = new GetClientDetailQuery() { Id = id };
-        return Ok(await _mediator.Send(getEventDetailQuery));
+        var client = new GetClientDetailQuery() { Id = id };
+        return Ok(await _mediator.Send(client));
+    }
+
+    [HttpGet("{searchTerm}", Name = "FindClientsBySearchTerm")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    public async Task<ActionResult<List<ClientVm>>> FindClientsBySearchTerm(string searchTerm)
+    {
+        var client = new FindClientsQuery() { SearchTerm = searchTerm };
+        return Ok(await _mediator.Send(client));
     }
 
     [HttpPut(Name = "UpdateClient")]

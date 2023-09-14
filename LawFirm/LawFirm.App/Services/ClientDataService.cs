@@ -43,4 +43,9 @@ public class ClientDataService : BaseDataService, IClientDataService
     {
         await _client.DeleteClientAsync(id);
     }
+
+    public async Task<ICollection<ClientVm>> FindClientsBySearchTerm(string searchTerm)
+    {
+        return await _client.FindClientsBySearchTermAsync(searchTerm);
+    }
 }
