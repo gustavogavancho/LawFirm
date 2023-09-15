@@ -23,7 +23,7 @@ public class CreateClientCommandHandler : IRequestHandler<CreateClientCommand, C
         var validator = new CreateClientCommandValidator();
         var validationResult = await validator.ValidateAsync(request, cancellationToken);
 
-        if(validationResult.Errors.Count > 0)
+        if (validationResult.Errors.Count > 0)
             throw new Exceptions.ValidationException(validationResult);
 
         var @client = _mapper.Map<Client>(request);

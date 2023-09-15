@@ -3,6 +3,7 @@ using System;
 using LawFirm.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LawFirm.Persistence.Migrations
 {
     [DbContext(typeof(LawFirmContext))]
-    partial class LawFirmContextModelSnapshot : ModelSnapshot
+    [Migration("20230915030350_Changes2")]
+    partial class Changes2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.20");
@@ -28,6 +30,7 @@ namespace LawFirm.Persistence.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("BusinessName")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ClientType")
@@ -45,6 +48,7 @@ namespace LawFirm.Persistence.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("FirstName")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("LastModifiedBy")
@@ -54,6 +58,7 @@ namespace LawFirm.Persistence.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("LastName")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<long>("Nit")
@@ -63,6 +68,7 @@ namespace LawFirm.Persistence.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Representative")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
