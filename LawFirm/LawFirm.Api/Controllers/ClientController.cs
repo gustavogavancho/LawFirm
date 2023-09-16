@@ -4,9 +4,13 @@ using LawFirm.Application.Features.Clients.Commands.UpdateClient;
 using LawFirm.Application.Features.Clients.Models;
 using LawFirm.Application.Features.Clients.Queries.GetClientDetail;
 using LawFirm.Application.Features.Clients.Queries.GetClientList;
+using LawFirm.Application.Features.Clients.Queries.GetPagedClientList;
+using LawFirm.Application.Models.Pagination;
+using LawFirm.Domain.Pagination;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace LawFirm.Api.Controllers;
 
@@ -26,10 +30,13 @@ public class ClientController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
     [ProducesDefaultResponseType]
-    public async Task<ActionResult<List<ClientVm>>> GetClients()
+    public async Task<ActionResult<PagingResponse<ClientVm>>> GetClients([FromQuery] ItemsParameters itemsParameters)
     {
-        var dtos = await _mediator.Send(new GetClientListQuery());
-        return Ok(dtos);
+        var dtos = await _mediator.Send(new GetPagedClientListQuery() { ItemsParameters = itemsParameters });
+
+        Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(dtos.MetaData));
+
+        return Ok(new PagingResponse<ClientVm> { Items = dtos, MetaData = dtos.MetaData});
     }
 
     [HttpPost(Name = "CreateClient")]

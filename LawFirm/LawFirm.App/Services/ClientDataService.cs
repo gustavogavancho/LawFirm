@@ -18,11 +18,11 @@ public class ClientDataService : BaseDataService, IClientDataService
         return response;
     }
 
-    public async Task<ICollection<ClientVm>> GetClients()
+    public async Task<ClientVmPagingResponse> GetClients(int? pageNumber, int? pageSize)
     {
-        var allClients = await _client.GetClientsAsync();
+        var pagedClients = await _client.GetClientsAsync(pageNumber, pageSize);
 
-        return allClients;
+        return pagedClients;
     }
 
     public async Task<ClientVm> GetClient(Guid id)

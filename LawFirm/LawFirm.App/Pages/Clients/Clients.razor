@@ -43,15 +43,15 @@ else if (errorMessage is not null)
 }
 
 <div class="responsive-table">
-    @if (clients is null)
+    @if (ClientList is null)
     {
         <p>Loading...</p>
     }
     else
     {
-        @if (clients.Any())
+        @if (ClientList.Any())
         {
-            <TableView Items="clients" Context="client">
+            <TableView Items="ClientList" Context="client">
                 <HeaderTemplate>
                     <th>Client Type</th>
                     <th>Firt Name</th>
@@ -83,6 +83,8 @@ else if (errorMessage is not null)
                     </td>
                 </RowTemplate>
             </TableView>
+            <Pagination MetaData="MetaData" Spread="2" SelectedPage="SelectedPage" />
+
         }
         else
         {
@@ -101,11 +103,14 @@ else if (errorMessage is not null)
 
     private bool showConfirmationDialog;
     private Guid clientId;
-    private ICollection<ClientVm> clients;
     private bool submitSuccessful;
     private ElementReference myInput;
     private string searchTerm = "";
     private string errorMessage;
+
+    public ICollection<ClientVm> ClientList{ get; set; }
+    public MetaData MetaData { get; set; } = new MetaData();
+    private ItemsParams itemsParams = new ItemsParams();
 
     protected override async Task OnInitializedAsync()
     {
@@ -120,9 +125,17 @@ else if (errorMessage is not null)
         }
     }
 
+    private async Task SelectedPage(int page)
+    {
+        itemsParams.PageNumber = page;
+        await GetClients();
+    }
+
     private async Task GetClients()
     {
-        clients = await ClientDataService.GetClients();
+        var pagingReponse = await ClientDataService.GetClients(itemsParams.PageNumber, itemsParams.PageSize);
+        ClientList = pagingReponse.Items;
+        MetaData = pagingReponse.MetaData;
     }
 
     private async Task HandleConfirmation(bool confirmed)
