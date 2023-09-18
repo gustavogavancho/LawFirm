@@ -21,7 +21,7 @@ public class GetPagedClientListQueryHandler : IRequestHandler<GetPagedClientList
 
     public async Task<PagedList<ClientVm>> Handle(GetPagedClientListQuery request, CancellationToken cancellationToken)
     {
-        var pagedItems = await _clientRepository.GetPagedItems(request.ItemsParameters);
+        var pagedItems = await _clientRepository.ListAllAsync();
 
         var mappedItems =  _mapper.Map<List<ClientVm>>(pagedItems);
 

@@ -24,9 +24,9 @@
 <div class="jumbotron">
     <p class="mt-4">
         <input @bind="searchTerm"
-               @onkeydown="SearchForTicket"
-               @bind:event="oninput"
-               @ref=myInput
+        @onkeydown="SearchForTicket"
+        @bind:event="oninput"
+        @ref=myInput
                type="text"
                placeholder="Search for a client..."
                class="form-control form-control-lg" />
@@ -42,15 +42,16 @@ else if (errorMessage is not null)
     <Alert Message="@errorMessage" AlertType="danger" />
 }
 
-<div class="responsive-table">
-    @if (ClientList is null)
+
+@if (ClientList is null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    @if (ClientList.Any())
     {
-        <p>Loading...</p>
-    }
-    else
-    {
-        @if (ClientList.Any())
-        {
+        <div class="responsive-table">
             <TableView Items="ClientList" Context="client">
                 <HeaderTemplate>
                     <th>Client Type</th>
@@ -83,21 +84,24 @@ else if (errorMessage is not null)
                     </td>
                 </RowTemplate>
             </TableView>
-            <Pagination MetaData="MetaData" Spread="2" SelectedPage="SelectedPage" />
-
-        }
-        else
-        {
-            <div class="no-items">
-                <svg viewBox="0 0 16 16" class="bi bi-tree" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M8 0a.5.5 0 0 1 .416.223l3 4.5A.5.5 0 0 1 11 5.5h-.098l2.022 3.235a.5.5 0 0 1-.424.765h-.191l1.638 3.276a.5.5 0 0 1-.447.724h-11a.5.5 0 0 1-.447-.724L3.69 9.5H3.5a.5.5 0 0 1-.424-.765L5.098 5.5H5a.5.5 0 0 1-.416-.777l3-4.5A.5.5 0 0 1 8 0zM5.934 4.5H6a.5.5 0 0 1 .424.765L4.402 8.5H4.5a.5.5 0 0 1 .447.724L3.31 12.5h9.382l-1.638-3.276A.5.5 0 0 1 11.5 8.5h.098L9.576 5.265A.5.5 0 0 1 10 4.5h.066L8 1.401 5.934 4.5z" />
-                    <path d="M7 13.5h2V16H7v-2.5z" />
-                </svg>
-                <h3 class="text-muted font-weight-light">You don't have any clients, <a href="client-upsert">why not add one?</a></h3>
+        </div>
+        <div class="row mt-3">
+            <div class="col">
+                <Pagination MetaData="MetaData" Spread="2" SelectedPage="SelectedPage" />
             </div>
-        }
+        </div>
     }
-</div>
+    else
+    {
+        <div class="no-items">
+            <svg viewBox="0 0 16 16" class="bi bi-tree" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M8 0a.5.5 0 0 1 .416.223l3 4.5A.5.5 0 0 1 11 5.5h-.098l2.022 3.235a.5.5 0 0 1-.424.765h-.191l1.638 3.276a.5.5 0 0 1-.447.724h-11a.5.5 0 0 1-.447-.724L3.69 9.5H3.5a.5.5 0 0 1-.424-.765L5.098 5.5H5a.5.5 0 0 1-.416-.777l3-4.5A.5.5 0 0 1 8 0zM5.934 4.5H6a.5.5 0 0 1 .424.765L4.402 8.5H4.5a.5.5 0 0 1 .447.724L3.31 12.5h9.382l-1.638-3.276A.5.5 0 0 1 11.5 8.5h.098L9.576 5.265A.5.5 0 0 1 10 4.5h.066L8 1.401 5.934 4.5z" />
+                <path d="M7 13.5h2V16H7v-2.5z" />
+            </svg>
+            <h3 class="text-muted font-weight-light">You don't have any clients, <a href="client-upsert">why not add one?</a></h3>
+        </div>
+    }
+}
 
 @code {
 
@@ -108,7 +112,7 @@ else if (errorMessage is not null)
     private string searchTerm = "";
     private string errorMessage;
 
-    public ICollection<ClientVm> ClientList{ get; set; }
+    public ICollection<ClientVm> ClientList { get; set; }
     public MetaData MetaData { get; set; } = new MetaData();
     private ItemsParams itemsParams = new ItemsParams();
 
