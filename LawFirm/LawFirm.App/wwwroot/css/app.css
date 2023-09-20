@@ -110,10 +110,8 @@ a, .btn-link {
     }
 
 .responsive-table {
-    max-height: calc(100vh - 300px); /* 200px es la altura de los otros elementos */
     width: 100%;
     overflow-x: auto;
-    overflow-y: auto;
 }
 
     .responsive-table table {
