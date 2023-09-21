@@ -114,7 +114,8 @@ else
 
     public ICollection<ClientVm> ClientList { get; set; }
     public MetaData MetaData { get; set; } = new MetaData();
-    private ItemsParams itemsParams = new ItemsParams();
+    public int PageNumber {get; set; } = 1;
+    private int pageSize = 10;
 
     protected override async Task OnInitializedAsync()
     {
@@ -131,13 +132,13 @@ else
 
     private async Task SelectedPage(int page)
     {
-        itemsParams.PageNumber = page;
+        PageNumber = page;
         await GetClients();
     }
 
     private async Task GetClients()
     {
-        var pagingReponse = await ClientDataService.GetClients(itemsParams.PageNumber, itemsParams.PageSize);
+        var pagingReponse = await ClientDataService.GetClients(PageNumber, pageSize);
         ClientList = pagingReponse.Items;
         MetaData = pagingReponse.MetaData;
     }
@@ -147,6 +148,10 @@ else
         if (confirmed)
         {
             await ClientDataService.DeleteClient(clientId);
+
+            if (ClientList.Count() <= 1)
+                PageNumber = (PageNumber <= 1) ? 1 : PageNumber - 1;
+
             showConfirmationDialog = false;
             await GetClients();
         }
