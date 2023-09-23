@@ -14,10 +14,12 @@ namespace LawFirm.Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
-                    LastName = table.Column<string>(type: "TEXT", nullable: false),
+                    FirstName = table.Column<string>(type: "TEXT", nullable: true),
+                    LastName = table.Column<string>(type: "TEXT", nullable: true),
+                    BusinessName = table.Column<string>(type: "TEXT", nullable: true),
                     Nit = table.Column<long>(type: "INTEGER", nullable: false),
                     ClientType = table.Column<string>(type: "TEXT", nullable: false),
+                    Representative = table.Column<string>(type: "TEXT", nullable: true),
                     PhoneNumber = table.Column<long>(type: "INTEGER", nullable: false),
                     Address = table.Column<string>(type: "TEXT", nullable: false),
                     Email = table.Column<string>(type: "TEXT", nullable: false),
@@ -36,9 +38,7 @@ namespace LawFirm.Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    ClientId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Status = table.Column<string>(type: "TEXT", nullable: false),
-                    Nit = table.Column<string>(type: "TEXT", nullable: false),
+                    FileNumber = table.Column<string>(type: "TEXT", nullable: false),
                     CreatedBy = table.Column<string>(type: "TEXT", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     LastModifiedBy = table.Column<string>(type: "TEXT", nullable: true),
@@ -47,12 +47,6 @@ namespace LawFirm.Persistence.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CourtCase", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_CourtCase_Client_ClientId",
-                        column: x => x.ClientId,
-                        principalTable: "Client",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -80,9 +74,33 @@ namespace LawFirm.Persistence.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "ClientCase",
+                columns: table => new
+                {
+                    ClientId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    CaseId = table.Column<Guid>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ClientCase", x => new { x.CaseId, x.ClientId });
+                    table.ForeignKey(
+                        name: "FK_ClientCase_Client_ClientId",
+                        column: x => x.ClientId,
+                        principalTable: "Client",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ClientCase_CourtCase_CaseId",
+                        column: x => x.CaseId,
+                        principalTable: "CourtCase",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
-                name: "IX_CourtCase_ClientId",
-                table: "CourtCase",
+                name: "IX_ClientCase_ClientId",
+                table: "ClientCase",
                 column: "ClientId");
 
             migrationBuilder.CreateIndex(
@@ -94,10 +112,13 @@ namespace LawFirm.Persistence.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "CourtCase");
+                name: "ClientCase");
 
             migrationBuilder.DropTable(
                 name: "Event");
+
+            migrationBuilder.DropTable(
+                name: "CourtCase");
 
             migrationBuilder.DropTable(
                 name: "Client");

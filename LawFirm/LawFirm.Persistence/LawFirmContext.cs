@@ -20,7 +20,7 @@ public class LawFirmContext : DbContext
     }
 
     public DbSet<Client> Client { get; set; }
-    public DbSet<Case> CourtCase { get; set; }
+    public DbSet<Case> Case { get; set; }
     public DbSet<Event> Event { get; set; }
     public DbSet<ClientCase> ClientCase { get; set; }
 

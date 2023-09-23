@@ -41,7 +41,7 @@ namespace LawFirm.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CourtCase");
+                    b.ToTable("Case");
                 });
 
             modelBuilder.Entity("LawFirm.Domain.Entities.Client", b =>

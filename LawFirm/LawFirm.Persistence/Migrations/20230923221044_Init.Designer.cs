@@ -11,13 +11,40 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LawFirm.Persistence.Migrations
 {
     [DbContext(typeof(LawFirmContext))]
-    [Migration("20230910195550_Changes1")]
-    partial class Changes1
+    [Migration("20230923221044_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.20");
+
+            modelBuilder.Entity("LawFirm.Domain.Entities.Case", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FileNumber")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("LastModifiedDate")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CourtCase");
+                });
 
             modelBuilder.Entity("LawFirm.Domain.Entities.Client", b =>
                 {
@@ -30,7 +57,6 @@ namespace LawFirm.Persistence.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("BusinessName")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ClientType")
@@ -48,7 +74,6 @@ namespace LawFirm.Persistence.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("LastModifiedBy")
@@ -58,7 +83,6 @@ namespace LawFirm.Persistence.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<long>("Nit")
@@ -68,7 +92,6 @@ namespace LawFirm.Persistence.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Representative")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -76,40 +99,19 @@ namespace LawFirm.Persistence.Migrations
                     b.ToTable("Client");
                 });
 
-            modelBuilder.Entity("LawFirm.Domain.Entities.CourtCase", b =>
+            modelBuilder.Entity("LawFirm.Domain.Entities.ClientCase", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<Guid>("CaseId")
                         .HasColumnType("TEXT");
 
                     b.Property<Guid>("ClientId")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("LastModifiedBy")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime?>("LastModifiedDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Nit")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
+                    b.HasKey("CaseId", "ClientId");
 
                     b.HasIndex("ClientId");
 
-                    b.ToTable("CourtCase");
+                    b.ToTable("ClientCase");
                 });
 
             modelBuilder.Entity("LawFirm.Domain.Entities.Event", b =>
@@ -150,15 +152,19 @@ namespace LawFirm.Persistence.Migrations
                     b.ToTable("Event");
                 });
 
-            modelBuilder.Entity("LawFirm.Domain.Entities.CourtCase", b =>
+            modelBuilder.Entity("LawFirm.Domain.Entities.ClientCase", b =>
                 {
-                    b.HasOne("LawFirm.Domain.Entities.Client", "Client")
+                    b.HasOne("LawFirm.Domain.Entities.Case", null)
+                        .WithMany()
+                        .HasForeignKey("CaseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LawFirm.Domain.Entities.Client", null)
                         .WithMany()
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Client");
                 });
 
             modelBuilder.Entity("LawFirm.Domain.Entities.Event", b =>

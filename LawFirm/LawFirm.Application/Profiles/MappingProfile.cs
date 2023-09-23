@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using LawFirm.Application.Features.Cases.Commands.CreateCase;
+using LawFirm.Application.Features.Cases.Models;
 using LawFirm.Application.Features.Clients.Commands.CreateClient;
 using LawFirm.Application.Features.Clients.Commands.UpdateClient;
 using LawFirm.Application.Features.Clients.Models;
@@ -13,5 +15,8 @@ public class MappingProfile : Profile
         CreateMap<Client, CreateClientCommand>().ReverseMap();
         CreateMap<Client, ClientVm>().ReverseMap();
         CreateMap<Client, UpdateClientCommand>().ReverseMap();
+
+        CreateMap<Case, CreateCaseCommand>().ReverseMap();
+        CreateMap<Case, CaseVm>().ReverseMap();
     }
 }
