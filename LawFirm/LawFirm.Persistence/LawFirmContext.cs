@@ -20,7 +20,7 @@ public class LawFirmContext : DbContext
     }
 
     public DbSet<Client> Client { get; set; }
-    public DbSet<CourtCase> CourtCase { get; set; }
+    public DbSet<Case> CourtCase { get; set; }
     public DbSet<Event> Event { get; set; }
 
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())

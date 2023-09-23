@@ -2,6 +2,6 @@
 
 namespace LawFirm.Application.Contracts.Persistence;
 
-public interface ICourtCaseRepository : IAsyncRepository<CourtCase>
+public interface ICourtCaseRepository : IAsyncRepository<Case>
 {
 }
