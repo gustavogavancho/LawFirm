@@ -1,6 +1,6 @@
 ﻿@inject NavigationManager Navigation
 
-<div class="container text-end">
+<div class="container-fluid text-end">
     <AuthorizeView>
         <div>
             Hello, @context.User!.Claims.FirstOrDefault(c => c.Type == "email")!.Value
