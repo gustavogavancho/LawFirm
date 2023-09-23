@@ -21,8 +21,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Features\CourtCases\Commands\" />
-	  <Folder Include="Features\CourtCases\Queries\" />
+	  <Folder Include="Features\Cases\Models\" />
+	  <Folder Include="Features\Cases\Queries\" />
 	  <Folder Include="Features\Events\Commands\" />
 	  <Folder Include="Features\Events\Queries\" />
 	</ItemGroup>

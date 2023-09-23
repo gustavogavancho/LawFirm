@@ -17,7 +17,7 @@ public static class PersistenceServiceRegistration
 
         services.AddScoped<IClientRepository, ClientRepository>();
         services.AddScoped<IEventRepository, EventRepository>();
-        services.AddScoped<ICourtCaseRepository, CourtCaseRepository>();
+        services.AddScoped<ICaseRepository, CaseRepository>();
 
         return services;
     }

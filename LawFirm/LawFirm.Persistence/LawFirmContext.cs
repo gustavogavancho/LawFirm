@@ -22,6 +22,15 @@ public class LawFirmContext : DbContext
     public DbSet<Client> Client { get; set; }
     public DbSet<Case> CourtCase { get; set; }
     public DbSet<Event> Event { get; set; }
+    public DbSet<ClientCase> ClientCase { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Client>()
+            .HasMany(e => e.Cases)
+            .WithMany(e => e.Clients)
+            .UsingEntity<ClientCase>();
+    }
 
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
     {
