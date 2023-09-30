@@ -1,6 +1,17 @@
 ﻿@page "/case"
 
-<h3>Cases</h3>
+@attribute [Authorize]
+
+@inject NavigationManager Navigation
+
+<div class="alert alert-secondary">
+    <span class="bi bi-plus-square-fill" aria-hidden="true"></span>
+    <strong>Do you want to create a new case?</strong>
+    <span class="text-nowrap">
+        Please
+        <a class="font-weight-bold link-dark" href="case-upsert">Add it here.</a>
+    </span>
+</div>
 
 @code {
 

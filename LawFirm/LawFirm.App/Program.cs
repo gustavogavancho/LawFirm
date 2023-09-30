@@ -7,12 +7,14 @@ using LawFirm.App.Services.Base;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using MudBlazor.Services;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddMudServices();
 builder.Services.AddBlazoredLocalStorage();
 
 builder.Services.AddAuthorizationCore();
@@ -28,5 +30,6 @@ builder.Services.AddHttpClient<IClient, Client>(client => client.BaseAddress = n
 
 builder.Services.AddScoped<IClientDataService, ClientDataService>(); 
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+builder.Services.AddScoped<ICaseDataService, CaseDataService>();
 
 await builder.Build().RunAsync();

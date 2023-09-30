@@ -3,7 +3,6 @@ using LawFirm.Application.Features.Clients.Commands.DeleteClient;
 using LawFirm.Application.Features.Clients.Commands.UpdateClient;
 using LawFirm.Application.Features.Clients.Models;
 using LawFirm.Application.Features.Clients.Queries.GetClientDetail;
-using LawFirm.Application.Features.Clients.Queries.GetClientList;
 using LawFirm.Application.Features.Clients.Queries.GetPagedClientList;
 using LawFirm.Application.Models.Pagination;
 using LawFirm.Domain.Pagination;

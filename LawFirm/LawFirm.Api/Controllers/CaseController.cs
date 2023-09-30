@@ -19,7 +19,7 @@ public class CaseController : ControllerBase
     }
 
     [HttpPost(Name = "CreateCase")]
-    [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(CaseVm))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CaseVm))]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
     public async Task<ActionResult<CaseVm>> CreateClient([FromBody] CreateCaseCommand createCaseCommand)

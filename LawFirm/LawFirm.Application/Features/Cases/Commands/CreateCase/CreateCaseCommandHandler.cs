@@ -10,15 +10,18 @@ public class CreateCaseCommandHandler : IRequestHandler<CreateCaseCommand, CaseV
 {
     private readonly IMapper _mapper;
     private readonly ICaseRepository _caseRepository;
+    private readonly IClientRepository _clientRepository;
     private readonly IClientCaseRepository _clientCaseRepository;
 
     public CreateCaseCommandHandler(IMapper mapper,
         ICaseRepository caseRepository,
-        IClientCaseRepository clientCaseRepository)
+        IClientCaseRepository clientCaseRepository,
+        IClientRepository clientRepository)
     {
         _mapper = mapper;
         _caseRepository = caseRepository;
         _clientCaseRepository = clientCaseRepository;
+        _clientRepository = clientRepository;
     }
 
     public async Task<CaseVm> Handle(CreateCaseCommand request, CancellationToken cancellationToken)
@@ -37,7 +40,6 @@ public class CreateCaseCommandHandler : IRequestHandler<CreateCaseCommand, CaseV
 
             await _clientCaseRepository.AddAsync(clientCase);
         });
-
         return _mapper.Map<CaseVm>(@case);
     }
 }

@@ -13,9 +13,20 @@ public class ClientDataService : BaseDataService, IClientDataService
 
     public async Task<ClientVm> CreateClient(CreateClientCommand request)
     {
-        var response = await _client.CreateClientAsync(request);
+        try
+        {
+            var response = await _client.CreateClientAsync(request);
 
-        return response;
+            return response;
+        }
+        catch (Exception ex)
+        {
+            var check = ex.InnerException;
+            var check1 = ex.Message;
+            throw;
+        }
+
+
     }
 
     public async Task<ClientVmPagingResponse> GetClients(int? pageNumber, int? pageSize)
