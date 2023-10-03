@@ -7,4 +7,5 @@ public class CreateCaseCommand : IRequest<CaseVm>
 {
     public List<Guid> Ids { get; set; }
     public string FileNumber { get; set; }
+    public List<CounterPartVm> CounterParts { get; set; }
 }

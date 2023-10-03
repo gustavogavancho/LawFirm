@@ -16,4 +16,11 @@ public class CaseDataService : BaseDataService, ICaseDataService
 
         return response;
     }
+
+    public async Task<ICollection<CaseVm>> GetAllCases()
+    {
+        var response = await _client.GetCasesAsync();
+
+        return response;
+    }
 }

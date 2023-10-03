@@ -23,6 +23,7 @@ public class LawFirmContext : DbContext
     public DbSet<Case> Case { get; set; }
     public DbSet<Event> Event { get; set; }
     public DbSet<ClientCase> ClientCase { get; set; }
+    public DbSet<CounterPart> CounterPart { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

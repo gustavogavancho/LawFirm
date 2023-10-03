@@ -18,5 +18,7 @@ public class MappingProfile : Profile
 
         CreateMap<Case, CreateCaseCommand>().ReverseMap();
         CreateMap<Case, CaseVm>().ReverseMap();
+
+        CreateMap<CounterPart, CounterPartVm>().ReverseMap();
     }
 }

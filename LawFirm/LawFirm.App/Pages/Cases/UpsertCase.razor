@@ -7,6 +7,8 @@
 
 @attribute [Authorize]
 
+<MudThemeProvider />
+
 <PageTitle>Upsert Case - Law Firm</PageTitle>
 
 <div class="alert alert-secondary">
@@ -83,6 +85,27 @@ else if (errorMessage is not null)
 
     </FormSection>
 
+    <FormSection Title="Counterparts" HelpText="In litigation, the counterpart of a case is the opposing side.">
+        <FormFieldSet Width="col-11">
+            <label for="counterPartName" class="form-label text-muted"><b>Name</b></label>
+            <InputText @bind-Value="counterPart.Name" class=" form-control" id="counterPartName" />
+            <ValidationMessage For="@(() => counterPart.Name)" />
+        </FormFieldSet>
+        <FormFieldSet Width="col-11">
+            <label for="counterPartNit" class="form-label text-muted"><b>Nit</b></label>
+            <InputNumber @bind-Value="counterPart.Nit" class=" form-control" id="counterPartNit" />
+            <ValidationMessage For="@(() => counterPart.Nit)" />
+        </FormFieldSet>
+
+        <div class="mt-4 mb-2">
+            <div class="row">
+                <div class="offset-4 col-8 text-end">
+                    <button class="btn btn-primary" type="button">Add</button>
+                </div>
+            </div>
+        </div>
+    </FormSection>
+
      <FormSection Title="Details" HelpText="Details of the client case.">
         <FormFieldSet Width="col-11">
             <label for="fileNumber" class="form-label text-muted"><b>File Number</b></label>
@@ -106,6 +129,8 @@ else if (errorMessage is not null)
     private CreateCaseCommand caseUpsert = new();
     private ClientVm clientSelected;
     private List<ClientVm> clients = new();
+    private CounterPartVm counterPart = new();
+    private List<CounterPartVm> counterParts = new();
     private bool SubmitSuccessful;
     private string? errorMessage;
 

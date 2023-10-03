@@ -1,5 +1,6 @@
 ﻿using LawFirm.Application.Features.Cases.Commands.CreateCase;
 using LawFirm.Application.Features.Cases.Models;
+using LawFirm.Application.Features.Cases.Queries.GetCaseList;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -27,6 +28,17 @@ public class CaseController : ControllerBase
         var entity = await _mediator.Send(createCaseCommand);
 
         return Ok(entity);
+    }
+
+    [HttpGet(Name = "GetCases")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
+    [ProducesDefaultResponseType]
+    public async Task<ActionResult<List<CaseVm>>> GetClients()
+    {
+        var dtos = await _mediator.Send(new GetCaseListQuery());
+
+        return Ok(dtos);
     }
 
 }
