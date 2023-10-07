@@ -4,6 +4,7 @@
 
 @inject IClientDataService ClientDataService
 @inject NavigationManager Navigation
+@inject IJSRuntime JsRuntime
 
 <PageTitle>Client Search - LawFirm</PageTitle>
 
@@ -20,15 +21,6 @@
         </ol>
     </nav>
 </div>
-
-@if (submitSuccessful)
-{
-    <Alert Message="The user has been deleted successfully!" AlertType="success" />
-}
-else if (errorMessage is not null)
-{
-    <Alert Message="@errorMessage" AlertType="danger" />
-}
 
 @if (clients is null)
 {
@@ -94,15 +86,13 @@ else
 </div>
 
 @code {
-    [Parameter] public string SearchTerm { get; set; } = default!;
+    [Parameter] public string SearchTerm { get; set; }
 
     private bool showConfirmationDialog;
     private Guid clientId;
     private ICollection<ClientVm> clients;
     private bool submitSuccessful;
     private ElementReference myInput;
-    private string _searchTerm = "";
-    private string errorMessage;
 
     protected override async Task OnInitializedAsync()
     {
@@ -113,9 +103,18 @@ else
     {
         if (confirmed)
         {
-            await ClientDataService.DeleteClient(clientId);
-            showConfirmationDialog = false;
-            await GetClients();
+            try
+            {
+                await ClientDataService.DeleteClient(clientId);
+                showConfirmationDialog = false;
+                await GetClients();
+                await JsRuntime.InvokeVoidAsync("showSuccessToastr", "The Client has been deleted successfully!");
+            }
+            catch (Exception)
+            {
+                await JsRuntime.InvokeVoidAsync("showErrorToastr", "Something went wrong, please try again or contact your supplier.");
+            }
+
         }
         showConfirmationDialog = false;
     }

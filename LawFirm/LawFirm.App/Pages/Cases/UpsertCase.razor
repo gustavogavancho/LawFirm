@@ -1,11 +1,11 @@
 ﻿@page "/case-upsert"
 
+@attribute [Authorize]
+
 @inject NavigationManager Navigation
 @inject IClientDataService ClientDataService
 @inject ICaseDataService CaseDataService
 @inject IJSRuntime JsRuntime
-
-@attribute [Authorize]
 
 <MudThemeProvider />
 
@@ -19,15 +19,6 @@
         </ol>
     </nav>
 </div>
-
-@if (SubmitSuccessful)
-{
-    <Alert Message="The client has been added successfully!" AlertType="success" />
-}
-else if (errorMessage is not null)
-{
-    <Alert Message="@errorMessage" AlertType="danger" />
-}
 
 <EditForm Model="caseUpsert" OnValidSubmit="HandleValidSubmit">
 
@@ -57,12 +48,6 @@ else if (errorMessage is not null)
         </div>
 
         <div class="mt-3">
-            @if (!clients.Any())
-            {
-                <div class="client-list">
-                    <span class="client-nit">No clients selected</span>
-                </div>
-            }
             @foreach (var clientItem in clients)
             {
                 <div class="client-list">
@@ -94,12 +79,6 @@ else if (errorMessage is not null)
             </div>
         </div>
         <div class="mt-3">
-            @if (!counterParts.Any())
-            {
-                <div class="client-list">
-                    <span class="client-nit">No counter parts selected</span>
-                </div>
-            }
             @foreach (var counterPartToAdd in counterParts)
             {
                 <div class="client-list">
@@ -136,27 +115,33 @@ else if (errorMessage is not null)
     private List<ClientVm> clients = new();
     private CounterPartVm counterPart = new();
     private List<CounterPartVm> counterParts = new();
-    private bool SubmitSuccessful;
-    private string? errorMessage;
 
     private async Task HandleValidSubmit()
     {
-        caseUpsert.Ids = clients.Select(x => x.Id).ToList();
-        caseUpsert.CounterParts = counterParts;
-
-        var caseCreated = await CaseDataService.CreateCase(caseUpsert);
-
-        if (caseCreated is not null)
+        try
         {
-            SubmitSuccessful = true;
-            clients = new();
-            clientSelected = null;
-            caseUpsert = new();
+            if (clients is null || !clients.Any())
+            {
+                await JsRuntime.InvokeVoidAsync("showWarningToastr", "You must select a client.");
+                return;
+            }
+
+            caseUpsert.Ids = clients.Select(x => x.Id).ToList();
+            caseUpsert.CounterParts = counterParts;
+
+            var caseCreated = await CaseDataService.CreateCase(caseUpsert);
+
+            if (caseCreated is not null)
+            {
+                await JsRuntime.InvokeVoidAsync("showSuccessToastr", "The client has been added successfully!");
+                clients = new();
+                clientSelected = null;
+                caseUpsert = new();
+            }
         }
-        else
+        catch (Exception)
         {
-            SubmitSuccessful = false;
-            errorMessage = "There was a problem saving your tickets.";
+            await JsRuntime.InvokeVoidAsync("showErrorToastr", "Something went wrong, please try again or contact your supplier.");
         }
     }
 

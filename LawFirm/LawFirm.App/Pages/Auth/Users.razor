@@ -1,9 +1,10 @@
 ﻿@page "/user"
 
+@attribute [Authorize]
+
 @inject IAuthenticationService AuthenticationService
 @inject NavigationManager Navigation
-
-@attribute [Authorize]
+@inject IJSRuntime JsRuntime
 
 <PageTitle>User - Law Firm</PageTitle>
 
@@ -20,16 +21,6 @@
         <a class="font-weight-bold link-dark" href="user-add">Add it here.</a>
     </span>
 </div>
-
-@if (submitSuccessful)
-{
-    <Alert Message="The user has been deleted successfully!" AlertType="success" />
-}
-else if (errorMessage is not null)
-{
-    <Alert Message="@errorMessage" AlertType="danger" />
-}
-
 
 @if (userList is null)
 {
@@ -84,8 +75,6 @@ else
     private List<UserListViewModel> userList;
     private Guid userIdSelected;
     private bool showConfirmationDialog;
-    private bool submitSuccessful;
-    private string errorMessage;
 
     public async Task GetUsersAsync()
     {
@@ -105,22 +94,20 @@ else
 
     private async Task HandleConfirmation(bool confirmed)
     {
-        try
+        if (confirmed)
         {
-            if (confirmed)
+            try
             {
                 await AuthenticationService.DeleteUser(userIdSelected);
                 await GetUsersAsync();
-                submitSuccessful = true;
+                await JsRuntime.InvokeVoidAsync("showSuccessToastr", "The user has been deleted successfully!");
+            }
+            catch (Exception)
+            {
+                await JsRuntime.InvokeVoidAsync("showErrorToastr", "Something went wrong, please try again or contact your supplier.");
             }
         }
-        catch (Exception)
-        {
-            errorMessage = "Something went wrong, please try again or contact your supplier.";
-        }
-        finally
-        {
-            showConfirmationDialog = false;
-        }
+
+        showConfirmationDialog = false;
     }
 }

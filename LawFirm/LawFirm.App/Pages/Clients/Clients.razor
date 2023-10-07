@@ -4,6 +4,7 @@
 
 @inject IClientDataService ClientDataService
 @inject NavigationManager Navigation
+@inject IJSRuntime JsRuntime
 
 <PageTitle>Clients - LawFirm</PageTitle>
 
@@ -32,16 +33,6 @@
                class="form-control form-control-lg" />
     </p>
 </div>
-
-@if (submitSuccessful)
-{
-    <Alert Message="The user has been deleted successfully!" AlertType="success" />
-}
-else if (errorMessage is not null)
-{
-    <Alert Message="@errorMessage" AlertType="danger" />
-}
-
 
 @if (ClientList is null)
 {
@@ -105,18 +96,15 @@ else
 }
 
 @code {
-
     private bool showConfirmationDialog;
     private Guid clientId;
-    private bool submitSuccessful;
     private ElementReference myInput;
     private string searchTerm = "";
-    private string errorMessage;
+    public MetaData MetaData { get; set; } = new MetaData();
+    public int PageNumber { get; set; } = 1;
+    private int pageSize = 10;
 
     public ICollection<ClientVm> ClientList { get; set; }
-    public MetaData MetaData { get; set; } = new MetaData();
-    public int PageNumber {get; set; } = 1;
-    private int pageSize = 10;
 
     protected override async Task OnInitializedAsync()
     {
@@ -148,13 +136,21 @@ else
     {
         if (confirmed)
         {
-            await ClientDataService.DeleteClient(clientId);
+            try
+            {
+                await ClientDataService.DeleteClient(clientId);
 
-            if (ClientList.Count() <= 1)
-                PageNumber = (PageNumber <= 1) ? 1 : PageNumber - 1;
+                if (ClientList.Count() <= 1)
+                    PageNumber = (PageNumber <= 1) ? 1 : PageNumber - 1;
 
-            showConfirmationDialog = false;
-            await GetClients();
+                await GetClients();
+                await JsRuntime.InvokeVoidAsync("showSuccessToastr", "The Client has been deleted successfully!");
+
+            }
+            catch (Exception)
+            {
+                await JsRuntime.InvokeVoidAsync("showErrorToastr", "Something went wrong, please try again or contact your supplier.");
+            }
         }
         showConfirmationDialog = false;
     }

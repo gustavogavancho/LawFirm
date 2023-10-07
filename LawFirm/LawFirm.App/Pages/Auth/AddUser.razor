@@ -1,10 +1,10 @@
 ﻿@page "/user-add"
 
+@attribute [Authorize]
+
 @inject NavigationManager Navigation
 @inject IAuthenticationService AuthenticationService
 @inject IJSRuntime JsRuntime
-
-@attribute [Authorize]
 
 <PageTitle>Add User - Law Firm</PageTitle>
 
@@ -16,15 +16,6 @@
         </ol>
     </nav>
 </div>
-
-@if (SubmitSuccessful)
-{
-    <Alert Message="The user has been added successfully!" AlertType="success" />
-}
-else if (errorMessage is not null)
-{
-    <Alert Message="@errorMessage" AlertType="danger" />
-}
 
 <EditForm Model="userViewModel" OnValidSubmit="HandleValidSubmit">
 
@@ -80,32 +71,20 @@ else if (errorMessage is not null)
 @code {
     private UserViewModel userViewModel = new UserViewModel();
 
-    private bool SubmitSuccessful;
-    private string? errorMessage;
-
     private async Task HandleValidSubmit()
     {
         try
         {
-            var result = await AuthenticationService.Register(userViewModel.FirstName, userViewModel.LastName, userViewModel.UserName, userViewModel.Email, userViewModel.Password);
-
-            if (result)
+            if (await AuthenticationService.Register(userViewModel.FirstName, userViewModel.LastName, userViewModel.UserName, userViewModel.Email, userViewModel.Password))
             {
-                SubmitSuccessful = true;
+                await JsRuntime.InvokeVoidAsync("showSuccessToastr", "The user has been added successfully!");
                 userViewModel = new();
-
-            }
-            else
-            {
-                SubmitSuccessful = false;
-                errorMessage = "There was a problem saving your ticket.";
             }
         }
         catch (ApiException)
         {
-            errorMessage = "Something went wrong, please try again or contact your supplier.";
+            await JsRuntime.InvokeVoidAsync("Something went wrong, please try again or contact your supplier.");
         }
-
         await JsRuntime.InvokeVoidAsync("scrollUtils.scrollToTop");
     }
 

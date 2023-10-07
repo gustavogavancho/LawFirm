@@ -1,11 +1,11 @@
 ﻿@page "/client-upsert"
 @page "/client-upsert/{id:guid}"
 
+@attribute [Authorize]
+
 @inject NavigationManager Navigation
 @inject IClientDataService ClientDataService
 @inject IJSRuntime JsRuntime
-
-@attribute [Authorize]
 
 <PageTitle>Upsert Client - Law Firm</PageTitle>
 
@@ -17,15 +17,6 @@
         </ol>
     </nav>
 </div>
-
-@if (SubmitSuccessful)
-{
-    <Alert Message="The client has been added successfully!" AlertType="success" />
-}
-else if (errorMessage is not null)
-{
-    <Alert Message="@errorMessage" AlertType="danger" />
-}
 
 <EditForm Model="client" OnValidSubmit="HandleValidSubmit">
 
@@ -100,10 +91,7 @@ else if (errorMessage is not null)
 
 @code {
     [Parameter] public Guid Id { get; set; }
-
     private CreateClientCommand client = new();
-    private bool SubmitSuccessful;
-    private string? errorMessage;
 
     protected async override Task OnInitializedAsync()
     {
@@ -138,7 +126,7 @@ else if (errorMessage is not null)
         }
         catch (ApiException)
         {
-            errorMessage = "Something went wrong, please try again or contact your supplier.";
+            await JsRuntime.InvokeVoidAsync("showErrorToastr", "Something went wrong, please try again or contact your supplier.");
         }
         await JsRuntime.InvokeVoidAsync("scrollUtils.scrollToTop");
     }
@@ -149,13 +137,8 @@ else if (errorMessage is not null)
 
         if (clientCreated is not null)
         {
-            SubmitSuccessful = true;
+            await JsRuntime.InvokeVoidAsync("showSuccessToastr", "The client has been added successfully!");
             client = new();
-        }
-        else
-        {
-            SubmitSuccessful = false;
-            errorMessage = "There was a problem saving your tickets.";
         }
     }
 
@@ -173,7 +156,6 @@ else if (errorMessage is not null)
             PhoneNumber = client.PhoneNumber,
             Representative = client.Representative
         });
-
-        SubmitSuccessful = true;
+        await JsRuntime.InvokeVoidAsync("showSuccessToastr", "The client has been updated successfully!");
     }
 }
