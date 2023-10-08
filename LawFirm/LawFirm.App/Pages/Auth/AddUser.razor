@@ -76,7 +76,7 @@
         }
         catch (ApiException)
         {
-            await JsRuntime.InvokeVoidAsync("Something went wrong, please try again or contact your supplier.");
+            await JsRuntime.InvokeVoidAsync("showErrorToastr", "Something went wrong, please try again or contact your supplier.");
         }
         await JsRuntime.InvokeVoidAsync("scrollUtils.scrollToTop");
     }

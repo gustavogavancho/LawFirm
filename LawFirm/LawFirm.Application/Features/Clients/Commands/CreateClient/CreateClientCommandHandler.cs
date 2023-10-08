@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using LawFirm.Application.Contracts.Persistence;
+using LawFirm.Application.Exceptions;
 using LawFirm.Application.Features.Clients.Models;
 using LawFirm.Domain.Entities;
 using MediatR;
@@ -24,7 +25,7 @@ public class CreateClientCommandHandler : IRequestHandler<CreateClientCommand, C
         var validationResult = await validator.ValidateAsync(request, cancellationToken);
 
         if (validationResult.Errors.Count > 0)
-            throw new Exceptions.ValidationException(validationResult);
+            throw new ValidationException(validationResult);
 
         var @client = _mapper.Map<Client>(request);
         @client = await _clientRepository.AddAsync(@client);

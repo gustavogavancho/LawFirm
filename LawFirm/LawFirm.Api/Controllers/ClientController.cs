@@ -61,6 +61,7 @@ public class ClientController : ControllerBase
     [HttpGet("{searchTerm}", Name = "FindClientsBySearchTerm")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesDefaultResponseType]
     public async Task<ActionResult<List<ClientVm>>> FindClientsBySearchTerm(string searchTerm)
     {
         var client = new FindClientsQuery() { SearchTerm = searchTerm };
