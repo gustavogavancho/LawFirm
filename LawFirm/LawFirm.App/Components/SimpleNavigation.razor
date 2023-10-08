@@ -1,0 +1,19 @@
+﻿<div class="alert alert-secondary">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb" style="margin-bottom: 0;">
+            <li class="breadcrumb-item"><a class="font-weight-bold link-dark" href="@BasePageRef">@BasePage</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@CurrentPage</li>
+        </ol>
+    </nav>
+</div>
+
+@code {
+    [Parameter, EditorRequired]
+    public string BasePageRef { get; set; }
+
+    [Parameter, EditorRequired]
+    public string BasePage { get; set; }
+
+    [Parameter]
+    public string CurrentPage { get; set; }
+}

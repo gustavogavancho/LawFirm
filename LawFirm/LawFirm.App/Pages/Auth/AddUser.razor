@@ -8,14 +8,7 @@
 
 <PageTitle>Add User - Law Firm</PageTitle>
 
-<div class="alert alert-secondary">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb" style="margin-bottom: 0;">
-            <li class="breadcrumb-item"><a class="font-weight-bold link-dark" href="user">User</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Add User</li>
-        </ol>
-    </nav>
-</div>
+<SimpleNavigation BasePageRef="user" BasePage="User" CurrentPage="Add User" />
 
 <EditForm Model="userViewModel" OnValidSubmit="HandleValidSubmit">
 

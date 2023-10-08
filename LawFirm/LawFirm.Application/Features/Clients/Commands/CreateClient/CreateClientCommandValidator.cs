@@ -7,7 +7,7 @@ public class CreateClientCommandValidator : AbstractValidator<CreateClientComman
     public CreateClientCommandValidator()
     {
         RuleFor(x => x.ClientType).NotEmpty();
-        RuleFor(x => x.Nit).NotNull().Must(nit => nit.ToString().Length == 8 || nit.ToString().Length == 11).WithMessage("Nit must be either 8 or 11 digits.");
+        RuleFor(x => x.Nit).NotNull();
         RuleFor(x => x.PhoneNumber).NotEmpty();
         RuleFor(x => x.Address).NotEmpty();
         RuleFor(x => x.Email).NotEmpty();
@@ -15,6 +15,7 @@ public class CreateClientCommandValidator : AbstractValidator<CreateClientComman
         When(x => x.ClientType == "Natural Person", () =>
         {
             RuleFor(x => x.FirstName).NotEmpty();
+            RuleFor(x => x.Nit).Must(nit => nit.ToString().Length == 8).WithMessage("Nit must be 8 digits.");
             RuleFor(x => x.LastName).NotEmpty();
         });
 
@@ -22,6 +23,7 @@ public class CreateClientCommandValidator : AbstractValidator<CreateClientComman
         {
             RuleFor(x => x.BusinessName).NotNull();
             RuleFor(x => x.Representative).NotNull();
+            RuleFor(x => x.Nit).Must(nit => nit.ToString().Length == 11).WithMessage("Nit must be 11 digits.");
         });
     }
 }

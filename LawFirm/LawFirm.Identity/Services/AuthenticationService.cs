@@ -1,4 +1,5 @@
 ﻿using LawFirm.Application.Contracts.Identity;
+using LawFirm.Application.Exceptions;
 using LawFirm.Application.Models.Authentication;
 using LawFirm.Identity.Models;
 using Microsoft.AspNetCore.Identity;
@@ -68,7 +69,7 @@ public class AuthenticationService : IAuthenticationService
 
         if (existingUser != null)
         {
-            throw new Exception($"Username '{request.UserName}' already exists.");
+            throw new BadRequestException($"Username {request.UserName} already exists.");
         }
 
         var user = new ApplicationUser

@@ -11,14 +11,7 @@
 
 <PageTitle>Upsert Case - Law Firm</PageTitle>
 
-<div class="alert alert-secondary">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb" style="margin-bottom: 0;">
-            <li class="breadcrumb-item"><a class="font-weight-bold link-dark" href="case">Case</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Add</li>
-        </ol>
-    </nav>
-</div>
+<SimpleNavigation BasePageRef="case" BasePage="Case" CurrentPage="Add" />
 
 <EditForm Model="caseUpsert" OnValidSubmit="HandleValidSubmit">
 

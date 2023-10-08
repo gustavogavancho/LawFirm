@@ -25,6 +25,7 @@ public class AccountController : ControllerBase
 
     [HttpPost("register")]
     [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<RegistrationResponse>> RegisterAsync(RegistrationRequest request)
     {
         return Ok(await _authenticationService.RegisterAsync(request));

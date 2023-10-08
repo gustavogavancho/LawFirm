@@ -1,0 +1,22 @@
+﻿<div class="alert alert-secondary">
+    <span class="bi bi-plus-square-fill" aria-hidden="true"></span>
+    <strong>@RefText</strong>
+    <span class="text-nowrap">
+        @ComplementText
+        <a class="font-weight-bold link-dark" href="@RefPage">@RefPageDescription</a>
+    </span>
+</div>
+
+@code {
+    [Parameter, EditorRequired]
+    public string RefText { get; set; }
+
+    [Parameter, EditorRequired]
+    public string ComplementText { get; set; }
+
+    [Parameter, EditorRequired]
+    public string RefPage { get; set; }
+
+    [Parameter, EditorRequired]
+    public string RefPageDescription { get; set; }
+}
