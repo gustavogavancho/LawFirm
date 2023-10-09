@@ -1,0 +1,59 @@
+﻿<EditForm Model="counterPart" OnValidSubmit="HandleChildValidSubmit">
+    <ChildContent Context="innerContext">
+        <FluentValidationValidator />
+        <FormSection Title="Counterparts" HelpText="In litigation, the counterpart of a case is the opposing side.">
+            <div class="row">
+                <div class="col-6">
+                    <label for="counterPartName" class="form-label text-muted"><b>Name</b></label>
+                    <InputText @bind-Value="counterPart.Name" class=" form-control" id="counterPartName" />
+                    <ValidationMessage For="@(() => counterPart.Name)" />
+                </div>
+                <div class="col-5">
+                    <label for="counterPartNit" class="form-label text-muted"><b>Nit</b></label>
+                    <InputNumber @bind-Value="counterPart.Nit" class=" form-control" id="counterPartNit" />
+                    <ValidationMessage For="@(() => counterPart.Nit)" />
+                </div>
+                <div class="col-1" style="margin-top:31px;">
+                    <button title="addCounterPart" class="btn btn-primary">
+                        <i class="bi bi-plus-square-fill"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="mt-3">
+                @if (!CounterParts.Any())
+                {
+                    <div class="no-client-list">
+                        <span class="client-nit">No counter parts selected</span>
+                    </div>
+                }
+                @foreach (var counterPartToAdd in CounterParts)
+                {
+                    <div class="client-list">
+                        @counterPartToAdd.Name
+                        <span class="client-nit">@counterPartToAdd.Nit</span>
+                        <button type="button" class="delete-client" @onclick="@(async () => await OnRemoveItem.InvokeAsync(counterPartToAdd))">x</button>
+                    </div>
+                }
+            </div>
+        </FormSection>
+    </ChildContent>
+</EditForm>
+
+@code {
+    [Parameter, EditorRequired]
+    public EventCallback<CounterPartVm> OnSubmitCallback { get; set; }
+
+    [Parameter, EditorRequired]
+    public EventCallback<CounterPartVm> OnRemoveItem { get; set; }
+
+    [Parameter, EditorRequired]
+    public List<CounterPartVm> CounterParts { get; set; }
+
+    private CounterPartVm counterPart = new();
+
+    private async Task HandleChildValidSubmit()
+    {
+        await OnSubmitCallback.InvokeAsync(counterPart);
+        counterPart = new();
+    }
+}
