@@ -7,13 +7,13 @@
 @inject ICaseDataService CaseDataService
 @inject IJSRuntime JsRuntime
 
-<MudThemeProvider />
-
 <PageTitle>Upsert Case - Law Firm</PageTitle>
 
 <SimpleNavigation BasePageRef="case" BasePage="Case" CurrentPage="Add" />
 
 <EditForm Model="caseUpsert" OnValidSubmit="HandleValidSubmit">
+
+    <MudThemeProvider />
 
     <FluentValidationValidator />
 
@@ -41,6 +41,12 @@
         </div>
 
         <div class="mt-3">
+            @if (!clients.Any())
+            {
+                <div class="no-client-list">
+                    <span class="client-nit">No clients selected</span>
+                </div>
+            }
             @foreach (var clientItem in clients)
             {
                 <div class="client-list">
@@ -53,35 +59,46 @@
 
     </FormSection>
 
-    <FormSection Title="Counterparts" HelpText="In litigation, the counterpart of a case is the opposing side.">
-        <div class="row">
-            <div class="col-6">
-                <label for="counterPartName" class="form-label text-muted"><b>Name</b></label>
-                <InputText @bind-Value="counterPart.Name" class=" form-control" id="counterPartName" />
-                <ValidationMessage For="@(() => counterPart.Name)" />
-            </div>
-            <div class="col-5">
-                <label for="counterPartNit" class="form-label text-muted"><b>Nit</b></label>
-                <InputNumber @bind-Value="counterPart.Nit" class=" form-control" id="counterPartNit" />
-                <ValidationMessage For="@(() => counterPart.Nit)" />
-            </div>
-            <div class="col-1 d-flex align-items-center" style="margin-top:27px;" @onclick="AddCounterPart">
-                <button type="button" title="addCounterPart" class="btn btn-primary">
-                    <i class="bi bi-plus-square-fill"></i>
-                </button>
-            </div>
-        </div>
-        <div class="mt-3">
-            @foreach (var counterPartToAdd in counterParts)
-            {
-                <div class="client-list">
-                    @counterPartToAdd.Name
-                    <span class="client-nit">@counterPartToAdd.Nit</span>
-                    <button type="button" class="delete-client" @onclick="@(() => RemoveCounterPart(counterPartToAdd))">x</button>
+    <EditForm Model="counterPart" OnValidSubmit="HandleChildValidSubmit">
+        <ChildContent Context="innerContext">
+            <FluentValidationValidator />
+            <FormSection Title="Counterparts" HelpText="In litigation, the counterpart of a case is the opposing side.">
+                <div class="row">
+                    <div class="col-6">
+                        <label for="counterPartName" class="form-label text-muted"><b>Name</b></label>
+                        <InputText @bind-Value="counterPart.Name" class=" form-control" id="counterPartName" />
+                        <ValidationMessage For="@(() => counterPart.Name)" />
+                    </div>
+                    <div class="col-5">
+                        <label for="counterPartNit" class="form-label text-muted"><b>Nit</b></label>
+                        <InputNumber @bind-Value="counterPart.Nit" class=" form-control" id="counterPartNit" />
+                        <ValidationMessage For="@(() => counterPart.Nit)" />
+                    </div>
+                    <div class="col-1" style="margin-top:31px;">
+                        <button title="addCounterPart" class="btn btn-primary">
+                            <i class="bi bi-plus-square-fill"></i>
+                        </button>
+                    </div>
                 </div>
-            }
-        </div>
-    </FormSection>
+                <div class="mt-3">
+                    @if (!counterParts.Any())
+                    {
+                        <div class="no-client-list">
+                            <span class="client-nit">No counter parts selected</span>
+                        </div>
+                    }
+                    @foreach (var counterPartToAdd in counterParts)
+                    {
+                        <div class="client-list">
+                            @counterPartToAdd.Name
+                            <span class="client-nit">@counterPartToAdd.Nit</span>
+                            <button type="button" class="delete-client" @onclick="@(() => RemoveCounterPart(counterPartToAdd))">x</button>
+                        </div>
+                    }
+                </div>
+            </FormSection>
+        </ChildContent>
+    </EditForm>
 
      <FormSection Title="Details" HelpText="Details of the client case.">
         <FormFieldSet Width="col-11">
@@ -109,13 +126,25 @@
     private CounterPartVm counterPart = new();
     private List<CounterPartVm> counterParts = new();
 
+    private void HandleChildValidSubmit()
+    {
+        counterParts.Add(counterPart);
+        counterPart = new();
+    }
+
     private async Task HandleValidSubmit()
     {
         try
         {
-            if (clients is null || !clients.Any())
+            if (!clients.Any())
             {
                 await JsRuntime.InvokeVoidAsync("showWarningToastr", "You must select a client.");
+                return;
+            }
+
+            if (!counterParts.Any())
+            {
+                await JsRuntime.InvokeVoidAsync("showWarningToastr", "You must select a counter part.");
                 return;
             }
 
@@ -128,6 +157,7 @@
             {
                 await JsRuntime.InvokeVoidAsync("showSuccessToastr", "The client has been added successfully!");
                 clients = new();
+                counterParts = new();
                 clientSelected = null;
                 caseUpsert = new();
             }
@@ -136,6 +166,7 @@
         {
             await JsRuntime.InvokeVoidAsync("showErrorToastr", "Something went wrong, please try again or contact your supplier.");
         }
+        await JsRuntime.InvokeVoidAsync("scrollUtils.scrollToTop");
     }
 
     private async Task<IEnumerable<ClientVm>> SearchClient(string valor)
@@ -149,12 +180,6 @@
         {
             clients.Add(clientSelected);
         }
-    }
-
-    private void AddCounterPart()
-    {
-        counterParts.Add(counterPart);
-        counterPart = new();
     }
 
     private void RemoveClient(ClientVm client)

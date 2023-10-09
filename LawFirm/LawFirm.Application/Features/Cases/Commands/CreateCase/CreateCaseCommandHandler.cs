@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using LawFirm.Application.Contracts.Persistence;
+using LawFirm.Application.Exceptions;
 using LawFirm.Application.Features.Cases.Models;
 using LawFirm.Domain.Entities;
 using MediatR;
@@ -26,6 +27,12 @@ public class CreateCaseCommandHandler : IRequestHandler<CreateCaseCommand, CaseV
 
     public async Task<CaseVm> Handle(CreateCaseCommand request, CancellationToken cancellationToken)
     {
+        var validator = new CreateCaseCommandValidator();
+        var validationResult = await validator.ValidateAsync(request, cancellationToken);
+
+        if (validationResult.Errors.Count > 0)
+            throw new ValidationException(validationResult);
+
         var @case = _mapper.Map<Case>(request);
 
         @case = await _caseRepository.AddAsync(@case);

@@ -1,9 +1,11 @@
 ﻿using LawFirm.Application.Features.Cases.Commands.CreateCase;
 using LawFirm.Application.Features.Cases.Models;
+using LawFirm.Application.Features.Cases.Queries.GetCaseDetail;
 using LawFirm.Application.Features.Cases.Queries.GetCaseList;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace LawFirm.Api.Controllers;
 
@@ -20,14 +22,14 @@ public class CaseController : ControllerBase
     }
 
     [HttpPost(Name = "CreateCase")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(CaseVm))]
+    [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(CaseVm))]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
     public async Task<ActionResult<CaseVm>> CreateClient([FromBody] CreateCaseCommand createCaseCommand)
     {
         var entity = await _mediator.Send(createCaseCommand);
 
-        return Ok(entity);
+        return CreatedAtAction(nameof(GetCase), new { entity.Id }, entity);
     }
 
     [HttpGet(Name = "GetCases")]
@@ -41,4 +43,12 @@ public class CaseController : ControllerBase
         return Ok(dtos);
     }
 
+    [HttpGet("{id:guid}", Name = "GetCase")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    public async Task<ActionResult<CaseVm>> GetCase(Guid id)
+    {
+        var entity = new GetCaseDetailQuery() { Id = id };
+        return Ok(await _mediator.Send(entity));
+    }
 }

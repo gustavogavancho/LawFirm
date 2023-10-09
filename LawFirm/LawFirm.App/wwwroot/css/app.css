@@ -109,6 +109,10 @@ a, .btn-link {
         margin-bottom: 30px;
     }
 
+table {
+    font-size: 14px;
+}
+
 .responsive-table {
     width: 100%;
     overflow-x: auto;

@@ -55,13 +55,13 @@ else
                     <td>@client.Representative</td>
                     <td class="text-end">
                         <AuthorizeView>
-                            <button title="Details" class="btn btn-primary" @onclick="@(() => Navigation.NavigateTo($"/client/{client.Id}"))">
+                            <button title="Details" class="btn btn-primary btn-sm" @onclick="@(() => Navigation.NavigateTo($"/client/{client.Id}"))">
                                 <i class="bi bi-list-task"></i>
                             </button>
-                            <button title="Edit" class="btn btn-primary" @onclick="@(() => Navigation.NavigateTo($"/client-upsert/{client.Id}"))">
+                            <button title="Edit" class="btn btn-primary btn-sm" @onclick="@(() => Navigation.NavigateTo($"/client-upsert/{client.Id}"))">
                                 <i class="bi bi-pencil-square"></i>
                             </button>
-                            <button title="Delete" class="btn btn-danger" @onclick="@(() => ShowConfirmationModal(client.Id))">
+                            <button title="Delete" class="btn btn-danger btn-sm" @onclick="@(() => ShowConfirmationModal(client.Id))">
                                 <i class="bi bi-trash3"></i>
                             </button>
                         </AuthorizeView>

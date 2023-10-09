@@ -6,7 +6,7 @@ public class UpdateClientCommandValidator : AbstractValidator<UpdateClientComman
 {
     public UpdateClientCommandValidator()
     {
-        RuleFor(x => x.ClientType).NotEmpty();
+        RuleFor(x => x.ClientType).NotEmpty().Must(x => x == "Natural Person" || x == "Legal Person").WithMessage("Client type must be either 'Natural Person' or 'Legal Person'.");
         RuleFor(x => x.Nit).NotNull();
         RuleFor(x => x.PhoneNumber).NotEmpty();
         RuleFor(x => x.Address).NotEmpty();

@@ -1,10 +1,9 @@
-﻿@inherits ComponentBase
-
-<div class="modal-overlay">
-    <div class="modal-dialog">
+﻿<div class="modal-overlay">
+    <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title"> <span class="oi oi-bell" aria-hidden="true"></span> Please confirm</h4>
+                <h5 class="modal-title">Confirm action</h5>
+                <button type="button" class="btn-close" @onclick="@(() => Confirm(false))"></button>
             </div>
             <div class="modal-body">
                 <p>@Message</p>
@@ -18,7 +17,7 @@
 </div>
 
 @code {
-    [Parameter]
+    [Parameter, EditorRequired]
     public string Message { get; set; }
 
     [Parameter]
