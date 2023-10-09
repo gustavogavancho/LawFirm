@@ -27,27 +27,37 @@ public class CreateCaseCommandHandler : IRequestHandler<CreateCaseCommand, CaseV
 
     public async Task<CaseVm> Handle(CreateCaseCommand request, CancellationToken cancellationToken)
     {
-        var validator = new CreateCaseCommandValidator();
-        var validationResult = await validator.ValidateAsync(request, cancellationToken);
-
-        if (validationResult.Errors.Count > 0)
-            throw new ValidationException(validationResult);
-
-        var @case = _mapper.Map<Case>(request);
-
-        @case = await _caseRepository.AddAsync(@case);
-
-        request.Ids.ForEach(async id =>
+        try
         {
-            var clientCase = new ClientCase
+            var validator = new CreateCaseCommandValidator();
+            var validationResult = await validator.ValidateAsync(request, cancellationToken);
+
+            if (validationResult.Errors.Count > 0)
+                throw new ValidationException(validationResult);
+
+            var @case = _mapper.Map<Case>(request);
+
+            @case = await _caseRepository.AddAsync(@case);
+
+            request.Ids.ForEach(async id =>
             {
-                CaseId = @case.Id,
-                ClientId = id
-            };
+                var clientCase = new ClientCase
+                {
+                    CaseId = @case.Id,
+                    ClientId = id
+                };
 
-            await _clientCaseRepository.AddAsync(clientCase);
-        });
+                await _clientCaseRepository.AddAsync(clientCase);
+            });
 
-        return _mapper.Map<CaseVm>(@case);
+            return _mapper.Map<CaseVm>(@case);
+        }
+        catch (Exception ex)
+        {
+            var check1 = ex.InnerException;
+            var check2 = ex.Message;
+            throw;
+        }
+
     }
 }

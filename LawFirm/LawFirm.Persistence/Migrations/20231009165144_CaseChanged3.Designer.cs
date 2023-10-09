@@ -3,6 +3,7 @@ using System;
 using LawFirm.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LawFirm.Persistence.Migrations
 {
     [DbContext(typeof(LawFirmContext))]
-    partial class LawFirmContextModelSnapshot : ModelSnapshot
+    [Migration("20231009165144_CaseChanged3")]
+    partial class CaseChanged3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.20");
@@ -229,66 +231,6 @@ namespace LawFirm.Persistence.Migrations
                     b.ToTable("IlegalAct");
                 });
 
-            modelBuilder.Entity("LawFirm.Domain.Entities.Notes", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("CaseId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CaseId");
-
-                    b.ToTable("Notes");
-                });
-
-            modelBuilder.Entity("LawFirm.Domain.Entities.Notificacion", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("CaseId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CaseId");
-
-                    b.ToTable("Notificacion");
-                });
-
-            modelBuilder.Entity("LawFirm.Domain.Entities.Status", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("CaseId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CaseId");
-
-                    b.ToTable("Status");
-                });
-
             modelBuilder.Entity("LawFirm.Domain.Entities.ClientCase", b =>
                 {
                     b.HasOne("LawFirm.Domain.Entities.Case", null)
@@ -333,44 +275,11 @@ namespace LawFirm.Persistence.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("LawFirm.Domain.Entities.Notes", b =>
-                {
-                    b.HasOne("LawFirm.Domain.Entities.Case", null)
-                        .WithMany("Notes")
-                        .HasForeignKey("CaseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("LawFirm.Domain.Entities.Notificacion", b =>
-                {
-                    b.HasOne("LawFirm.Domain.Entities.Case", null)
-                        .WithMany("Notificacions")
-                        .HasForeignKey("CaseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("LawFirm.Domain.Entities.Status", b =>
-                {
-                    b.HasOne("LawFirm.Domain.Entities.Case", null)
-                        .WithMany("Status")
-                        .HasForeignKey("CaseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("LawFirm.Domain.Entities.Case", b =>
                 {
                     b.Navigation("CounterParts");
 
                     b.Navigation("IlegalActs");
-
-                    b.Navigation("Notes");
-
-                    b.Navigation("Notificacions");
-
-                    b.Navigation("Status");
                 });
 #pragma warning restore 612, 618
         }
