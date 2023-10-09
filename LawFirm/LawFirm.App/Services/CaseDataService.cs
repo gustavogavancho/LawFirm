@@ -17,6 +17,11 @@ public class CaseDataService : BaseDataService, ICaseDataService
         return response;
     }
 
+    public async Task DeleteCase(Guid id)
+    {
+        await _client.DeleteCaseAsync(id);
+    }
+
     public async Task<ICollection<CaseVm>> GetAllCases()
     {
         var response = await _client.GetCasesAsync();
