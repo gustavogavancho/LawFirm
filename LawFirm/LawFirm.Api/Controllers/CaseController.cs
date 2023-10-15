@@ -1,13 +1,12 @@
 ﻿using LawFirm.Application.Features.Cases.Commands.CreateCase;
 using LawFirm.Application.Features.Cases.Commands.DeleteCase;
+using LawFirm.Application.Features.Cases.Commands.UpdateCase;
 using LawFirm.Application.Features.Cases.Models;
 using LawFirm.Application.Features.Cases.Queries.GetCaseDetail;
 using LawFirm.Application.Features.Cases.Queries.GetCaseList;
-using LawFirm.Application.Features.Clients.Commands.DeleteClient;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
 
 namespace LawFirm.Api.Controllers;
 
@@ -52,6 +51,18 @@ public class CaseController : ControllerBase
     {
         var entity = new GetCaseDetailQuery() { Id = id };
         return Ok(await _mediator.Send(entity));
+    }
+
+    [HttpPut(Name = "UpdateCase")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesDefaultResponseType]
+    public async Task<ActionResult> UpdateCase([FromBody] UpdateCaseCommand updateCaseCommand)
+    {
+        await _mediator.Send(updateCaseCommand);
+        return NoContent();
     }
 
     [HttpDelete("{id}", Name = "DeleteCase")]
