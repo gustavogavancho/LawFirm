@@ -61,9 +61,45 @@
 
      <FormSection Title="Details" HelpText="Details of the client case.">
         <FormFieldSet Width="col-11">
+            <label for="clientType" class="form-label text-muted"><b>ClientType</b></label>
+            <InputText @bind-Value="caseUpsert.ClientType" class=" form-control" id="clientType" />
+            <ValidationMessage For="@(() => caseUpsert.ClientType)" />
+        </FormFieldSet>
+
+        <FormFieldSet Width="col-11">
             <label for="fileNumber" class="form-label text-muted"><b>File Number</b></label>
             <InputText @bind-Value="caseUpsert.FileNumber" class=" form-control" id="fileNumber" />
             <ValidationMessage For="@(() => caseUpsert.FileNumber)" />
+        </FormFieldSet>
+
+        <FormFieldSet Width="col-11">
+            <label for="prosecutorOffice" class="form-label text-muted"><b>Prosecutor Office</b></label>
+            <InputText @bind-Value="caseUpsert.ProsecutorOffice" class=" form-control" id="prosecutorOffice" />
+            <ValidationMessage For="@(() => caseUpsert.ProsecutorOffice)" />
+        </FormFieldSet>
+
+        <FormFieldSet Width="col-11">
+            <label for="fiscal" class="form-label text-muted"><b>Fiscal</b></label>
+            <InputText @bind-Value="caseUpsert.Fiscal" class=" form-control" id="fiscal" />
+            <ValidationMessage For="@(() => caseUpsert.Fiscal)" />
+        </FormFieldSet>
+
+        <FormFieldSet Width="col-11">
+            <label for="courtInCharge" class="form-label text-muted"><b>Court in charge</b></label>
+            <InputText @bind-Value="caseUpsert.CourtInCharge" class=" form-control" id="courtInCharge" />
+            <ValidationMessage For="@(() => caseUpsert.CourtInCharge)" />
+        </FormFieldSet>
+
+        <FormFieldSet Width="col-11">
+            <label for="judge" class="form-label text-muted"><b>Judge</b></label>
+            <InputText @bind-Value="caseUpsert.Judge" class=" form-control" id="judge" />
+            <ValidationMessage For="@(() => caseUpsert.Judge)" />
+        </FormFieldSet>
+
+        <FormFieldSet Width="col-11">
+            <label for="stage" class="form-label text-muted"><b>Stage</b></label>
+            <InputText @bind-Value="caseUpsert.Stage" class=" form-control" id="stage" />
+            <ValidationMessage For="@(() => caseUpsert.Stage)" />
         </FormFieldSet>
      </FormSection>
 

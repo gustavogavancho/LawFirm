@@ -1912,6 +1912,36 @@ namespace LawFirm.App.Services.Base
         [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]   
         public string FileNumber { get; set; }
 
+        [System.Text.Json.Serialization.JsonPropertyName("prosecutorOffice")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]   
+        public string ProsecutorOffice { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("fiscal")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]   
+        public string Fiscal { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("courtInCharge")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]   
+        public string CourtInCharge { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("judge")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]   
+        public string Judge { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("clientType")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]   
+        public string ClientType { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("stage")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]   
+        public string Stage { get; set; }
+
         [System.Text.Json.Serialization.JsonPropertyName("counterParts")]
 
         [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]   
