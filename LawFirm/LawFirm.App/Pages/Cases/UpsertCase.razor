@@ -124,6 +124,32 @@
     private CounterPartVm counterPart = new();
     private List<CounterPartVm> counterParts = new();
 
+    protected async override Task OnInitializedAsync()
+    {
+        if (Id != Guid.Empty)
+        {
+            var response = await CaseDataService.GetCase(Id);
+
+            caseUpsert.FileNumber = response.FileNumber;
+            caseUpsert.ProsecutorOffice = response.ProsecutorOffice;
+            caseUpsert.Fiscal = response.Fiscal;
+            caseUpsert.CourtInCharge = response.CourtInCharge;
+            caseUpsert.Judge = response.Judge;
+            caseUpsert.ClientType = response.ClientType;
+            caseUpsert.Stage = response.Stage;
+
+            //Get clients in paralel
+            Parallel.ForEach(caseUpsert.Ids, async id =>
+            {
+                var result = await ClientDataService.GetClient(id);
+                clients.Add(result);
+            });
+
+            //caseUpsert.Ids
+            //caseUpsert.CounterParts
+        }
+    }
+
     private void AddCounterPart(CounterPartVm counterPart)
     {
         counterParts.Add(counterPart);

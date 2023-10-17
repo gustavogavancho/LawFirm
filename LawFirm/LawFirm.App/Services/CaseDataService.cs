@@ -28,4 +28,11 @@ public class CaseDataService : BaseDataService, ICaseDataService
 
         return response;
     }
+
+    public async Task<CaseVm> GetCase(Guid id)
+    {
+        var response = await _client.GetCaseAsync(id);
+
+        return response;
+    }
 }
