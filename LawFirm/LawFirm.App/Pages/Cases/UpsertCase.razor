@@ -167,15 +167,13 @@
             caseUpsert.Ids = clients.Select(x => x.Id).ToList();
             caseUpsert.CounterParts = counterParts;
 
-            var caseCreated = await CaseDataService.CreateCase(caseUpsert);
-
-            if (caseCreated is not null)
+            if (Id == Guid.Empty)
             {
-                await JsRuntime.InvokeVoidAsync("showSuccessToastr", "The client has been added successfully!");
-                clients = new();
-                counterParts = new();
-                clientSelected = null;
-                caseUpsert = new();
+                await CreateCase();
+            }
+            else
+            {
+                await UpdateCase();
             }
         }
         catch (Exception)
@@ -183,6 +181,37 @@
             await JsRuntime.InvokeVoidAsync("showErrorToastr", "Something went wrong, please try again or contact your supplier.");
         }
         await JsRuntime.InvokeVoidAsync("scrollUtils.scrollToTop");
+    }
+
+    private async Task CreateCase()
+    {
+        var caseCreated = await CaseDataService.CreateCase(caseUpsert);
+
+        if (caseCreated is not null)
+        {
+            await JsRuntime.InvokeVoidAsync("showSuccessToastr", "The client has been added successfully!");
+            clients = new();
+            counterParts = new();
+            clientSelected = null;
+            caseUpsert = new();
+        }
+    }
+
+    private async Task UpdateCase()
+    {
+        await CaseDataService.UpdateCase(Id, new UpdateCaseCommand
+        {
+            Ids = caseUpsert.Ids,
+            FileNumber = caseUpsert.FileNumber,
+            ProsecutorOffice = caseUpsert.ProsecutorOffice,
+            Fiscal = caseUpsert.Fiscal,
+            CourtInCharge = caseUpsert.CourtInCharge,
+            Judge = caseUpsert.Judge,
+            ClientType = caseUpsert.ClientType,
+            Stage = caseUpsert.Stage,
+            CounterParts = caseUpsert.CounterParts
+        });
+        await JsRuntime.InvokeVoidAsync("showSuccessToastr", "The client has been updated successfully!");
     }
 
     private async Task<IEnumerable<ClientVm>> SearchClient(string valor)

@@ -35,4 +35,11 @@ public class CaseDataService : BaseDataService, ICaseDataService
 
         return response;
     }
+
+    public async Task UpdateCase(Guid id, UpdateCaseCommand request)
+    {
+        request.Id = id;
+
+        await _client.UpdateCaseAsync(request);
+    }
 }
