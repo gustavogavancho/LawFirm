@@ -137,16 +137,8 @@
             caseUpsert.Judge = response.Judge;
             caseUpsert.ClientType = response.ClientType;
             caseUpsert.Stage = response.Stage;
-
-            //Get clients in paralel
-            Parallel.ForEach(caseUpsert.Ids, async id =>
-            {
-                var result = await ClientDataService.GetClient(id);
-                clients.Add(result);
-            });
-
-            //caseUpsert.Ids
-            //caseUpsert.CounterParts
+            clients = response.Clients.ToList();
+            counterParts = response.CounterParts.ToList();
         }
     }
 

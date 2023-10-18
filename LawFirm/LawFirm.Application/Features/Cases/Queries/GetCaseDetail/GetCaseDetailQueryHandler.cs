@@ -21,7 +21,7 @@ public class GetCaseDetailQueryHandler : IRequestHandler<GetCaseDetailQuery, Cas
 
     public async Task<CaseVm> Handle(GetCaseDetailQuery request, CancellationToken cancellationToken)
     {
-        var @case = await _caseRepository.GetByIdAsync(request.Id);
+        var @case = await _caseRepository.GetCaseWithRelatedEntities(request.Id);
 
         if(@case is null)
         {

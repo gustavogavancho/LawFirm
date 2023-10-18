@@ -19,7 +19,7 @@ public class GetCaseListQueryHandler : IRequestHandler<GetCaseListQuery, List<Ca
 
     public async Task<List<CaseVm>> Handle(GetCaseListQuery request, CancellationToken cancellationToken)
     {
-        var cases = await _caseRepository.ListAllAsync();
+        var cases = await _caseRepository.GetCasesWithRelatedEntities();
 
         return _mapper.Map<List<CaseVm>>(cases);
     }
