@@ -1,9 +1,11 @@
-﻿namespace LawFirm.Application.Contracts.Persistence;
+﻿using System.Linq.Expressions;
+
+namespace LawFirm.Application.Contracts.Persistence;
 
 public interface IAsyncRepository<T> where T : class
 {
-    Task<T?> GetByIdAsync(Guid id);
-    Task<IReadOnlyList<T>> ListAllAsync();
+    Task<T?> GetByIdAsync(Guid id, params Expression<Func<T, object>>[] includes);
+    Task<IReadOnlyList<T>> ListAllAsync(params Expression<Func<T, object>>[] includes);
     Task<T> AddAsync(T entity);
     Task UpdateAsync(T entity);
     Task DeleteAsync(T entity);

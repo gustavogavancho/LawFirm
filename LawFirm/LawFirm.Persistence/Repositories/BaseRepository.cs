@@ -1,5 +1,6 @@
 ﻿using LawFirm.Application.Contracts.Persistence;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace LawFirm.Persistence.Repositories;
 
@@ -12,15 +13,29 @@ public class BaseRepository<T> : IAsyncRepository<T> where T : class
         _dbContext = dbContext;
     }
 
-    public virtual async Task<T?> GetByIdAsync(Guid id)
+    public virtual async Task<T?> GetByIdAsync(Guid id, params Expression<Func<T, object>>[] includes)
     {
-        T? t = await _dbContext.Set<T>().FindAsync(id);
-        return t;
+        IQueryable<T> query = _dbContext.Set<T>();
+
+        foreach (var include in includes)
+        {
+            query = query.Include(include);
+        }
+
+        T? entity = await query.SingleOrDefaultAsync(e => EF.Property<Guid>(e, "Id") == id);
+        return entity;
     }
 
-    public async Task<IReadOnlyList<T>> ListAllAsync()
+    public async Task<IReadOnlyList<T>> ListAllAsync(params Expression<Func<T, object>>[] includes)
     {
-        return await _dbContext.Set<T>().ToListAsync();
+        IQueryable<T> query = _dbContext.Set<T>();
+
+        foreach (var include in includes)
+        {
+            query = query.Include(include);
+        }
+
+        return await query.ToListAsync();
     }
 
     public async virtual Task<IReadOnlyList<T>> GetPagedReponseAsync(int page, int size)
