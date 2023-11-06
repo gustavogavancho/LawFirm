@@ -51,9 +51,29 @@ public class BaseRepository<T> : IAsyncRepository<T> where T : class
         return entity;
     }
 
-    public async Task UpdateAsync(T entity)
+    public async Task UpdateAsync(T entity, params Expression<Func<T, object>>[] navigations)
     {
-        _dbContext.Entry(entity).State = EntityState.Modified;
+        var dbEntity = _dbContext.Set<T>().Attach(entity);
+
+        dbEntity.State = EntityState.Modified;
+
+        foreach (var navigation in navigations)
+        {
+            var accessor = navigation.Compile();
+            var relatedEntity = accessor(entity);
+
+            if (relatedEntity is IEnumerable<object> relatedEntities)
+            {
+                foreach (var related in relatedEntities)
+                {
+                    UpdateRelatedEntity(related);
+                }
+            }
+            else
+            {
+                UpdateRelatedEntity(relatedEntity);
+            }
+        }
         await _dbContext.SaveChangesAsync();
     }
 
@@ -61,5 +81,18 @@ public class BaseRepository<T> : IAsyncRepository<T> where T : class
     {
         _dbContext.Set<T>().Remove(entity);
         await _dbContext.SaveChangesAsync();
+    }
+
+    private void UpdateRelatedEntity(object relatedEntity)
+    {
+        if (_dbContext.Entry(relatedEntity).State == EntityState.Detached)
+        {
+            _dbContext.Attach(relatedEntity);
+        }
+
+        if (_dbContext.Entry(relatedEntity).State == EntityState.Modified)
+        {
+            _dbContext.Entry(relatedEntity).State = EntityState.Modified;
+        }
     }
 }

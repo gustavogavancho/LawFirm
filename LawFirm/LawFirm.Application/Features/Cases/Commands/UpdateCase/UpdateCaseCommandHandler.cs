@@ -42,6 +42,6 @@ public class UpdateCaseCommandHandler : IRequestHandler<UpdateCaseCommand>
 
         _mapper.Map(request, existingCase);
 
-        await _caseRepository.UpdateAsync(existingCase);
+        await _caseRepository.UpdateAsync(existingCase, x=> x.Clients, x=> x.CounterParts);
     }
 }
