@@ -1,0 +1,14 @@
+﻿.client-list {
+    display: inline-block;
+    background-color: #151f42;
+    color: white;
+    padding: 0.2rem 1rem;
+    border-radius: 2rem;
+    margin: 0.4rem 0.3rem;
+    font-weight: 700;
+}
+
+.client-nit {
+    font-weight: 100;
+    font-size: 0.8rem;
+}

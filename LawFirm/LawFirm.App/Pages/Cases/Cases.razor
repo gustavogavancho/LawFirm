@@ -33,7 +33,7 @@ else
                     <th scope="col">@caseEntity.FileNumber</th>
                     <td class="text-end">
                         <AuthorizeView>
-                            <button title="Details" class="btn btn-primary btn-sm">
+                            <button title="Details" class="btn btn-primary btn-sm" @onclick="@(() => Navigation.NavigateTo($"/case-detail/{caseEntity.Id}"))">
                                 <i class="bi bi-list-task"></i>
                             </button>
                             <button title="Edit" class="btn btn-primary btn-sm" @onclick="@(() => Navigation.NavigateTo($"/case-upsert/{caseEntity.Id}"))">

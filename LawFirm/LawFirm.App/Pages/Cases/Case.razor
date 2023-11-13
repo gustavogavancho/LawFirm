@@ -1,0 +1,132 @@
+﻿@page "/case-detail/{id:guid}"
+
+@attribute [Authorize]
+
+@inject NavigationManager Navigation
+@inject IClientDataService ClientDataService
+@inject ICaseDataService CaseDataService
+@inject IJSRuntime JsRuntime
+
+<PageTitle>Upsert Case - Law Firm</PageTitle>
+
+<SimpleNavigation BasePageRef="case" BasePage="Case" CurrentPage="Details" />
+
+<EditForm Model="caseUpsert">
+    <MudThemeProvider />
+    <FluentValidationValidator />
+
+    <FormSection Title="Clients" HelpText="Individuals or entities seeking legal representation or advice.">
+
+        <div class="row">
+            <div class="col-sm-11">
+                <MudAutocomplete T="ClientVm"
+                                 Label="Search client"
+                                 ResetValueOnEmptyText="true"
+                                 AdornmentIcon="@Icons.Material.Filled.Search"
+                                 AdornmentColor="Color.Primary"
+                                 Variant="Variant.Outlined"
+                                 Margin="Margin.Dense"
+                                 ToStringFunc="@(x => x == null ? null : string.IsNullOrWhiteSpace(x.FirstName) ? x.BusinessName : x.FirstName + " " + x.LastName )" Disabled/>
+            </div>
+
+            <div class="col-sm-1 d-flex align-items-center">
+                <button type="button" title="addClient" class="btn btn-primary" disabled>
+                    <i class="bi bi-plus-square-fill"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="mt-3">
+            @foreach (var clientItem in clients)
+            {
+                <div class="client-list">
+                    @(string.IsNullOrWhiteSpace(clientItem.BusinessName) ? $"{clientItem.FirstName} {clientItem.LastName}" : $"{clientItem.BusinessName}")
+                    <span class="client-nit">@clientItem.Nit</span>
+                </div>
+            }
+        </div>
+
+    </FormSection>
+
+    <CounterPartForm CounterParts="counterParts" Disabled="true"/>
+
+     <FormSection Title="Details" HelpText="Details of the client case.">
+        <FormFieldSet Width="col-11">
+            <label for="clientType" class="form-label text-muted"><b>ClientType</b></label>
+            <InputText @bind-Value="caseUpsert.ClientType" class=" form-control" id="clientType" disabled/>
+            <ValidationMessage For="@(() => caseUpsert.ClientType)" />
+        </FormFieldSet>
+
+        <FormFieldSet Width="col-11">
+            <label for="fileNumber" class="form-label text-muted"><b>File Number</b></label>
+            <InputText @bind-Value="caseUpsert.FileNumber" class=" form-control" id="fileNumber" disabled />
+            <ValidationMessage For="@(() => caseUpsert.FileNumber)" />
+        </FormFieldSet>
+
+        <FormFieldSet Width="col-11">
+            <label for="prosecutorOffice" class="form-label text-muted"><b>Prosecutor Office</b></label>
+            <InputText @bind-Value="caseUpsert.ProsecutorOffice" class=" form-control" id="prosecutorOffice" disabled />
+            <ValidationMessage For="@(() => caseUpsert.ProsecutorOffice)" />
+        </FormFieldSet>
+
+        <FormFieldSet Width="col-11">
+            <label for="fiscal" class="form-label text-muted"><b>Fiscal</b></label>
+            <InputText @bind-Value="caseUpsert.Fiscal" class=" form-control" id="fiscal" disabled />
+            <ValidationMessage For="@(() => caseUpsert.Fiscal)" />
+        </FormFieldSet>
+
+        <FormFieldSet Width="col-11">
+            <label for="courtInCharge" class="form-label text-muted"><b>Court in charge</b></label>
+            <InputText @bind-Value="caseUpsert.CourtInCharge" class=" form-control" id="courtInCharge" disabled />
+            <ValidationMessage For="@(() => caseUpsert.CourtInCharge)" />
+        </FormFieldSet>
+
+        <FormFieldSet Width="col-11">
+            <label for="judge" class="form-label text-muted"><b>Judge</b></label>
+            <InputText @bind-Value="caseUpsert.Judge" class=" form-control" id="judge" disabled />
+            <ValidationMessage For="@(() => caseUpsert.Judge)" />
+        </FormFieldSet>
+
+        <FormFieldSet Width="col-11">
+            <label for="stage" class="form-label text-muted"><b>Stage</b></label>
+            <InputText @bind-Value="caseUpsert.Stage" class=" form-control" id="stage" disabled />
+            <ValidationMessage For="@(() => caseUpsert.Stage)" />
+        </FormFieldSet>
+     </FormSection>
+
+    <div class="mt-4 mb-2">
+        <div class="row">
+            <div class="offset-4 col-8 text-end">
+                <button class="btn btn-secondary" type="button" @onclick="@(() => Navigation.NavigateTo("case"))">Go back</button>
+            </div>
+        </div>
+    </div>
+
+</EditForm>
+
+@code {
+    [Parameter] public Guid Id { get; set; }
+
+    private CreateCaseCommand caseUpsert = new();
+    private List<ClientVm> clients = new();
+    private CounterPartVm counterPart = new();
+    private List<CounterPartVm> counterParts = new();
+
+    protected async override Task OnInitializedAsync()
+    {
+        if (Id != Guid.Empty)
+        {
+            var response = await CaseDataService.GetCase(Id);
+
+            caseUpsert.FileNumber = response.FileNumber;
+            caseUpsert.ProsecutorOffice = response.ProsecutorOffice;
+            caseUpsert.Fiscal = response.Fiscal;
+            caseUpsert.CourtInCharge = response.CourtInCharge;
+            caseUpsert.Judge = response.Judge;
+            caseUpsert.ClientType = response.ClientType;
+            caseUpsert.Stage = response.Stage;
+            clients = response.Clients.ToList();
+            counterParts = response.CounterParts.ToList();
+        }
+    }
+}

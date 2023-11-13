@@ -5,16 +5,16 @@
             <div class="row">
                 <div class="col-6">
                     <label for="counterPartName" class="form-label text-muted"><b>Name</b></label>
-                    <InputText @bind-Value="counterPart.Name" class=" form-control" id="counterPartName" />
+                    <InputText @bind-Value="counterPart.Name" class=" form-control" id="counterPartName" disabled="@Disabled" />
                     <ValidationMessage For="@(() => counterPart.Name)" />
                 </div>
                 <div class="col-5">
                     <label for="counterPartNit" class="form-label text-muted"><b>Nit</b></label>
-                    <InputNumber @bind-Value="counterPart.Nit" class=" form-control" id="counterPartNit" />
+                    <InputNumber @bind-Value="counterPart.Nit" class=" form-control" id="counterPartNit" disabled="@Disabled" />
                     <ValidationMessage For="@(() => counterPart.Nit)" />
                 </div>
                 <div class="col-1" style="margin-top:31px;">
-                    <button title="addCounterPart" class="btn btn-primary">
+                    <button title="addCounterPart" class="btn btn-primary" disabled="@Disabled">
                         <i class="bi bi-plus-square-fill"></i>
                     </button>
                 </div>
@@ -31,7 +31,7 @@
                     <div class="client-list">
                         @counterPartToAdd.Name
                         <span class="client-nit">@counterPartToAdd.Nit</span>
-                        <button type="button" class="delete-client" @onclick="@(async () => await OnRemoveItem.InvokeAsync(counterPartToAdd))">x</button>
+                        <button type="button" class="delete-client" hidden="@Disabled" @onclick="@(async () => await OnRemoveItem.InvokeAsync(counterPartToAdd))">x</button>
                     </div>
                 }
             </div>
@@ -48,6 +48,9 @@
 
     [Parameter, EditorRequired]
     public List<CounterPartVm> CounterParts { get; set; }
+
+    [Parameter]
+    public bool Disabled { get; set; }
 
     private CounterPartVm counterPart = new();
 
