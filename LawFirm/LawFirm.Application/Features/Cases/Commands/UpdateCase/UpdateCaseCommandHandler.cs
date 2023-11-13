@@ -11,18 +11,15 @@ public class UpdateCaseCommandHandler : IRequestHandler<UpdateCaseCommand>
 {
     private readonly IMapper _mapper;
     private readonly ICaseRepository _caseRepository;
-    private readonly IClientCaseRepository _clientCaseRepository;
-    private readonly ICounterPartRepository _counterPartRepository;
+    private readonly IClientRepository _clientRepository;
 
     public UpdateCaseCommandHandler(IMapper mapper,
         ICaseRepository caseRepository,
-        IClientCaseRepository clientCaseRepository,
-        ICounterPartRepository counterPartRepository)
+        IClientRepository clientRepository)
     {
         _mapper = mapper;
         _caseRepository = caseRepository;
-        _clientCaseRepository = clientCaseRepository;
-        _counterPartRepository = counterPartRepository;
+        _clientRepository = clientRepository;
     }
 
     public async Task Handle(UpdateCaseCommand request, CancellationToken cancellationToken)
@@ -33,7 +30,7 @@ public class UpdateCaseCommandHandler : IRequestHandler<UpdateCaseCommand>
         if (validationResult.Errors.Count > 0)
             throw new ValidationException(validationResult);
 
-        var existingCase = await _caseRepository.GetByIdAsync(request.Id, x => x.Clients, x=> x.CounterParts);
+        var existingCase = await _caseRepository.GetByIdAsync(request.Id, x=> x.Clients, x=> x.CounterParts);
 
         if (existingCase == null)
         {
@@ -41,6 +38,12 @@ public class UpdateCaseCommandHandler : IRequestHandler<UpdateCaseCommand>
         }
 
         _mapper.Map(request, existingCase);
+
+        existingCase.Clients.Clear();
+        request.Ids.ForEach(async id =>
+        {
+            existingCase.Clients.Add(await _clientRepository.GetByIdAsync(id));
+        });
 
         await _caseRepository.UpdateAsync(existingCase, x=> x.Clients, x=> x.CounterParts);
     }
