@@ -1,5 +1,4 @@
-﻿@page "/client-upsert"
-@page "/client-upsert/{id:guid}"
+﻿@page "/client-insert"
 
 @attribute [Authorize]
 
@@ -7,17 +6,19 @@
 @inject IClientDataService ClientDataService
 @inject IJSRuntime JsRuntime
 
-<PageTitle>Upsert Client - Law Firm</PageTitle>
+<PageTitle>Insert Client - Law Firm</PageTitle>
 
-<SimpleNavigation BasePageRef="client" BasePage="Client" CurrentPage="@(Id == Guid.Empty ? "Add" : "Edit")" />
+<SimpleNavigation BasePageRef="client" BasePage="Client" CurrentPage="Insert" />
 
 <EditForm Model="client" OnValidSubmit="HandleValidSubmit">
 
     <FluentValidationValidator />
 
-    <FormSection Title="Client Information" HelpText="Refers to information or data about a customer or client.">
+    <FormSection Title="Client Information" 
+                 HelpText="Refers to information or data about a customer or client.">
+
         <FormFieldSet Width="col-11">
-            <label for="clientType" class="form-label text-muted"><b>Client Type</b></label>
+            <label for="clientType" class="form-label text-muted fw-bold">Client Type</label>
             <InputSelect @bind-Value="client.ClientType" class="form-select" id="clientType">
                 <option value=""></option>
                 <option value="Natural Person">Natural Person</option>
@@ -25,46 +26,53 @@
             </InputSelect>
             <ValidationMessage For="@(() => client.ClientType)" />
         </FormFieldSet>
+
         <FormFieldSet Width="col-11">
-            <label for="firstName" class="form-label text-muted"><b>First Name</b></label>
+            <label for="firstName" class="form-label text-muted fw-bold">First Name</label>
             <InputText @bind-Value="client.FirstName" class=" form-control" id="firstName" disabled="@(client.ClientType == "Legal Person")" />
             <ValidationMessage For="@(() => client.FirstName)" />
         </FormFieldSet>
+
         <FormFieldSet Width="col-11">
-            <label for="lastName" class="form-label text-muted"><b>Last Name</b></label>
+            <label for="lastName" class="form-label text-muted fw-bold">Last Name</label>
             <InputText @bind-Value="client.LastName" class=" form-control" id="lastName" disabled="@(client.ClientType == "Legal Person")" />
             <ValidationMessage For="@(() => client.LastName)" />
         </FormFieldSet>
+
         <FormFieldSet Width="col-11">
-            <label for="businessName" class="form-label text-muted"><b>Business Name</b></label>
+            <label for="businessName" class="form-label text-muted fw-bold">Business Name</label>
             <InputText @bind-Value="client.BusinessName" class=" form-control" id="businessName" disabled="@(client.ClientType == "Natural Person")" />
             <ValidationMessage For="@(() => client.BusinessName)" />
         </FormFieldSet>
+
         <FormFieldSet Width="col-11">
-            <label for="nit" class="form-label text-muted"><b>Nit</b></label>
+            <label for="nit" class="form-label text-muted fw-bold">Nit</label>
             <InputNumber @bind-Value="client.Nit" class=" form-control" id="nit" />
             <ValidationMessage For="@(() => client.Nit)" />
         </FormFieldSet>
+
         <FormFieldSet Width="col-11">
-            <label for="representative" class="form-label text-muted"><b>Representative</b></label>
+            <label for="representative" class="form-label text-muted fw-bold">Representative</label>
             <InputText @bind-Value="client.Representative" class=" form-control" id="representative" disabled="@(client.ClientType == "Natural Person")" />
             <ValidationMessage For="@(() => client.Representative)" />
         </FormFieldSet>
+
     </FormSection>
 
-    <FormSection Title="Contact Details" HelpText="Information or data that allows individuals or entities to get in touch with a person, organization, or business.">
+    <FormSection Title="Contact Details" 
+                 HelpText="Information or data that allows individuals or entities to get in touch with a person, organization, or business.">
         <FormFieldSet Width="col-11">
-            <label for="phoneNumber" class="form-label text-muted"><b>Phone Number</b></label>
+            <label for="phoneNumber" class="form-label text-muted fw-bold">Phone Number</label>
             <InputNumber @bind-Value="client.PhoneNumber" class=" form-control" id="phoneNumber" />
             <ValidationMessage For="@(() => client.PhoneNumber)" />
         </FormFieldSet>
         <FormFieldSet Width="col-11">
-            <label for="address" class="form-label text-muted"><b>Address</b></label>
+            <label for="address" class="form-label text-muted fw-bold">Address</label>
             <InputText @bind-Value="client.Address" class=" form-control" id="address" />
             <ValidationMessage For="@(() => client.Address)" />
         </FormFieldSet>
         <FormFieldSet Width="col-11">
-            <label for="email" class="form-label text-muted"><b>Email</b></label>
+            <label for="email" class="form-label text-muted fw-bold">Email</label>
             <InputText @bind-Value="client.Email" class=" form-control" id="email" />
             <ValidationMessage For="@(() => client.Email)" />
         </FormFieldSet>
@@ -83,72 +91,27 @@
 
 
 @code {
-    [Parameter] public Guid Id { get; set; }
     private CreateClientCommand client = new();
-
-    protected async override Task OnInitializedAsync()
-    {
-        if (Id != Guid.Empty)
-        {
-            var response = await ClientDataService.GetClient(Id);
-
-            client.Email = response.Email;
-            client.Representative = response.Representative;
-            client.Address = response.Address;
-            client.PhoneNumber = response.PhoneNumber;
-            client.Nit = response.Nit;
-            client.BusinessName = response.BusinessName;
-            client.LastName = response.LastName;
-            client.FirstName = response.FirstName;
-            client.ClientType = response.ClientType;
-        }
-    }
 
     private async Task HandleValidSubmit()
     {
         try
         {
-            if (Id == Guid.Empty)
+            var clientCreated = await ClientDataService.CreateClient(client);
+
+            if (clientCreated is not null)
             {
-                await CreateClient();
-            }
-            else
-            {
-                await UpdateClient();
+                await JsRuntime.InvokeVoidAsync("showSuccessToastr", "The client has been added successfully!");
+                client = new();
             }
         }
         catch (ApiException)
         {
             await JsRuntime.InvokeVoidAsync("showErrorToastr", "Something went wrong, please try again or contact your supplier.");
         }
-        await JsRuntime.InvokeVoidAsync("scrollUtils.scrollToTop");
-    }
-
-    private async Task CreateClient()
-    {
-        var clientCreated = await ClientDataService.CreateClient(client);
-
-        if (clientCreated is not null)
+        finally
         {
-            await JsRuntime.InvokeVoidAsync("showSuccessToastr", "The client has been added successfully!");
-            client = new();
+            await JsRuntime.InvokeVoidAsync("scrollUtils.scrollToTop");
         }
-    }
-
-    private async Task UpdateClient()
-    {
-        await ClientDataService.UpdateClient(Id, new UpdateClientCommand
-        {
-            Address = client.Address,
-            BusinessName = client.BusinessName,
-            ClientType = client.ClientType,
-            Email = client.Email,
-            FirstName = client.FirstName,
-            LastName = client.LastName,
-            Nit = client.Nit,
-            PhoneNumber = client.PhoneNumber,
-            Representative = client.Representative
-        });
-        await JsRuntime.InvokeVoidAsync("showSuccessToastr", "The client has been updated successfully!");
     }
 }

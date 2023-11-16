@@ -60,7 +60,7 @@
 
     <CounterPartForm OnSubmitCallback="AddCounterPart" CounterParts="counterParts" OnRemoveItem="RemoveCounterPart" />
 
-     <FormSection Title="Details" HelpText="Details of the client case.">
+    <FormSection Title="Details" HelpText="Details of the client case.">
         <FormFieldSet Width="col-11">
             <label for="clientType" class="form-label text-muted"><b>ClientType</b></label>
             <InputText @bind-Value="caseUpsert.ClientType" class=" form-control" id="clientType" />
@@ -102,7 +102,7 @@
             <InputText @bind-Value="caseUpsert.Stage" class=" form-control" id="stage" />
             <ValidationMessage For="@(() => caseUpsert.Stage)" />
         </FormFieldSet>
-     </FormSection>
+    </FormSection>
 
     <div class="mt-4 mb-2">
         <div class="row">
@@ -200,17 +200,17 @@
     private async Task UpdateCase()
     {
         await CaseDataService.UpdateCase(Id, new UpdateCaseCommand
-        {
-            Ids = caseUpsert.Ids,
-            FileNumber = caseUpsert.FileNumber,
-            ProsecutorOffice = caseUpsert.ProsecutorOffice,
-            Fiscal = caseUpsert.Fiscal,
-            CourtInCharge = caseUpsert.CourtInCharge,
-            Judge = caseUpsert.Judge,
-            ClientType = caseUpsert.ClientType,
-            Stage = caseUpsert.Stage,
-            CounterParts = caseUpsert.CounterParts
-        });
+            {
+                Ids = caseUpsert.Ids,
+                FileNumber = caseUpsert.FileNumber,
+                ProsecutorOffice = caseUpsert.ProsecutorOffice,
+                Fiscal = caseUpsert.Fiscal,
+                CourtInCharge = caseUpsert.CourtInCharge,
+                Judge = caseUpsert.Judge,
+                ClientType = caseUpsert.ClientType,
+                Stage = caseUpsert.Stage,
+                CounterParts = caseUpsert.CounterParts
+            });
         await JsRuntime.InvokeVoidAsync("showSuccessToastr", "The client has been updated successfully!");
     }
 
@@ -221,7 +221,7 @@
 
     private void AddClient()
     {
-        if(clientSelected is not null && !clients.Any(x => x.Id == clientSelected.Id))
+        if (clientSelected is not null && !clients.Any(x => x.Id == clientSelected.Id))
         {
             clients.Add(clientSelected);
         }
