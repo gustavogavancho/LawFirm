@@ -1,4 +1,5 @@
-﻿using Blazored.LocalStorage;
+﻿using AutoMapper;
+using Blazored.LocalStorage;
 using LawFirm.App.Contracts;
 using LawFirm.App.Services.Base;
 
@@ -6,27 +7,20 @@ namespace LawFirm.App.Services;
 
 public class ClientDataService : BaseDataService, IClientDataService
 {
-    public ClientDataService(IClient client, ILocalStorageService localStorage) : base(client, localStorage)
+    private readonly IMapper _mapper;
+
+    public ClientDataService(IClient client, ILocalStorageService localStorage, IMapper mapper) : base(client, localStorage)
     {
-        
+        _mapper = mapper;
     }
 
-    public async Task<ClientVm> CreateClient(CreateClientCommand request)
+    public async Task<ClientVm> CreateClient(ClientVm request)
     {
-        try
-        {
-            var response = await _client.CreateClientAsync(request);
+        var responseMapped = _mapper.Map<CreateClientCommand>(request);
 
-            return response;
-        }
-        catch (Exception ex)
-        {
-            var check = ex.InnerException;
-            var check1 = ex.Message;
-            throw;
-        }
+        var response = await _client.CreateClientAsync(responseMapped);
 
-
+        return response;
     }
 
     public async Task<ClientVmPagingResponse> GetClients(int? pageNumber, int? pageSize)
@@ -43,11 +37,13 @@ public class ClientDataService : BaseDataService, IClientDataService
         return selectedClient;
     }
 
-    public async Task UpdateClient(Guid id, UpdateClientCommand request)
+    public async Task UpdateClient(Guid id, ClientVm request)
     {
-        request.Id = id;
+        var requestMapped = _mapper.Map<UpdateClientCommand>(request);
 
-        await _client.UpdateClientAsync(request);
+        requestMapped.Id = id;
+
+        await _client.UpdateClientAsync(requestMapped);
     }
 
     public async Task DeleteClient(Guid id)

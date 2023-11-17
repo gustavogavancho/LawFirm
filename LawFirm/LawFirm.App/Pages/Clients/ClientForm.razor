@@ -1,0 +1,71 @@
+﻿<FormSection Title="Client Information"
+             HelpText="Refers to information or data about a customer or client.">
+
+    <FormFieldSet Width="col-11">
+        <label for="clientType" class="form-label text-muted fw-bold">Client Type</label>
+        <InputSelect @bind-Value="Client.ClientType" class="form-select" id="clientType" disabled="@Disabled">
+            <option value=""></option>
+            <option value="Natural Person">Natural Person</option>
+            <option value="Legal Person">Legal Person</option>
+        </InputSelect>
+        <ValidationMessage For="@(() => Client.ClientType)" />
+    </FormFieldSet>
+
+    <FormFieldSet Width="col-11">
+        <label for="firstName" class="form-label text-muted fw-bold">First Name</label>
+        <InputText @bind-Value="Client.FirstName" class=" form-control" id="firstName" disabled="@Disabled" />
+        <ValidationMessage For="@(() => Client.FirstName)" />
+    </FormFieldSet>
+
+    <FormFieldSet Width="col-11">
+        <label for="lastName" class="form-label text-muted fw-bold">Last Name</label>
+        <InputText @bind-Value="Client.LastName" class=" form-control" id="lastName" disabled="@Disabled" />
+        <ValidationMessage For="@(() => Client.LastName)" />
+    </FormFieldSet>
+
+    <FormFieldSet Width="col-11">
+        <label for="businessName" class="form-label text-muted fw-bold">Business Name</label>
+        <InputText @bind-Value="Client.BusinessName" class=" form-control" id="businessName" disabled="@Disabled" />
+        <ValidationMessage For="@(() => Client.BusinessName)" />
+    </FormFieldSet>
+
+    <FormFieldSet Width="col-11">
+        <label for="nit" class="form-label text-muted fw-bold">Nit</label>
+        <InputNumber @bind-Value="Client.Nit" class=" form-control" id="nit" disabled="@Disabled" />
+        <ValidationMessage For="@(() => Client.Nit)" />
+    </FormFieldSet>
+
+    <FormFieldSet Width="col-11">
+        <label for="representative" class="form-label text-muted fw-bold">Representative</label>
+        <InputText @bind-Value="Client.Representative" class=" form-control" id="representative" disabled="@Disabled" />
+        <ValidationMessage For="@(() => Client.Representative)" />
+    </FormFieldSet>
+
+</FormSection>
+
+<FormSection Title="Contact Details"
+             HelpText="Information or data that allows individuals or entities to get in touch with a person, organization, or business.">
+    <FormFieldSet Width="col-11">
+        <label for="phoneNumber" class="form-label text-muted fw-bold">Phone Number</label>
+        <InputNumber @bind-Value="Client.PhoneNumber" class=" form-control" id="phoneNumber" disabled="@Disabled" />
+        <ValidationMessage For="@(() => Client.PhoneNumber)" />
+    </FormFieldSet>
+    <FormFieldSet Width="col-11">
+        <label for="address" class="form-label text-muted fw-bold">Address</label>
+        <InputText @bind-Value="Client.Address" class=" form-control" id="address" disabled="@Disabled" />
+        <ValidationMessage For="@(() => Client.Address)" />
+    </FormFieldSet>
+    <FormFieldSet Width="col-11">
+        <label for="email" class="form-label text-muted fw-bold">Email</label>
+        <InputText @bind-Value="Client.Email" class=" form-control" id="email" disabled="@Disabled" />
+        <ValidationMessage For="@(() => Client.Email)" />
+    </FormFieldSet>
+</FormSection>
+
+@code {
+    [Parameter, EditorRequired]
+    public ClientVm Client { get; set; }
+
+    [Parameter]
+    public bool Disabled { get; set; }
+}
