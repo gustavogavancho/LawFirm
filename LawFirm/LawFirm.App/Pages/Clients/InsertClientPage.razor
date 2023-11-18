@@ -47,9 +47,7 @@
         {
             await JsRuntime.InvokeVoidAsync("showErrorToastr", "Something went wrong, please try again or contact your supplier.");
         }
-        finally
-        {
-            await JsRuntime.InvokeVoidAsync("scrollUtils.scrollToTop");
-        }
+
+        await JsRuntime.InvokeVoidAsync("scrollUtils.scrollToTop");
     }
 }

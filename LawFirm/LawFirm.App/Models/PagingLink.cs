@@ -1,4 +1,4 @@
-﻿namespace LawFirm.App.Components;
+﻿namespace LawFirm.App.Models;
 
 public class PagingLink
 {

@@ -19,12 +19,12 @@
 </div>
 
 @code {
-    [Parameter, EditorRequired]
-    public IEnumerable<TItem> Items { get; set; } = default!;
+    [Parameter]
+    public IEnumerable<TItem> Items { get; set; }
 
     [Parameter, EditorRequired]
-    public RenderFragment HeaderTemplate { get; set; } = default!;
+    public RenderFragment HeaderTemplate { get; set; }
 
     [Parameter, EditorRequired]
-    public RenderFragment<TItem> RowTemplate { get; set; } = default!;
+    public RenderFragment<TItem> RowTemplate { get; set; }
 }
