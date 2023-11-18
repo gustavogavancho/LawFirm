@@ -63,11 +63,6 @@ else
     private Guid userIdSelected;
     private bool showConfirmationDialog;
 
-    public async Task GetUsersAsync()
-    {
-        userList = await AuthenticationService.GetUsers();
-    }
-
     protected override async Task OnInitializedAsync()
     {
         await GetUsersAsync();
@@ -96,5 +91,10 @@ else
         }
 
         showConfirmationDialog = false;
+    }
+
+    private async Task GetUsersAsync()
+    {
+        userList = await AuthenticationService.GetUsers();
     }
 }
