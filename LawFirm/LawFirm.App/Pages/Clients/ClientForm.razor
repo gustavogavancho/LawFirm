@@ -13,19 +13,19 @@
 
     <FormFieldSet Width="col-11">
         <label for="firstName" class="form-label text-muted fw-bold">First Name</label>
-        <InputText @bind-Value="Client.FirstName" class=" form-control" id="firstName" disabled="@Disabled" />
+        <InputText @bind-Value="Client.FirstName" class=" form-control" id="firstName" disabled="@(Client.ClientType == "Legal Person" || Disabled)" />
         <ValidationMessage For="@(() => Client.FirstName)" />
     </FormFieldSet>
 
     <FormFieldSet Width="col-11">
         <label for="lastName" class="form-label text-muted fw-bold">Last Name</label>
-        <InputText @bind-Value="Client.LastName" class=" form-control" id="lastName" disabled="@Disabled" />
+        <InputText @bind-Value="Client.LastName" class=" form-control" id="lastName" disabled="@(Client.ClientType == "Legal Person" || Disabled)" />
         <ValidationMessage For="@(() => Client.LastName)" />
     </FormFieldSet>
 
     <FormFieldSet Width="col-11">
         <label for="businessName" class="form-label text-muted fw-bold">Business Name</label>
-        <InputText @bind-Value="Client.BusinessName" class=" form-control" id="businessName" disabled="@Disabled" />
+        <InputText @bind-Value="Client.BusinessName" class=" form-control" id="businessName" disabled="@(Client.ClientType == "Natural Person" || Disabled)" />
         <ValidationMessage For="@(() => Client.BusinessName)" />
     </FormFieldSet>
 
@@ -37,7 +37,7 @@
 
     <FormFieldSet Width="col-11">
         <label for="representative" class="form-label text-muted fw-bold">Representative</label>
-        <InputText @bind-Value="Client.Representative" class=" form-control" id="representative" disabled="@Disabled" />
+        <InputText @bind-Value="Client.Representative" class=" form-control" id="representative" disabled="@(Client.ClientType == "Natural Person" || Disabled)" />
         <ValidationMessage For="@(() => Client.Representative)" />
     </FormFieldSet>
 
