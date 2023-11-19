@@ -1,15 +1,17 @@
 ﻿<EditForm Model="counterPart" OnValidSubmit="HandleChildValidSubmit">
     <ChildContent Context="innerContext">
+
         <FluentValidationValidator />
+
         <FormSection Title="Counterparts" HelpText="In litigation, the counterpart of a case is the opposing side.">
             <div class="row">
                 <div class="col-6">
-                    <label for="counterPartName" class="form-label text-muted"><b>Name</b></label>
+                    <label for="counterPartName" class="form-label text-muted fw-bold">Name</label>
                     <InputText @bind-Value="counterPart.Name" class=" form-control" id="counterPartName" disabled="@Disabled" />
                     <ValidationMessage For="@(() => counterPart.Name)" />
                 </div>
                 <div class="col-5">
-                    <label for="counterPartNit" class="form-label text-muted"><b>Nit</b></label>
+                    <label for="counterPartNit" class="form-label text-muted fw-bold">Nit</label>
                     <InputNumber @bind-Value="counterPart.Nit" class=" form-control" id="counterPartNit" disabled="@Disabled" />
                     <ValidationMessage For="@(() => counterPart.Nit)" />
                 </div>
