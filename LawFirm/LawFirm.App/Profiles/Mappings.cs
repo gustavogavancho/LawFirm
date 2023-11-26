@@ -13,5 +13,8 @@ public class Mappings : Profile
 
         CreateMap<CreateClientCommand, ClientVm>().ReverseMap();
 		CreateMap<UpdateClientCommand, ClientVm>().ReverseMap();
-	}
+
+		CreateMap<CreateCaseCommand, CaseVm>().ReverseMap();
+        CreateMap<UpdateCaseCommand, CaseVm>().ReverseMap();
+    }
 }

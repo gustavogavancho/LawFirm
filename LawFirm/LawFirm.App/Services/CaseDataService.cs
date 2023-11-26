@@ -1,4 +1,5 @@
-﻿using Blazored.LocalStorage;
+﻿using AutoMapper;
+using Blazored.LocalStorage;
 using LawFirm.App.Contracts;
 using LawFirm.App.Services.Base;
 
@@ -6,13 +7,20 @@ namespace LawFirm.App.Services;
 
 public class CaseDataService : BaseDataService, ICaseDataService
 {
-    public CaseDataService(IClient client, ILocalStorageService localStorage) : base(client, localStorage)
+    private readonly IMapper _mapper;
+
+    public CaseDataService(IClient client, ILocalStorageService localStorage, IMapper mapper) : base(client, localStorage)
     {
+        _mapper = mapper;
     }
 
-    public async Task<CaseVm> CreateCase(CreateCaseCommand request)
+    public async Task<CaseVm> CreateCase(CaseVm request, List<Guid> ids)
     {
-        var response = await _client.CreateCaseAsync(request);
+        var responseMapped = _mapper.Map<CreateCaseCommand>(request);
+
+        responseMapped.Ids = ids;
+
+        var response = await _client.CreateCaseAsync(responseMapped);
 
         return response;
     }
@@ -36,10 +44,12 @@ public class CaseDataService : BaseDataService, ICaseDataService
         return response;
     }
 
-    public async Task UpdateCase(Guid id, UpdateCaseCommand request)
+    public async Task UpdateCase(CaseVm request, List<Guid> ids)
     {
-        request.Id = id;
+        var responseMapped = _mapper.Map<UpdateCaseCommand>(request);
 
-        await _client.UpdateCaseAsync(request);
+        responseMapped.Ids = ids;
+
+        await _client.UpdateCaseAsync(responseMapped);
     }
 }

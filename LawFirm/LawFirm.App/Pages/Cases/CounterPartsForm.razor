@@ -1,0 +1,58 @@
+﻿@if(Case?.CounterParts is null)
+{
+    <p>Loading..</p>
+}
+else
+{
+    <FormSection Title="Counterparts" HelpText="In litigation, the counterpart of a case is the opposing side.">
+        <div class="row" hidden="@Disabled">
+            <div class="mb-2">
+                <button title="addCounterPart" class="btn-sm btn-primary fw-bold" type="button" @onclick="AddCounterPart">
+                    New Counter Part
+                </button>
+            </div>
+        </div>
+        <div class="row">
+
+            @foreach (var counterPart in Case.CounterParts)
+            {
+
+                <div class="col-6">
+                    <label for="counterPartName" class="form-label text-muted fw-bold">Name</label>
+                    <InputText @bind-Value="counterPart.Name" class=" form-control" id="counterPartName" Disabled="@Disabled" />
+                    <ValidationMessage For="@(() => counterPart.Name)" />
+                </div>
+                <div class="col-5">
+                    <label for="counterPartNit" class="form-label text-muted fw-bold">Nit</label>
+                    <InputNumber @bind-Value="counterPart.Nit" class=" form-control" id="counterPartNit" Disabled="@Disabled" />
+                    <ValidationMessage For="@(() => counterPart.Nit)" />
+                </div>
+
+                <div class="col-1" style="margin-top:31px;">
+                    <button title="addCounterPart" class="btn btn-danger" hidden="@Disabled" type="button" @onclick="() => RemoveCounterPart(counterPart)">
+                        <i class="bi bi-file-minus-fill"></i>
+                    </button>
+                </div>
+            }
+
+        </div>
+    </FormSection>
+}
+
+@code {
+    [Parameter, EditorRequired]
+    public CaseVm Case { get; set; }
+
+    [Parameter]
+    public bool Disabled { get; set; }
+
+    private void AddCounterPart()
+    {
+        Case.CounterParts.Add(new CounterPartVm());
+    }
+
+    private void RemoveCounterPart(CounterPartVm counterPart)
+    {
+        Case.CounterParts.Remove(counterPart);
+    }
+}

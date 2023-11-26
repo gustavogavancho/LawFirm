@@ -3,7 +3,6 @@
 @attribute [Authorize]
 
 @inject NavigationManager Navigation
-@inject IClientDataService ClientDataService
 @inject ICaseDataService CaseDataService
 @inject IJSRuntime JsRuntime
 
@@ -11,98 +10,16 @@
 
 <SimpleNavigation BasePageRef="case" BasePage="Case" CurrentPage="Insert" />
 
-<EditForm Model="caseUpsert" OnValidSubmit="HandleValidSubmit">
+<EditForm Model="caseEntity" OnValidSubmit="HandleValidSubmit">
 
     <MudThemeProvider />
     <FluentValidationValidator />
 
-    <FormSection Title="Clients" HelpText="Individuals or entities seeking legal representation or advice.">
+    <ClientSelectionForm Case="caseEntity" />
 
-        <div class="row">
-            <div class="col-sm-11">
-                <MudAutocomplete T="ClientVm"
-                                 @bind-Value="clientSelected"
-                                 SearchFunc="@SearchClient"
-                                 Label="Search client"
-                                 ResetValueOnEmptyText="true"
-                                 AdornmentIcon="@Icons.Material.Filled.Search"
-                                 AdornmentColor="Color.Primary"
-                                 Variant="Variant.Outlined"
-                                 Margin="Margin.Dense"
-                                 ToStringFunc="@(x => x == null ? null : string.IsNullOrWhiteSpace(x.FirstName) ? x.BusinessName : x.FirstName + " " + x.LastName )" />
-            </div>
+    <CounterPartsForm Case="caseEntity" />
 
-            <div class="col-sm-1 d-flex align-items-center">
-                <button type="button" title="addClient" class="btn btn-primary" @onclick="AddClient">
-                    <i class="bi bi-plus-square-fill"></i>
-                </button>
-            </div>
-        </div>
-
-        <div class="mt-3">
-            @if (!clients.Any())
-            {
-                <div class="no-client-list">
-                    <span class="client-nit">No clients selected</span>
-                </div>
-            }
-            @foreach (var clientItem in clients)
-            {
-                <div class="client-list">
-                    @(string.IsNullOrWhiteSpace(clientItem.BusinessName) ? $"{clientItem.FirstName} {clientItem.LastName}" : $"{clientItem.BusinessName}")
-                    <span class="client-nit">@clientItem.Nit</span>
-                    <button type="button" class="delete-client" @onclick="@(() => RemoveClient(clientItem))">x</button>
-                </div>
-            }
-        </div>
-
-    </FormSection>
-
-    <CounterPartForm OnSubmitCallback="AddCounterPart" CounterParts="counterParts" OnRemoveItem="RemoveCounterPart" />
-
-    <FormSection Title="Details" HelpText="Details of the client case.">
-        <FormFieldSet Width="col-11">
-            <label for="clientType" class="form-label text-muted"><b>Client Type</b></label>
-            <InputText @bind-Value="caseUpsert.ClientType" class=" form-control" id="clientType" />
-            <ValidationMessage For="@(() => caseUpsert.ClientType)" />
-        </FormFieldSet>
-
-        <FormFieldSet Width="col-11">
-            <label for="fileNumber" class="form-label text-muted"><b>File Number</b></label>
-            <InputText @bind-Value="caseUpsert.FileNumber" class=" form-control" id="fileNumber" />
-            <ValidationMessage For="@(() => caseUpsert.FileNumber)" />
-        </FormFieldSet>
-
-        <FormFieldSet Width="col-11">
-            <label for="prosecutorOffice" class="form-label text-muted"><b>Prosecutor Office</b></label>
-            <InputText @bind-Value="caseUpsert.ProsecutorOffice" class=" form-control" id="prosecutorOffice" />
-            <ValidationMessage For="@(() => caseUpsert.ProsecutorOffice)" />
-        </FormFieldSet>
-
-        <FormFieldSet Width="col-11">
-            <label for="fiscal" class="form-label text-muted"><b>Fiscal</b></label>
-            <InputText @bind-Value="caseUpsert.Fiscal" class=" form-control" id="fiscal" />
-            <ValidationMessage For="@(() => caseUpsert.Fiscal)" />
-        </FormFieldSet>
-
-        <FormFieldSet Width="col-11">
-            <label for="courtInCharge" class="form-label text-muted"><b>Court in charge</b></label>
-            <InputText @bind-Value="caseUpsert.CourtInCharge" class=" form-control" id="courtInCharge" />
-            <ValidationMessage For="@(() => caseUpsert.CourtInCharge)" />
-        </FormFieldSet>
-
-        <FormFieldSet Width="col-11">
-            <label for="judge" class="form-label text-muted"><b>Judge</b></label>
-            <InputText @bind-Value="caseUpsert.Judge" class=" form-control" id="judge" />
-            <ValidationMessage For="@(() => caseUpsert.Judge)" />
-        </FormFieldSet>
-
-        <FormFieldSet Width="col-11">
-            <label for="stage" class="form-label text-muted"><b>Stage</b></label>
-            <InputText @bind-Value="caseUpsert.Stage" class=" form-control" id="stage" />
-            <ValidationMessage For="@(() => caseUpsert.Stage)" />
-        </FormFieldSet>
-    </FormSection>
+    <CaseDetailsForm Case="caseEntity"/>
 
     <div class="mt-4 mb-2">
         <div class="row">
@@ -116,46 +33,38 @@
 </EditForm>
 
 @code {
-    private CreateCaseCommand caseUpsert = new();
-    private ClientVm clientSelected;
-    private List<ClientVm> clients = new();
-    private CounterPartVm counterPart = new();
-    private List<CounterPartVm> counterParts = new();
+    private CaseVm caseEntity = new();
 
-    private void AddCounterPart(CounterPartVm counterPart)
+    protected override void OnInitialized()
     {
-        counterParts.Add(counterPart);
-        counterPart = new();
+        caseEntity.CounterParts = new List<CounterPartVm> { new() };
+        caseEntity.Clients = new List<ClientVm>();
     }
 
     private async Task HandleValidSubmit()
     {
         try
         {
-            if (!clients.Any())
+            if (!caseEntity.Clients.Any())
             {
                 await JsRuntime.InvokeVoidAsync("showWarningToastr", "You must select a client.");
                 return;
             }
 
-            if (!counterParts.Any())
+            if (!caseEntity.CounterParts.Any())
             {
                 await JsRuntime.InvokeVoidAsync("showWarningToastr", "You must select a counter part.");
                 return;
             }
 
-            caseUpsert.Ids = clients.Select(x => x.Id).ToList();
-            caseUpsert.CounterParts = counterParts;
-
-            var caseCreated = await CaseDataService.CreateCase(caseUpsert);
+            var caseCreated = await CaseDataService.CreateCase(caseEntity, caseEntity.Clients.Select(x => x.Id).ToList());
 
             if (caseCreated is not null)
             {
                 await JsRuntime.InvokeVoidAsync("showSuccessToastr", "The client has been added successfully!");
-                clients = new();
-                counterParts = new();
-                clientSelected = null;
-                caseUpsert = new();
+                caseEntity = new();
+                caseEntity.Clients = new List<ClientVm>();
+                caseEntity.CounterParts = new List<CounterPartVm>() { new() };
             }
         }
         catch (Exception)
@@ -163,28 +72,5 @@
             await JsRuntime.InvokeVoidAsync("showErrorToastr", "Something went wrong, please try again or contact your supplier.");
         }
         await JsRuntime.InvokeVoidAsync("scrollUtils.scrollToTop");
-    }
-
-    private async Task<IEnumerable<ClientVm>> SearchClient(string valor)
-    {
-        return await ClientDataService.FindClientsBySearchTerm(valor);
-    }
-
-    private void AddClient()
-    {
-        if (clientSelected is not null && !clients.Any(x => x.Id == clientSelected.Id))
-        {
-            clients.Add(clientSelected);
-        }
-    }
-
-    private void RemoveClient(ClientVm client)
-    {
-        clients.Remove(client);
-    }
-
-    private void RemoveCounterPart(CounterPartVm counterPart)
-    {
-        counterParts.Remove(counterPart);
     }
 }

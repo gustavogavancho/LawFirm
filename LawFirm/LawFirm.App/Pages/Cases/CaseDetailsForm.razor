@@ -1,0 +1,51 @@
+﻿<FormSection Title="Details" HelpText="Details of the client case.">
+    <FormFieldSet Width="col-11">
+        <label for="clientType" class="form-label text-muted"><b>Client Type</b></label>
+        <InputText @bind-Value="Case.ClientType" class=" form-control" id="clientType" Disabled="@Disabled" />
+        <ValidationMessage For="@(() => Case.ClientType)" />
+    </FormFieldSet>
+
+    <FormFieldSet Width="col-11">
+        <label for="fileNumber" class="form-label text-muted"><b>File Number</b></label>
+        <InputText @bind-Value="Case.FileNumber" class=" form-control" id="fileNumber" Disabled="@Disabled" />
+        <ValidationMessage For="@(() => Case.FileNumber)" />
+    </FormFieldSet>
+
+    <FormFieldSet Width="col-11">
+        <label for="prosecutorOffice" class="form-label text-muted"><b>Prosecutor Office</b></label>
+        <InputText @bind-Value="Case.ProsecutorOffice" class=" form-control" id="prosecutorOffice" Disabled="@Disabled" />
+        <ValidationMessage For="@(() => Case.ProsecutorOffice)" />
+    </FormFieldSet>
+
+    <FormFieldSet Width="col-11">
+        <label for="fiscal" class="form-label text-muted"><b>Fiscal</b></label>
+        <InputText @bind-Value="Case.Fiscal" class=" form-control" id="fiscal" />
+        <ValidationMessage For="@(() => Case.Fiscal)" />
+    </FormFieldSet>
+
+    <FormFieldSet Width="col-11">
+        <label for="courtInCharge" class="form-label text-muted"><b>Court in charge</b></label>
+        <InputText @bind-Value="Case.CourtInCharge" class=" form-control" id="courtInCharge" Disabled="@Disabled" />
+        <ValidationMessage For="@(() => Case.CourtInCharge)" />
+    </FormFieldSet>
+
+    <FormFieldSet Width="col-11">
+        <label for="judge" class="form-label text-muted"><b>Judge</b></label>
+        <InputText @bind-Value="Case.Judge" class=" form-control" id="judge" Disabled="@Disabled" />
+        <ValidationMessage For="@(() => Case.Judge)" />
+    </FormFieldSet>
+
+    <FormFieldSet Width="col-11">
+        <label for="stage" class="form-label text-muted"><b>Stage</b></label>
+        <InputText @bind-Value="Case.Stage" class=" form-control" id="stage" Disabled="@Disabled" />
+        <ValidationMessage For="@(() => Case.Stage)" />
+    </FormFieldSet>
+</FormSection>
+
+@code {
+    [Parameter, EditorRequired]
+    public CaseVm Case { get; set; }
+
+    [Parameter]
+    public bool Disabled { get; set; }
+}

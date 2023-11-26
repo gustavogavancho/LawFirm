@@ -1,0 +1,82 @@
+﻿@inject IClientDataService ClientDataService
+
+@if(Case?.Clients is null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <FormSection Title="Clients" HelpText="Individuals or entities seeking legal representation or advice.">
+
+        <div class="row">
+            <div class="col-sm-11">
+                <MudAutocomplete T="ClientVm"
+                                 @bind-Value="clientSelected"
+                                 SearchFunc="@SearchClient"
+                                 Label="Search client"
+                                 ResetValueOnEmptyText="true"
+                                 AdornmentIcon="@Icons.Material.Filled.Search"
+                                 AdornmentColor="Color.Primary"
+                                 Variant="Variant.Outlined"
+                                 Margin="Margin.Dense"
+                                 ToStringFunc="@(x => x == null ? null : string.IsNullOrWhiteSpace(x.FirstName) ? x.BusinessName : x.FirstName + " " + x.LastName )"
+                                 Disabled="@Disabled" />
+            </div>
+
+            <div class="col-sm-1 d-flex align-items-center">
+                <button type="button" title="addClient" class="btn btn-primary" @onclick="AddClient" Disabled="@Disabled">
+                    <i class="bi bi-plus-square-fill"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="mt-3">
+            @if (!Case.Clients.Any())
+            {
+                <div class="no-client-list">
+                    <span class="client-nit">No clients selected</span>
+                </div>
+            }
+            @foreach (var clientItem in Case.Clients)
+            {
+                <div class="client-list">
+                    @(string.IsNullOrWhiteSpace(clientItem.BusinessName) ? $"{clientItem.FirstName} {clientItem.LastName}" : $"{clientItem.BusinessName}")
+                    <span class="client-nit">@clientItem.Nit</span>
+                    <button type="button" class="delete-client" hidden="@Disabled" @onclick="@(() => RemoveClient(clientItem))">x</button>
+                </div>
+            }
+        </div>
+
+    </FormSection>
+}
+
+
+@code {
+    [Parameter, EditorRequired]
+    public CaseVm Case { get; set; }
+
+    [Parameter]
+    public bool Disabled { get; set; }
+
+    private ClientVm clientSelected;
+
+
+    private async Task<IEnumerable<ClientVm>> SearchClient(string valor)
+    {
+        return await ClientDataService.FindClientsBySearchTerm(valor);
+    }
+
+    private void AddClient()
+    {
+        if (clientSelected is not null && !Case.Clients.Any(x => x.Id == clientSelected.Id))
+        {
+            Case.Clients.Add(clientSelected);
+        }
+    }
+
+    private void RemoveClient(ClientVm client)
+    {
+        Case.Clients.Remove(client);
+    }
+}
+

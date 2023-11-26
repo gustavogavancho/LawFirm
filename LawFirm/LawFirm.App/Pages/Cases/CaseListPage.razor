@@ -37,7 +37,7 @@ else
                                 <button title="Details" class="btn btn-primary btn-sm" @onclick="@(() => Navigation.NavigateTo($"/case-detail/{caseEntity.Id}"))">
                                     <i class="bi bi-list-task"></i>
                                 </button>
-                                <button title="Edit" class="btn btn-primary btn-sm" @onclick="@(() => Navigation.NavigateTo($"/case-upsert/{caseEntity.Id}"))">
+                                <button title="Edit" class="btn btn-primary btn-sm" @onclick="@(() => Navigation.NavigateTo($"/case-update/{caseEntity.Id}"))">
                                     <i class="bi bi-pencil-square"></i>
                                 </button>
                                 <button title="Delete" class="btn btn-danger btn-sm" @onclick="@(() => ShowConfirmationModal(caseEntity.Id))">

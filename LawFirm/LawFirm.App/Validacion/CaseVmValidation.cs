@@ -3,9 +3,9 @@ using LawFirm.App.Services.Base;
 
 namespace LawFirm.App.Validacion;
 
-public class CreateCaseCommandValidation : AbstractValidator<CreateCaseCommand>
+public class CaseVmValidation : AbstractValidator<CaseVm>
 {
-    public CreateCaseCommandValidation()
+    public CaseVmValidation()
     {
         RuleFor(x => x.FileNumber).NotEmpty();
         RuleFor(x => x.ProsecutorOffice).NotEmpty();
@@ -14,5 +14,6 @@ public class CreateCaseCommandValidation : AbstractValidator<CreateCaseCommand>
         RuleFor(x => x.Judge).NotEmpty();
         RuleFor(x => x.ClientType).NotEmpty();
         RuleFor(x => x.Stage).NotEmpty();
+        RuleForEach(x => x.CounterParts).SetValidator(new CounterPartVmValidation());
     }
 }

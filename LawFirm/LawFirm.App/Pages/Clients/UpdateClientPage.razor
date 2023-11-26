@@ -36,17 +36,7 @@
 
     protected async override Task OnInitializedAsync()
     {
-        var response = await ClientDataService.GetClient(Id);
-
-        client.Email = response.Email;
-        client.Representative = response.Representative;
-        client.Address = response.Address;
-        client.PhoneNumber = response.PhoneNumber;
-        client.Nit = response.Nit;
-        client.BusinessName = response.BusinessName;
-        client.LastName = response.LastName;
-        client.FirstName = response.FirstName;
-        client.ClientType = response.ClientType;
+        client = await ClientDataService.GetClient(Id);
     }
 
     private async Task HandleValidSubmit()
