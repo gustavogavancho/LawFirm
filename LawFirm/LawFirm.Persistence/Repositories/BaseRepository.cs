@@ -13,7 +13,7 @@ public class BaseRepository<T> : IAsyncRepository<T> where T : class
         _dbContext = dbContext;
     }
 
-    public virtual async Task<T?> GetByIdAsync(Guid id, params Expression<Func<T, object>>[] includes)
+    public virtual async Task<T?> GetByIdAsync(Guid id, bool asNoTracking = false, params Expression<Func<T, object>>[] includes)
     {
         IQueryable<T> query = _dbContext.Set<T>();
 
@@ -22,17 +22,27 @@ public class BaseRepository<T> : IAsyncRepository<T> where T : class
             query = query.Include(include);
         }
 
+        if (asNoTracking)
+        {
+            query = query.AsNoTracking();
+        }
+
         T? entity = await query.SingleOrDefaultAsync(e => EF.Property<Guid>(e, "Id") == id);
         return entity;
     }
 
-    public async Task<IReadOnlyList<T>> ListAllAsync(params Expression<Func<T, object>>[] includes)
+    public async Task<IReadOnlyList<T>> ListAllAsync(bool asNoTracking = false, params Expression<Func<T, object>>[] includes)
     {
         IQueryable<T> query = _dbContext.Set<T>();
 
         foreach (var include in includes)
         {
             query = query.Include(include);
+        }
+
+        if (asNoTracking)
+        {
+            query = query.AsNoTracking();
         }
 
         return await query.ToListAsync();

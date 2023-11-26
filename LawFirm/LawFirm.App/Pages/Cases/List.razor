@@ -15,6 +15,15 @@
 
 <SimpleIndexBar RefText="Do you want to create a new case?" ComplementText="Please" RefPage="case-insert" RefPageDescription="Add it here." />
 
+<div class="jumbotron">
+    <p class="mt-4">
+        <input @bind:event="oninput"
+               type="text"
+               placeholder="Search for a case..."
+               class="form-control form-control-lg" />
+    </p>
+</div>
+
 @if (CaseList is null)
 {
     <p>Loading...</p>
@@ -26,11 +35,29 @@ else
         <div class="responsive-table">
             <TableView Items="CaseList" Context="caseEntity">
                 <HeaderTemplate>
+                    <th>Client Type</th>
                     <th>File Number</th>
+                    <th>Client</th>
+                    <th>Counter Part</th>
+                    <th>Stage</th>
                     <th></th>
                 </HeaderTemplate>
                 <RowTemplate>
-                    <th scope="col">@caseEntity.FileNumber</th>
+                    <td>@caseEntity.ClientType</td>
+                    <td>@caseEntity.FileNumber</td>
+                    <td>
+                        @foreach (var item in caseEntity.Clients)
+                        {
+                            <li style="list-style-type: none;">@(!String.IsNullOrEmpty(item.FirstName) ? $"{item.FirstName} {item.LastName}" : $"{item.BusinessName}")</li>
+                        }
+                    </td>
+                    <td>
+                        @foreach (var item in caseEntity.CounterParts)
+                        {
+                        <li style="list-style-type: none;">@($"{item.Name}")</li>
+                        }
+                    </td>
+                    <td>@caseEntity.Stage</td>
                     <td class="text-end">
                         <AuthorizeView>
                             <Authorized>
@@ -52,7 +79,7 @@ else
     }
     else
     {
-        <NoItemsRedirect NoItemsMessage="You don't have any cases" RefPage="client-upsert" RefPageText="why not add one?"/>
+        <NoItemsRedirect NoItemsMessage="You don't have any cases" RefPage="client-upsert" RefPageText="why not add one?" />
     }
 }
 

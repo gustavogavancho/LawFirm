@@ -47,7 +47,7 @@ else
                     <th></th>
                 </HeaderTemplate>
                 <RowTemplate>
-                    <th scope="col">@client.ClientType</th>
+                    <td>@client.ClientType</td>
                     <td>@client.FirstName</td>
                     <td>@client.LastName</td>
                     <td>@client.Nit</td>
@@ -90,7 +90,7 @@ else
 
     public MetaData MetaData { get; set; } = new MetaData();
     public int PageNumber { get; set; } = 1;
-    private int pageSize = 10;
+    private int pageSize = 12;
 
     public ICollection<ClientVm> ClientList { get; set; }
 
