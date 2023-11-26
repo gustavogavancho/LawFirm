@@ -4,7 +4,7 @@ namespace LawFirm.App.Contracts;
 
 public interface ICaseDataService
 {
-    Task<ICollection<CaseVm>> GetAllCases();
+    Task<CaseVmPagingResponse> GetCases(int? pageNumber, int? pageSize);
     Task<CaseVm> GetCase(Guid id);
     Task<CaseVm> CreateCase(CaseVm request, List<Guid> ids);
     Task UpdateCase(CaseVm request, List<Guid> ids);

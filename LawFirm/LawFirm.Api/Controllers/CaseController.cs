@@ -4,9 +4,12 @@ using LawFirm.Application.Features.Cases.Commands.UpdateCase;
 using LawFirm.Application.Features.Cases.Models;
 using LawFirm.Application.Features.Cases.Queries.GetCaseDetail;
 using LawFirm.Application.Features.Cases.Queries.GetCaseList;
+using LawFirm.Application.Models.Pagination;
+using LawFirm.Domain.Pagination;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace LawFirm.Api.Controllers;
 
@@ -22,6 +25,19 @@ public class CaseController : ControllerBase
         _mediator = mediator;
     }
 
+    [HttpGet(Name = "GetCases")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
+    [ProducesDefaultResponseType]
+    public async Task<ActionResult<PagingResponse<CaseVm>>> GetClients([FromQuery] ItemsParameters itemsParameters)
+    {
+        var dtos = await _mediator.Send(new GetPagedCaseListQuery() { ItemsParameters = itemsParameters });
+
+        Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(dtos.MetaData));
+
+        return Ok(new PagingResponse<CaseVm> { Items = dtos, MetaData = dtos.MetaData });
+    }
+
     [HttpPost(Name = "CreateCase")]
     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(CaseVm))]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -31,17 +47,6 @@ public class CaseController : ControllerBase
         var entity = await _mediator.Send(createCaseCommand);
 
         return CreatedAtAction(nameof(GetCase), new { entity.Id }, entity);
-    }
-
-    [HttpGet(Name = "GetCases")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
-    [ProducesDefaultResponseType]
-    public async Task<ActionResult<List<CaseVm>>> GetClients()
-    {
-        var dtos = await _mediator.Send(new GetCaseListQuery());
-
-        return Ok(dtos);
     }
 
     [HttpGet("{id:guid}", Name = "GetCase")]

@@ -76,6 +76,12 @@ else
                 </RowTemplate>
             </TableView>
         </div>
+
+        <div class="row mt-3">
+            <div class="col">
+                <Pagination MetaData="MetaData" Spread="2" SelectedPage="SelectedPage" />
+            </div>
+        </div>
     }
     else
     {
@@ -87,13 +93,17 @@ else
     private bool showConfirmationDialog;
     private Guid caseId;
 
+    public MetaData MetaData { get; set; } = new MetaData();
+    public int PageNumber { get; set; } = 1;
+    private int pageSize = 12;
+
 
     public ICollection<CaseVm> CaseList { get; set; }
 
 
     protected override async Task OnInitializedAsync()
     {
-        CaseList = await CaseDataService.GetAllCases();
+        await GetCases();
     }
 
     private void ShowConfirmationModal(Guid id)
@@ -124,6 +134,14 @@ else
 
     private async Task GetCases()
     {
-        CaseList = await CaseDataService.GetAllCases();
+        var pagingReponse = await CaseDataService.GetCases(PageNumber, pageSize);
+        CaseList = pagingReponse.Items;
+        MetaData = pagingReponse.MetaData;        
+    }
+
+    private async Task SelectedPage(int page)
+    {
+        PageNumber = page;
+        await GetCases();
     }
 }

@@ -30,11 +30,11 @@ public class CaseDataService : BaseDataService, ICaseDataService
         await _client.DeleteCaseAsync(id);
     }
 
-    public async Task<ICollection<CaseVm>> GetAllCases()
+    public async Task<CaseVmPagingResponse> GetCases(int? pageNumber, int? pageSize)
     {
-        var response = await _client.GetCasesAsync();
+        var pagedCases = await _client.GetCasesAsync(pageNumber, pageSize);
 
-        return response;
+        return pagedCases;
     }
 
     public async Task<CaseVm> GetCase(Guid id)
