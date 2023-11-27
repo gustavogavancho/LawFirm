@@ -18,7 +18,7 @@
 <div class="jumbotron">
     <p class="mt-4">
         <input @bind="searchTerm"
-               @onkeydown="SearchForTicket"
+               @onkeydown="SearchForClient"
                @bind:event="oninput"
                @ref=myInput
                type="text"
@@ -149,7 +149,7 @@ else
         showConfirmationDialog = true;
     }
 
-    private void SearchForTicket(KeyboardEventArgs args)
+    private void SearchForClient(KeyboardEventArgs args)
     {
         if (args.Key != "Enter") return;
 

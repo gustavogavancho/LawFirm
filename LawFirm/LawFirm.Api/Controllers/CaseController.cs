@@ -2,6 +2,7 @@
 using LawFirm.Application.Features.Cases.Commands.DeleteCase;
 using LawFirm.Application.Features.Cases.Commands.UpdateCase;
 using LawFirm.Application.Features.Cases.Models;
+using LawFirm.Application.Features.Cases.Queries.FindCase;
 using LawFirm.Application.Features.Cases.Queries.GetCaseDetail;
 using LawFirm.Application.Features.Cases.Queries.GetCaseList;
 using LawFirm.Application.Models.Pagination;
@@ -56,6 +57,16 @@ public class CaseController : ControllerBase
     {
         var entity = new GetCaseDetailQuery() { Id = id };
         return Ok(await _mediator.Send(entity));
+    }
+
+    [HttpGet("{searchTerm}", Name = "FindCasesBySearchTerm")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesDefaultResponseType]
+    public async Task<ActionResult<List<CaseVm>>> FindCasesBySearchTerm(string searchTerm)
+    {
+        var client = new FindCasesQuery() { SearchTerm = searchTerm };
+        return Ok(await _mediator.Send(client));
     }
 
     [HttpPut(Name = "UpdateCase")]

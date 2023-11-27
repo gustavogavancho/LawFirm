@@ -6,9 +6,7 @@ namespace LawFirm.Persistence.Repositories;
 
 public class ClientRepository : BaseRepository<Client>, IClientRepository
 {
-    public ClientRepository(LawFirmContext dbContext) : base(dbContext)
-    {
-    }
+    public ClientRepository(LawFirmContext dbContext) : base(dbContext) { }
 
     public async Task<List<Client>> FindCliendBySearchTerm(string searchTerm)
     {

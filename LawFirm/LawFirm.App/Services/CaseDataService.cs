@@ -52,4 +52,9 @@ public class CaseDataService : BaseDataService, ICaseDataService
 
         await _client.UpdateCaseAsync(responseMapped);
     }
+
+    public async Task<ICollection<CaseVm>> FindCasesBySearchTerm(string searchTerm)
+    {
+        return await _client.FindCasesBySearchTermAsync(searchTerm);
+    }
 }
