@@ -5,6 +5,7 @@ namespace LawFirm.Application.Features.Cases.Commands.CreateCase;
 
 public class CreateCaseCommand : IRequest<CaseVm>
 {
+    public string Description { get; set; }
     public List<Guid> Ids { get; set; }
     public string FileNumber { get; set; }
     public string ProsecutorOffice { get; set; }

@@ -5,6 +5,7 @@ namespace LawFirm.Application.Features.Cases.Commands.UpdateCase;
 
 public class UpdateCaseCommand : IRequest
 {
+    public string Description { get; set; }
     public Guid Id { get; set; }
     public List<Guid> Ids { get; set; }
     public string FileNumber { get; set; }

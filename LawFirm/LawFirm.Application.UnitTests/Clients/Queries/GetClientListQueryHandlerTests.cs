@@ -28,7 +28,7 @@ public class GetClientListQueryHandlerTests
     {
         //Arrange
         var handler = new GetClientListQueryHandler(_mapper, _mockClientRepository.Object);
-        _mockClientRepository.Setup(x => x.ListAllAsync()).ReturnsAsync(_fixture.Create<IReadOnlyList<Client>>());
+        _mockClientRepository.Setup(x => x.ListAllAsync(false)).ReturnsAsync(_fixture.Create<IReadOnlyList<Client>>());
 
         //Act
         var result = await handler.Handle(new GetClientListQuery(), CancellationToken.None);

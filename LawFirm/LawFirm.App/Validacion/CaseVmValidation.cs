@@ -7,6 +7,7 @@ public class CaseVmValidation : AbstractValidator<CaseVm>
 {
     public CaseVmValidation()
     {
+        RuleFor(x => x.Description).NotEmpty();
         RuleFor(x => x.FileNumber).NotEmpty();
         RuleFor(x => x.ProsecutorOffice).NotEmpty();
         RuleFor(x => x.Fiscal).NotEmpty();

@@ -5,6 +5,7 @@ namespace LawFirm.Domain.Entities;
 public class Case : AuditableEntity
 {
     public Guid Id { get; set; }
+    public string Description { get; set; }
     public string FileNumber { get; set; }
     public string ProsecutorOffice { get; set; }
     public string Fiscal { get; set; }

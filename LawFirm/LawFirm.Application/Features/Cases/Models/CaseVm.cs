@@ -5,6 +5,7 @@ namespace LawFirm.Application.Features.Cases.Models;
 public class CaseVm
 {
     public Guid Id { get; set; }
+    public string Description { get; set; }
     public string FileNumber { get; set; }
     public string ProsecutorOffice { get; set; }
     public string Fiscal { get; set; }

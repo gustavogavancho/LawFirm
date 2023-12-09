@@ -1,6 +1,4 @@
-﻿@using LawFirm.App.Models
-
-<nav aria-label="Page navigation example">
+﻿<nav aria-label="Page navigation example">
     <ul class="pagination justify-content-center">
         @foreach (var link in links)
         {
@@ -21,7 +19,7 @@
     [Parameter]
     public EventCallback<int> SelectedPage { get; set; }
 
-    private List<PagingLink> links;
+    private List<PagingLinkViewModel> links;
 
     protected override void OnParametersSet()
     {
@@ -29,20 +27,20 @@
     }
     private void CreatePaginationLinks()
     {
-        links = new List<PagingLink>();
-        links.Add(new PagingLink(MetaData.CurrentPage - 1, MetaData.HasPrevious, "Previous"));
+        links = new List<PagingLinkViewModel>();
+        links.Add(new PagingLinkViewModel(MetaData.CurrentPage - 1, MetaData.HasPrevious, "Previous"));
 
         for (int i = 1; i <= MetaData.TotalPages; i++)
         {
             if (i >= MetaData.CurrentPage - Spread && i <= MetaData.CurrentPage + Spread)
             {
-                links.Add(new PagingLink(i, true, i.ToString()) { Active = MetaData.CurrentPage == i });
+                links.Add(new PagingLinkViewModel(i, true, i.ToString()) { Active = MetaData.CurrentPage == i });
             }
         }
 
-        links.Add(new PagingLink(MetaData.CurrentPage + 1, MetaData.HasNext, "Next"));
+        links.Add(new PagingLinkViewModel(MetaData.CurrentPage + 1, MetaData.HasNext, "Next"));
     }
-    private async Task OnSelectedPage(PagingLink link)
+    private async Task OnSelectedPage(PagingLinkViewModel link)
     {
         if (link.Page == MetaData.CurrentPage || !link.Enabled)
             return;

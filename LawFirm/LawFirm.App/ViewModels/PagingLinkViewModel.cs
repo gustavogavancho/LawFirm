@@ -1,12 +1,12 @@
-﻿namespace LawFirm.App.Models;
+﻿namespace LawFirm.App.ViewModels;
 
-public class PagingLink
+public class PagingLinkViewModel
 {
     public string Text { get; set; }
     public int Page { get; set; }
     public bool Enabled { get; set; }
     public bool Active { get; set; }
-    public PagingLink(int page, bool enabled, string text)
+    public PagingLinkViewModel(int page, bool enabled, string text)
     {
         Page = page;
         Enabled = enabled;

@@ -7,6 +7,7 @@ public class UpdateCaseCommandValidator : AbstractValidator<UpdateCaseCommand>
     public UpdateCaseCommandValidator()
     {
         RuleFor(x => x.Id).NotNull();
+        RuleFor(x => x.Description).NotEmpty();
         RuleFor(x => x.FileNumber).NotEmpty();
         RuleFor(x => x.Ids).NotEmpty();
         RuleFor(x => x.CounterParts).NotEmpty();
