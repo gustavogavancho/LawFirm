@@ -24,8 +24,8 @@ else
                                  Disabled="@Disabled" />
             </div>
 
-            <div class="col-sm-1 d-flex align-items-center">
-                <button type="button" title="addClient" class="btn btn-primary" @onclick="AddClient" Disabled="@Disabled">
+            <div class="col-sm-1 d-flex align-items-center" hidden="@Disabled">
+                <button type="button" title="addClient" class="btn btn-primary" @onclick="AddClient" hidden="@Disabled">
                     <i class="bi bi-plus-square-fill"></i>
                 </button>
             </div>
