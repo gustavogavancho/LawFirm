@@ -1,5 +1,16 @@
-﻿@page "/event-insert"
+﻿@page "/event-insert/{caseId:guid}"
 
 @attribute [Authorize]
 
 <PageTitle>Insert Event - Law Firm</PageTitle>
+
+<SimpleNavigation BasePageRef="event" BasePage="Event" CurrentPage="Insert" />
+
+@code {
+
+    [Parameter] 
+    public Guid CaseId { get; set; }
+
+    
+
+}

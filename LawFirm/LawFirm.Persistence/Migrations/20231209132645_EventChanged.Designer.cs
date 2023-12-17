@@ -3,6 +3,7 @@ using System;
 using LawFirm.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LawFirm.Persistence.Migrations
 {
     [DbContext(typeof(LawFirmContext))]
-    partial class LawFirmContextModelSnapshot : ModelSnapshot
+    [Migration("20231209132645_EventChanged")]
+    partial class EventChanged
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.20");
@@ -208,8 +210,6 @@ namespace LawFirm.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CaseId");
-
                     b.ToTable("Event");
                 });
 
@@ -317,15 +317,6 @@ namespace LawFirm.Persistence.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("LawFirm.Domain.Entities.Event", b =>
-                {
-                    b.HasOne("LawFirm.Domain.Entities.Case", null)
-                        .WithMany("Events")
-                        .HasForeignKey("CaseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("LawFirm.Domain.Entities.IlegalAct", b =>
                 {
                     b.HasOne("LawFirm.Domain.Entities.Case", null)
@@ -365,8 +356,6 @@ namespace LawFirm.Persistence.Migrations
             modelBuilder.Entity("LawFirm.Domain.Entities.Case", b =>
                 {
                     b.Navigation("CounterParts");
-
-                    b.Navigation("Events");
 
                     b.Navigation("IlegalActs");
 

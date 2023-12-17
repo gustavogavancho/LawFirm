@@ -1,8 +1,6 @@
-﻿using LawFirm.Domain.Common;
+﻿namespace LawFirm.Application.Features.Events.Models;
 
-namespace LawFirm.Domain.Entities;
-
-public class Event : AuditableEntity
+public class EventVm
 {
     public Guid Id { get; set; }
     public string Description { get; set; }

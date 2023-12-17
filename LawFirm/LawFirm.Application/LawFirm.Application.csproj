@@ -20,9 +20,4 @@
 	  <ProjectReference Include="..\LawFirm.Domain\LawFirm.Domain.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="Features\Events\Commands\" />
-	  <Folder Include="Features\Events\Queries\" />
-	</ItemGroup>
-
 </Project>

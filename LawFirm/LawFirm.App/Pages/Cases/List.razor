@@ -51,19 +51,22 @@ else
                     <td>
                         @foreach (var item in caseEntity.Clients)
                         {
-                            <li style="list-style-type: none;">@(!String.IsNullOrEmpty(item.FirstName) ? $"{item.FirstName} {item.LastName}" : $"{item.BusinessName}")</li>
+                        <li style="list-style-type: none;">@(!String.IsNullOrEmpty(item.FirstName) ? $"{item.FirstName} {item.LastName}" : $"{item.BusinessName}")</li>
                         }
                     </td>
                     <td>
                         @foreach (var item in caseEntity.CounterParts)
                         {
-                        <li style="list-style-type: none;">@($"{item.Name}")</li>
+                            <li style="list-style-type: none;">@($"{item.Name}")</li>
                         }
                     </td>
                     <td>@caseEntity.Stage</td>
                     <td class="text-end">
                         <AuthorizeView>
                             <Authorized>
+                                <button title="Events" class="btn btn-primary btn-sm" @onclick="@(() => Navigation.NavigateTo($"/event-insert/{caseEntity.Id}"))">
+                                    <i class="bi bi-calendar-check"></i>
+                                </button>
                                 <button title="Details" class="btn btn-primary btn-sm" @onclick="@(() => Navigation.NavigateTo($"/case-detail/{caseEntity.Id}"))">
                                     <i class="bi bi-list-task"></i>
                                 </button>
@@ -149,7 +152,7 @@ else
     {
         var pagingReponse = await CaseDataService.GetCases(PageNumber, pageSize);
         CaseList = pagingReponse.Items;
-        MetaData = pagingReponse.MetaData;        
+        MetaData = pagingReponse.MetaData;
     }
 
     private async Task SelectedPage(int page)

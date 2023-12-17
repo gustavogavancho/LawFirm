@@ -1,8 +1,8 @@
-﻿using LawFirm.Domain.Common;
+﻿using MediatR;
 
-namespace LawFirm.Domain.Entities;
+namespace LawFirm.Application.Features.Events.Commands.UpdateEvent;
 
-public class Event : AuditableEntity
+public class UpdateEventCommand : IRequest
 {
     public Guid Id { get; set; }
     public string Description { get; set; }
