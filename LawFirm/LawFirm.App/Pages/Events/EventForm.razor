@@ -1,0 +1,30 @@
+﻿<FormSection Title="Event registration"
+             HelpText="Legal Event Registration: Law Firms, Audiences, Staff Coordination.">
+
+    <FormFieldSet Width="col-11">
+        <label for="description" class="form-label text-muted fw-bold">Description</label>
+        <InputText @bind-Value="Event.Description" class=" form-control" id="description" disabled="@Disabled" />
+        <ValidationMessage For="@(() => Event.Description)" />
+    </FormFieldSet>
+
+    <FormFieldSet Width="col-11">
+        <label for="startDate" class="form-label text-muted fw-bold">Start Date</label>
+        <InputDate Type="InputDateType.DateTimeLocal" @bind-Value:format="dd/MM/yyyy hh:mm:ss" @bind-Value="Event.EventStartDate" class=" form-control" id="startDate" disabled="@Disabled" />
+        <ValidationMessage For="@(() => Event.EventStartDate)" />
+    </FormFieldSet>
+
+    <FormFieldSet Width="col-11">
+        <label for="endDate" class="form-label text-muted fw-bold">End Date</label>
+        <InputDate Type="InputDateType.DateTimeLocal" @bind-Value:format="dd/MM/yyyy hh:mm:ss" @bind-Value="Event.EventEndDate" class=" form-control" id="endDate" disabled="@Disabled" />
+        <ValidationMessage For="@(() => Event.EventEndDate)" />
+    </FormFieldSet>
+
+</FormSection>
+
+@code {
+    [Parameter, EditorRequired]
+    public EventVm Event { get; set; }
+
+    [Parameter]
+    public bool Disabled { get; set; }
+}

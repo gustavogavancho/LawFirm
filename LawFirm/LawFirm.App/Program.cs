@@ -31,5 +31,6 @@ builder.Services.AddHttpClient<IClient, Client>(client => client.BaseAddress = n
 builder.Services.AddScoped<IClientDataService, ClientDataService>(); 
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<ICaseDataService, CaseDataService>();
+builder.Services.AddScoped<IEventDataService, EventDataService>();
 
 await builder.Build().RunAsync();

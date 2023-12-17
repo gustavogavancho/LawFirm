@@ -16,5 +16,8 @@ public class Mappings : Profile
 
 		CreateMap<CreateCaseCommand, CaseVm>().ReverseMap();
         CreateMap<UpdateCaseCommand, CaseVm>().ReverseMap();
+
+		CreateMap<CreateEventCommand, EventVm>().ReverseMap();
+		CreateMap<UpdateEventCommand, EventVm>().ReverseMap();
     }
 }
