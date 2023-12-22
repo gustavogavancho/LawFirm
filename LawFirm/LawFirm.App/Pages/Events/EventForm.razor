@@ -2,6 +2,12 @@
              HelpText="Legal Event Registration: Law Firms, Audiences, Staff Coordination.">
 
     <FormFieldSet Width="col-11">
+        <label for="title" class="form-label text-muted fw-bold">Title</label>
+        <InputText @bind-Value="Event.Title" class=" form-control" id="title" disabled="@Disabled" />
+        <ValidationMessage For="@(() => Event.Title)" />
+    </FormFieldSet>
+
+    <FormFieldSet Width="col-11">
         <label for="description" class="form-label text-muted fw-bold">Description</label>
         <InputText @bind-Value="Event.Description" class=" form-control" id="description" disabled="@Disabled" />
         <ValidationMessage For="@(() => Event.Description)" />

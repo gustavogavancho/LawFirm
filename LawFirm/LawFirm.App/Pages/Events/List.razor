@@ -29,7 +29,7 @@
 
         foreach(var appointment in @events)
         {
-            dataSource.Add(new AppointmentViewModel { Id = id, Subject = "Prueba 1", StartTime = appointment.EventStartDate, EndTime = appointment.EventEndDate, Description = appointment.Description });
+            dataSource.Add(new AppointmentViewModel { Id = id, Subject = appointment.Title, StartTime = appointment.EventStartDate, EndTime = appointment.EventEndDate, Description = appointment.Description });
             id++;
         }
     }
