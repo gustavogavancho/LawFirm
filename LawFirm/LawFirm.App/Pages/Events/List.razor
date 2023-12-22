@@ -1,7 +1,36 @@
 ﻿@page "/event"
+@using System.Collections.ObjectModel
 
 @attribute [Authorize]
 
+@inject IEventDataService EventDataService
+
 <PageTitle>Events - LawFirm</PageTitle>
 
-<SimpleIndexBar RefText="Do you want to create a new event?" ComplementText="Please" RefPage="event-insert" RefPageDescription="Add it here." />
+<SfSchedule TValue="AppointmentViewModel" Height="650px" @bind-SelectedDate="@CurrentDate" Readonly="true">
+    <ScheduleEventSettings DataSource="dataSource"></ScheduleEventSettings>
+    <ScheduleViews>
+        <ScheduleView Option="View.Day"></ScheduleView>
+        <ScheduleView Option="View.Week"></ScheduleView>
+        <ScheduleView Option="View.WorkWeek"></ScheduleView>
+        <ScheduleView Option="View.Month"></ScheduleView>
+        <ScheduleView Option="View.Agenda"></ScheduleView>
+    </ScheduleViews>
+</SfSchedule>
+
+@code {
+    DateTime CurrentDate = DateTime.Now;
+    ObservableCollection<AppointmentViewModel> dataSource = new();
+
+    protected async override Task OnInitializedAsync()
+    {
+        var @events = await EventDataService.GetEvents();
+        int id = 1;
+
+        foreach(var appointment in @events)
+        {
+            dataSource.Add(new AppointmentViewModel { Id = id, Subject = "Prueba 1", StartTime = appointment.EventStartDate, EndTime = appointment.EventEndDate, Description = appointment.Description });
+            id++;
+        }
+    }
+}

@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using MudBlazor.Services;
+using Syncfusion.Blazor;
+
+Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjHTQxAR8/V1NHaF1cWmhIfEx1RHxQdld5ZFRHallYTnNWUj0eQnxTdEZiW35ZcXVURmJeVE1wXg==");
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -32,5 +35,7 @@ builder.Services.AddScoped<IClientDataService, ClientDataService>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<ICaseDataService, CaseDataService>();
 builder.Services.AddScoped<IEventDataService, EventDataService>();
+
+builder.Services.AddSyncfusionBlazor();
 
 await builder.Build().RunAsync();
