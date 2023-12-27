@@ -8,6 +8,6 @@ public interface IEventDataService
     Task<EventVmPagingResponse> GetPagedEvents(int? pageNumber, int? pageSize);
     Task<ICollection<EventVm>> GetEvents();
     Task<EventVm> GetEvent(Guid id);
-    Task UpdateEvent(Guid id, ClientVm request);
+    Task UpdateEvent(Guid id, EventVm request);
     Task DeleteEvent(Guid id);
 }

@@ -19,7 +19,7 @@ public class GetPagedEventListQueryHandler : IRequestHandler<GetPagedEventListQu
 
     public async Task<PagedList<EventVm>> Handle(GetPagedEventListQuery request, CancellationToken cancellationToken)
     {
-        var pagedItems = await _eventRepository.ListAllAsync(true);
+        var pagedItems = (await _eventRepository.ListAllAsync(true)).OrderByDescending(x => x.EventStartDate);
 
         var mappedItems = _mapper.Map<List<EventVm>>(pagedItems);
 

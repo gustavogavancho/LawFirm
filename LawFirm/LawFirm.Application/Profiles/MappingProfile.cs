@@ -6,6 +6,7 @@ using LawFirm.Application.Features.Clients.Commands.CreateClient;
 using LawFirm.Application.Features.Clients.Commands.UpdateClient;
 using LawFirm.Application.Features.Clients.Models;
 using LawFirm.Application.Features.Events.Commands.CreateEvent;
+using LawFirm.Application.Features.Events.Commands.UpdateEvent;
 using LawFirm.Application.Features.Events.Models;
 using LawFirm.Domain.Entities;
 
@@ -26,6 +27,7 @@ public class MappingProfile : Profile
         CreateMap<CounterPart, CounterPartVm>().ReverseMap();
 
         CreateMap<Event, CreateEventCommand>().ReverseMap();
+        CreateMap<Event, UpdateEventCommand>().ReverseMap();
         CreateMap<Event, EventVm>().ReverseMap();
     }
 }

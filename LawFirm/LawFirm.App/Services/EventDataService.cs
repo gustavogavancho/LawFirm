@@ -49,7 +49,7 @@ public class EventDataService : BaseDataService, IEventDataService
         return pagedEvents;
     }
 
-    public async Task UpdateEvent(Guid id, ClientVm request)
+    public async Task UpdateEvent(Guid id, EventVm request)
     {
         var requestMapped = _mapper.Map<UpdateEventCommand>(request);
 
