@@ -51,6 +51,8 @@
             {
                 await JsRuntime.InvokeVoidAsync("showSuccessToastr", "The event has been added successfully!");
                 caseEvent = new();
+                caseEvent.EventStartDate = DateTime.Now;
+                caseEvent.EventEndDate = DateTime.Now;
             }
         }
         catch (ApiException)

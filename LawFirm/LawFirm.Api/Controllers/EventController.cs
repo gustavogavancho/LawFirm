@@ -4,11 +4,17 @@ using LawFirm.Application.Features.Events.Commands.UpdateEvent;
 using LawFirm.Application.Features.Events.Models;
 using LawFirm.Application.Features.Events.Queries.GetEventDetail;
 using LawFirm.Application.Features.Events.Queries.GetEventList;
+using LawFirm.Application.Features.Events.Queries.GetPagedEventList;
+using LawFirm.Application.Models.Pagination;
+using LawFirm.Domain.Pagination;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace LawFirm.Api.Controllers;
 
+[Authorize]
 [Route("api/[controller]")]
 [ApiController]
 public class EventController : ControllerBase
@@ -29,6 +35,19 @@ public class EventController : ControllerBase
         var response = await _mediator.Send(new GetEventListQuery());
 
         return Ok(response);
+    }
+
+    [HttpGet("paged", Name = "GetPagedEvents")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
+    [ProducesDefaultResponseType]
+    public async Task<ActionResult<PagingResponse<EventVm>>> GetPagedEvents([FromQuery] ItemsParameters itemsParameters)
+    {
+        var response = await _mediator.Send(new GetPagedEventListQuery() { ItemsParameters = itemsParameters });
+
+        Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(response.MetaData));
+
+        return Ok(new PagingResponse<EventVm> { Items = response, MetaData = response.MetaData });
     }
 
     [HttpPost(Name = "CreateEvent")]

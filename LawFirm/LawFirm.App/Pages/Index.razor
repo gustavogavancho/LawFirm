@@ -1,41 +1,43 @@
 ﻿@page "/"
+@using System.Collections.ObjectModel
+
+@attribute [Authorize]
 
 @inject IEventDataService EventDataService
 
-<PageTitle>Home</PageTitle>
+<PageTitle>Events - LawFirm</PageTitle>
 
-<SfSchedule TValue="AppointmentData" Height="650px" @bind-SelectedDate="@CurrentDate">
-    <ScheduleEventSettings DataSource="@DataSource"></ScheduleEventSettings>
+<SfSchedule TValue="AppointmentViewModel" Height="650px" @bind-SelectedDate="@CurrentDate">
+    <ScheduleEventSettings DataSource="dataSource" EnableTooltip="true">
+        <ScheduleField Id="Id">
+            <FieldSubject Name="Subject"></FieldSubject>
+            <FieldDescription Name="Description"></FieldDescription>
+            <FieldStartTime Name="StartTime"></FieldStartTime>
+            <FieldEndTime Name="EndTime"></FieldEndTime>
+        </ScheduleField>
+    </ScheduleEventSettings>
     <ScheduleViews>
+        <ScheduleView Option="View.Day"></ScheduleView>
+        <ScheduleView Option="View.Week"></ScheduleView>
+        <ScheduleView Option="View.WorkWeek"></ScheduleView>
+        <ScheduleView Option="View.Month"></ScheduleView>
         <ScheduleView Option="View.Agenda"></ScheduleView>
     </ScheduleViews>
 </SfSchedule>
 
 @code {
-    private List<EventVm> eventsDb = new();
+    DateTime CurrentDate = DateTime.Now;
+    ObservableCollection<AppointmentViewModel> dataSource = new();
 
     protected async override Task OnInitializedAsync()
     {
-        eventsDb = (await EventDataService.GetEvents()).ToList();
-    }
+        var @events = await EventDataService.GetEvents();
+        int id = 1;
 
-    DateTime CurrentDate = DateTime.Now;
-    List<AppointmentData> DataSource = new List<AppointmentData>
-    {
-        new AppointmentData { Id = 1, Subject = "Paris", StartTime = new DateTime(2023, 12, 17, 10, 0, 0) , EndTime = new DateTime(2023, 12, 17, 12, 0, 0) },
-        new AppointmentData { Id = 2, Subject = "Germany", StartTime = new DateTime(2023, 12, 17, 10, 0, 0) , EndTime = new DateTime(2023, 12, 17, 12, 0, 0) }
-    };
-    public class AppointmentData
-    {
-        public int Id { get; set; }
-        public string Subject { get; set; }
-        public string Location { get; set; }
-        public DateTime StartTime { get; set; }
-        public DateTime EndTime { get; set; }
-        public string Description { get; set; }
-        public bool IsAllDay { get; set; }
-        public string RecurrenceRule { get; set; }
-        public string RecurrenceException { get; set; }
-        public Nullable<int> RecurrenceID { get; set; }
+        foreach (var appointment in @events)
+        {
+            dataSource.Add(new AppointmentViewModel { Id = id, Subject = appointment.Title, StartTime = appointment.EventStartDate, EndTime = appointment.EventEndDate, Description = appointment.Description });
+            id++;
+        }
     }
 }

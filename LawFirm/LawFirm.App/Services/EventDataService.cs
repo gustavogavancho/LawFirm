@@ -42,6 +42,13 @@ public class EventDataService : BaseDataService, IEventDataService
         return events;
     }
 
+    public async Task<EventVmPagingResponse> GetPagedEvents(int? pageNumber, int? pageSize)
+    {
+        var pagedEvents = await _client.GetPagedEventsAsync(pageNumber, pageSize);
+
+        return pagedEvents;
+    }
+
     public async Task UpdateEvent(Guid id, ClientVm request)
     {
         var requestMapped = _mapper.Map<UpdateEventCommand>(request);

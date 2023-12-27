@@ -1,36 +1,85 @@
 ﻿@page "/event"
-@using System.Collections.ObjectModel
 
 @attribute [Authorize]
 
 @inject IEventDataService EventDataService
+@inject NavigationManager Navigation
+@inject IJSRuntime JsRuntime
 
 <PageTitle>Events - LawFirm</PageTitle>
 
-<SfSchedule TValue="AppointmentViewModel" Height="650px" @bind-SelectedDate="@CurrentDate" Readonly="true">
-    <ScheduleEventSettings DataSource="dataSource"></ScheduleEventSettings>
-    <ScheduleViews>
-        <ScheduleView Option="View.Day"></ScheduleView>
-        <ScheduleView Option="View.Week"></ScheduleView>
-        <ScheduleView Option="View.WorkWeek"></ScheduleView>
-        <ScheduleView Option="View.Month"></ScheduleView>
-        <ScheduleView Option="View.Agenda"></ScheduleView>
-    </ScheduleViews>
-</SfSchedule>
+@if (EventList is null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    @if (EventList.Any())
+    {
+        <div class="responsive-table">
+            <TableView Items="EventList" Context="eventItem">
+                <HeaderTemplate>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th></th>
+                </HeaderTemplate>
+                <RowTemplate>
+                    <td>@eventItem.Title</td>
+                    <td>@eventItem.Description</td>
+                    <td>@eventItem.EventStartDate</td>
+                    <td>@eventItem.EventEndDate</td>
+                    <td class="text-end">
+                        <AuthorizeView>
+                            <button title="Details" class="btn btn-primary btn-sm" @onclick="@(() => Navigation.NavigateTo($"/event/{eventItem.Id}"))">
+                                <i class="bi bi-list-task"></i>
+                            </button>
+                            <button title="Edit" class="btn btn-primary btn-sm" @onclick="@(() => Navigation.NavigateTo($"/event-update/{eventItem.Id}"))">
+                                <i class="bi bi-pencil-square"></i>
+                            </button>
+                        </AuthorizeView>
+                    </td>
+                </RowTemplate>
+            </TableView>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col">
+                <Pagination MetaData="MetaData" Spread="2" SelectedPage="SelectedPage" />
+            </div>
+        </div>
+    }
+    else
+    {
+        <NoItemsRedirect NoItemsMessage="You don't have any events" RefPage="case" RefPageText="why not add one?" />
+    }
+}
 
 @code {
-    DateTime CurrentDate = DateTime.Now;
-    ObservableCollection<AppointmentViewModel> dataSource = new();
+    private Guid eventId;
 
-    protected async override Task OnInitializedAsync()
+    public MetaData MetaData { get; set; } = new MetaData();
+    public int PageNumber { get; set; } = 1;
+    private int pageSize = 12;
+
+    public ICollection<EventVm> EventList { get; set; }
+
+    protected override async Task OnInitializedAsync()
     {
-        var @events = await EventDataService.GetEvents();
-        int id = 1;
+        await GetClients();
+    }
 
-        foreach(var appointment in @events)
-        {
-            dataSource.Add(new AppointmentViewModel { Id = id, Subject = appointment.Title, StartTime = appointment.EventStartDate, EndTime = appointment.EventEndDate, Description = appointment.Description });
-            id++;
-        }
+    private async Task SelectedPage(int page)
+    {
+        PageNumber = page;
+        await GetClients();
+    }
+
+    private async Task GetClients()
+    {
+        var pagingReponse = await EventDataService.GetPagedEvents(PageNumber, pageSize);
+        EventList = pagingReponse.Items;
+        MetaData = pagingReponse.MetaData;
     }
 }
