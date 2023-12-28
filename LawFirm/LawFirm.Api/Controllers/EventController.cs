@@ -2,6 +2,7 @@
 using LawFirm.Application.Features.Events.Commands.DeleteEvent;
 using LawFirm.Application.Features.Events.Commands.UpdateEvent;
 using LawFirm.Application.Features.Events.Models;
+using LawFirm.Application.Features.Events.Queries.FindEvent;
 using LawFirm.Application.Features.Events.Queries.GetEventDetail;
 using LawFirm.Application.Features.Events.Queries.GetEventList;
 using LawFirm.Application.Features.Events.Queries.GetPagedEventList;
@@ -68,6 +69,16 @@ public class EventController : ControllerBase
     {
         var @event = new GetEventDetailQuery() { Id = id };
         return Ok(await _mediator.Send(@event));
+    }
+
+    [HttpGet("{searchTerm}", Name = "FindEventsBySearchTerm")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesDefaultResponseType]
+    public async Task<ActionResult<List<EventVm>>> FindEventsBySearchTerm(string searchTerm)
+    {
+        var events = new FindEventsQuery() { SearchTerm = searchTerm };
+        return Ok(await _mediator.Send(events));
     }
 
     [HttpPut(Name = "UpdateEvent")]

@@ -28,6 +28,13 @@ public class EventDataService : BaseDataService, IEventDataService
         await _client.DeleteEventAsync(id);
     }
 
+    public async Task<ICollection<EventVm>> FindEventsBySearchTerm(string searchTerm)
+    {
+        var seachedEvents = await _client.FindEventsBySearchTermAsync(searchTerm);
+
+        return seachedEvents;
+    }
+
     public async Task<EventVm> GetEvent(Guid id)
     {
         var selectedEvent = await _client.GetEventAsync(id);

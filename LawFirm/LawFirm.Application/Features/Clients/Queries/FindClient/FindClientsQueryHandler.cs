@@ -21,12 +21,12 @@ public class FindClientsQueryHandler : IRequestHandler<FindClientsQuery, List<Cl
 
     public async Task<List<ClientVm>> Handle(FindClientsQuery request, CancellationToken cancellationToken)
     {
-        var @client = await _clientRepository.FindCliendBySearchTerm(request.SearchTerm);
+        var client = await _clientRepository.FindCliendBySearchTerm(request.SearchTerm);
 
         if (client == null) 
             throw new NotFoundException(nameof(Client), request.SearchTerm);
 
-        var clientDetailDto = _mapper.Map<List<ClientVm>>(@client);
+        var clientDetailDto = _mapper.Map<List<ClientVm>>(client);
 
         return clientDetailDto;
     }

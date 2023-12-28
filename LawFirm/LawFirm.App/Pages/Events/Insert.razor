@@ -1,4 +1,4 @@
-﻿@page "/event-insert/{caseId:guid}"
+﻿@page "/case-event-insert/{caseId:guid}"
 
 @attribute [Authorize]
 
@@ -8,7 +8,7 @@
 
 <PageTitle>Insert Event - Law Firm</PageTitle>
 
-<SimpleNavigation BasePageRef="case" BasePage="Case" CurrentPage="Event" />
+<SimpleNavigation BasePageRef="case" BasePage="Case" CurrentPage="Insert Event" />
 
 <EditForm Model="caseEvent" OnValidSubmit="HandleValidSubmit">
 

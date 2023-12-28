@@ -7,6 +7,7 @@ public interface IEventDataService
     Task<EventVm> CreateEvent(EventVm request);
     Task<EventVmPagingResponse> GetPagedEvents(int? pageNumber, int? pageSize);
     Task<ICollection<EventVm>> GetEvents();
+    Task<ICollection<EventVm>> FindEventsBySearchTerm(string searchTerm);
     Task<EventVm> GetEvent(Guid id);
     Task UpdateEvent(Guid id, EventVm request);
     Task DeleteEvent(Guid id);
