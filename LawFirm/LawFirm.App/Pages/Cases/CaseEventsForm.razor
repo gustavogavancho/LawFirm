@@ -1,0 +1,59 @@
+﻿@inject IEventDataService EventDataService
+@inject NavigationManager Navigation
+
+<FormSection Title="Events" HelpText="Various legal proceedings in a courtroom, including trials, hearings, and sentencing.">
+
+    @if (Case.Events is null)
+    {
+        <p>Loading...</p>
+    }
+    else
+    {
+        @if (Case.Events.Any())
+        {
+            <div class="responsive-table">
+                <TableView Items="Case.Events" Context="eventItem">
+                    <HeaderTemplate>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th></th>
+                    </HeaderTemplate>
+                    <RowTemplate>
+                        <td>@eventItem.Title</td>
+                        <td>@eventItem.Description</td>
+                        <td>@eventItem.EventStartDate</td>
+                        <td>@eventItem.EventEndDate</td>
+                        @if(!Disabled)
+                        {
+                            <td class="text-end">
+                                <AuthorizeView>
+                                    <button title="Edit" type="button" class="btn btn-primary btn-sm" @onclick="@(() => Navigation.NavigateTo($"/event-update/{eventItem.Id}"))">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </button>
+                                    <button title="Delete" type="button" class="btn btn-danger btn-sm" @onclick="@(() => Case.Events.Remove(eventItem))">
+                                        <i class="bi bi-trash3"></i>
+                                    </button>
+                                </AuthorizeView>
+                            </td>
+                        }
+                    </RowTemplate>
+                </TableView>
+            </div>
+        }
+        else
+        {
+            <NoItemsRedirect NoItemsMessage="You don't have any events" RefPage="case" RefPageText="why not add one?" />
+        }
+    }
+
+</FormSection>
+
+@code {
+    [Parameter, EditorRequired]
+    public CaseVm Case { get; set; }
+
+    [Parameter]
+    public bool Disabled { get; set; }
+}

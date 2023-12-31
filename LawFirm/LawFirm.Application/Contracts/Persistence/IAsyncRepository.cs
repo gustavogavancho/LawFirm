@@ -10,4 +10,5 @@ public interface IAsyncRepository<T> where T : class
     Task UpdateAsync(T entity, params Expression<Func<T, object>>[] navigations);
     Task DeleteAsync(T entity);
     Task<IReadOnlyList<T>> GetPagedReponseAsync(int page, int size);
+    Task Save();
 }

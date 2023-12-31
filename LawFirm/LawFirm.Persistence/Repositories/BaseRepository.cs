@@ -105,4 +105,9 @@ public class BaseRepository<T> : IAsyncRepository<T> where T : class
             _dbContext.Entry(relatedEntity).State = EntityState.Modified;
         }
     }
+
+    public async Task Save()
+    {
+        await _dbContext.SaveChangesAsync();
+    }
 }

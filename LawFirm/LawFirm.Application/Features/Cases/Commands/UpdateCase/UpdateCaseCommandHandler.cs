@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using LawFirm.Application.Contracts.Persistence;
 using LawFirm.Application.Exceptions;
-using LawFirm.Application.Features.Cases.Commands.CreateCase;
 using LawFirm.Domain.Entities;
 using MediatR;
 
@@ -30,11 +29,11 @@ public class UpdateCaseCommandHandler : IRequestHandler<UpdateCaseCommand>
         if (validationResult.Errors.Count > 0)
             throw new ValidationException(validationResult);
 
-        var existingCase = await _caseRepository.GetByIdAsync(request.Id, false, x=> x.Clients, x=> x.CounterParts);
+        var existingCase = await _caseRepository.GetByIdAsync(request.Id, false, x => x.Clients, x => x.CounterParts, x => x.Events);
 
         if (existingCase == null)
         {
-            throw new NotFoundException(nameof(Case),"Case not found.");
+            throw new NotFoundException(nameof(Case), "Case not found.");
         }
 
         _mapper.Map(request, existingCase);
@@ -42,9 +41,9 @@ public class UpdateCaseCommandHandler : IRequestHandler<UpdateCaseCommand>
         existingCase.Clients.Clear();
         request.Ids.ForEach(async id =>
         {
-            existingCase.Clients.Add(await _clientRepository.GetByIdAsync(id));
+            existingCase.Clients.Add(await _clientRepository.GetByIdAsync(id, false));
         });
 
-        await _caseRepository.UpdateAsync(existingCase, x=> x.Clients, x=> x.CounterParts);
+        await _caseRepository.Save();
     }
 }

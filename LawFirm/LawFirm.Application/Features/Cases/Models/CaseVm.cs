@@ -1,4 +1,5 @@
 ﻿using LawFirm.Application.Features.Clients.Models;
+using LawFirm.Application.Features.Events.Models;
 
 namespace LawFirm.Application.Features.Cases.Models;
 
@@ -15,4 +16,5 @@ public class CaseVm
     public string Stage { get; set; }
     public List<CounterPartVm> CounterParts { get; set; }
     public List<ClientVm> Clients { get; set; }
+    public List<EventVm> Events { get; set; }
 }

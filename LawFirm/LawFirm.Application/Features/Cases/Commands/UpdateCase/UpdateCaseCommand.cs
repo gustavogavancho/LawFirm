@@ -1,4 +1,5 @@
 ﻿using LawFirm.Application.Features.Cases.Models;
+using LawFirm.Application.Features.Events.Models;
 using MediatR;
 
 namespace LawFirm.Application.Features.Cases.Commands.UpdateCase;
@@ -16,4 +17,5 @@ public class UpdateCaseCommand : IRequest
     public string ClientType { get; set; }
     public string Stage { get; set; }
     public List<CounterPartVm> CounterParts { get; set; }
+    public List<EventVm> Events { get; set; }
 }
