@@ -3025,6 +3025,11 @@ namespace LawFirm.App.Services.Base
         [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]   
         public string Description { get; set; }
 
+        [System.Text.Json.Serialization.JsonPropertyName("location")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]   
+        public string Location { get; set; }
+
         [System.Text.Json.Serialization.JsonPropertyName("eventStartDate")]
 
         [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]   
@@ -3055,6 +3060,11 @@ namespace LawFirm.App.Services.Base
 
         [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]   
         public string Title { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("location")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]   
+        public string Location { get; set; }
 
         [System.Text.Json.Serialization.JsonPropertyName("description")]
 
@@ -3359,6 +3369,11 @@ namespace LawFirm.App.Services.Base
 
         [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]   
         public string Description { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("location")]
+
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]   
+        public string Location { get; set; }
 
         [System.Text.Json.Serialization.JsonPropertyName("eventStartDate")]
 

@@ -14,6 +14,12 @@
     </FormFieldSet>
 
     <FormFieldSet Width="col-11">
+        <label for="location" class="form-label text-muted fw-bold">Location</label>
+        <InputText @bind-Value="Event.Location" class=" form-control" id="location" disabled="@Disabled" />
+        <ValidationMessage For="@(() => Event.Location)" />
+    </FormFieldSet>
+
+    <FormFieldSet Width="col-11">
         <label for="startDate" class="form-label text-muted fw-bold">Start Date</label>
         <InputDate Type="InputDateType.DateTimeLocal" @bind-Value:format="dd/MM/yyyy hh:mm:ss" @bind-Value="Event.EventStartDate" class=" form-control" id="startDate" disabled="@Disabled" />
         <ValidationMessage For="@(() => Event.EventStartDate)" />

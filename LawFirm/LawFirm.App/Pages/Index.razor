@@ -10,6 +10,7 @@
         <ScheduleField Id="Id">
             <FieldSubject Name="Subject"></FieldSubject>
             <FieldDescription Name="Description"></FieldDescription>
+            <FieldLocation Name="Location"></FieldLocation>
             <FieldStartTime Name="StartTime"></FieldStartTime>
             <FieldEndTime Name="EndTime"></FieldEndTime>
         </ScheduleField>
@@ -34,7 +35,7 @@
 
         foreach (var appointment in @events)
         {
-            dataSource.Add(new AppointmentViewModel { Id = id, Subject = appointment.Title, StartTime = appointment.EventStartDate, EndTime = appointment.EventEndDate, Description = appointment.Description });
+            dataSource.Add(new AppointmentViewModel { Id = id, Subject = appointment.Title, Location = appointment.Location, StartTime = appointment.EventStartDate, EndTime = appointment.EventEndDate, Description = appointment.Description });
             id++;
         }
     }
