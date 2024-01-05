@@ -51,6 +51,12 @@ else
         caseEntity = await CaseDataService.GetCase(Id);
     }
 
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender) return;
+        await JsRuntime.InvokeVoidAsync("scrollUtils.scrollToTop");
+    }
+
     private async Task HandleValidSubmit()
     {
         try
