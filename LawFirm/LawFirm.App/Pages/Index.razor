@@ -5,16 +5,22 @@
 
 <PageTitle>Events - LawFirm</PageTitle>
 
-<SfSchedule TValue="AppointmentViewModel" Height="650px" @bind-SelectedDate="@CurrentDate">
-    <ScheduleEventSettings DataSource="dataSource" EnableTooltip="true">
+<SfSchedule TValue="EventVm" Height="650px" @bind-SelectedDate="@CurrentDate">
+
+    <ScheduleEvents TValue="EventVm" OnActionBegin="OnActionBegin">
+
+    </ScheduleEvents>
+
+    <ScheduleEventSettings DataSource="events" AllowAdding="false" EnableTooltip="true">
         <ScheduleField Id="Id">
-            <FieldSubject Name="Subject"></FieldSubject>
-            <FieldDescription Name="Description"></FieldDescription>
+            <FieldSubject Name="Title"></FieldSubject>
             <FieldLocation Name="Location"></FieldLocation>
-            <FieldStartTime Name="StartTime"></FieldStartTime>
-            <FieldEndTime Name="EndTime"></FieldEndTime>
+            <FieldDescription Name="Description"></FieldDescription>
+            <FieldStartTime Name="EventStartDate"></FieldStartTime>
+            <FieldEndTime Name="EventEndDate"></FieldEndTime>
         </ScheduleField>
     </ScheduleEventSettings>
+
     <ScheduleViews>
         <ScheduleView Option="View.Day"></ScheduleView>
         <ScheduleView Option="View.Week"></ScheduleView>
@@ -22,21 +28,27 @@
         <ScheduleView Option="View.Month"></ScheduleView>
         <ScheduleView Option="View.Agenda"></ScheduleView>
     </ScheduleViews>
+
 </SfSchedule>
 
 @code {
     DateTime CurrentDate = DateTime.Now;
-    ObservableCollection<AppointmentViewModel> dataSource = new();
+    ObservableCollection<EventVm> events = new();
 
     protected async override Task OnInitializedAsync()
     {
-        var @events = await EventDataService.GetEvents();
-        int id = 1;
+        var response = await EventDataService.GetEvents();
 
-        foreach (var appointment in @events)
+        events = new ObservableCollection<EventVm>(response);
+    }
+
+    private async Task OnActionBegin(ActionEventArgs<EventVm> args)
+    {
+        if (args.ActionType == ActionType.EventRemove)
         {
-            dataSource.Add(new AppointmentViewModel { Id = id, Subject = appointment.Title, Location = appointment.Location, StartTime = appointment.EventStartDate, EndTime = appointment.EventEndDate, Description = appointment.Description });
-            id++;
+            var deletedRecords = args.DeletedRecords;
+
+            if(deletedRecords.Any()) await EventDataService.DeleteEvent(deletedRecords[0].Id);
         }
     }
 }
