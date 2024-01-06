@@ -16,6 +16,7 @@
 
 namespace LawFirm.App.Services.Base
 {
+    using System.ComponentModel.DataAnnotations;
     using System = global::System;
 
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
@@ -3073,7 +3074,7 @@ namespace LawFirm.App.Services.Base
 
         [System.Text.Json.Serialization.JsonPropertyName("eventStartDate")]
 
-        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]   
+        [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
         public System.DateTime EventStartDate { get; set; }
 
         [System.Text.Json.Serialization.JsonPropertyName("eventEndDate")]
@@ -3085,7 +3086,6 @@ namespace LawFirm.App.Services.Base
 
         [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]   
         public System.Guid CaseId { get; set; }
-
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "13.19.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
