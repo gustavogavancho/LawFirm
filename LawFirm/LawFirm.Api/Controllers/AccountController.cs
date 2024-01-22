@@ -11,6 +11,7 @@ namespace LawFirm.Api.Controllers;
 public class AccountController : ControllerBase
 {
     private readonly IAuthenticationService _authenticationService;
+
     public AccountController(IAuthenticationService authenticationService)
     {
         _authenticationService = authenticationService;
