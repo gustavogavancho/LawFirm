@@ -1,0 +1,70 @@
+﻿<FormSection Title="Files" HelpText="Detailed, confidential case documents for legal review and analysis.">
+    <div class="mb-3">
+        <InputFile id="fileInput" class="form-control" OnChange="HandleFileSelected" multiple />
+    </div>
+    <div>
+        @if (files != null && files.Any())
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th width="80%">File Name</th>
+                        <th width="20%">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var file in files)
+                    {
+                        <tr>
+                            <td>@file.Name</td>
+                            <td>
+                                <button title="Download" type="button" class="btn btn-primary btn-sm" @onclick="@(() => DownloadFile(file))">
+                                    <i class="bi bi-download"></i>
+                                </button>
+                                <button title="Delete" type="button" class="btn btn-danger btn-sm" @onclick="@(() => DeleteFile(file))">
+                                    <i class="bi bi-trash3"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>No files found.</p>
+        }
+    </div>
+</FormSection>
+
+@code {
+    private List<FileMetadata> files;
+
+    protected override async Task OnInitializedAsync()
+    {
+        files = new() { new FileMetadata { Name = "File1" }, new FileMetadata { Name = "File2" } };
+    }
+
+    private async Task UploadFile()
+    {
+        files = null;
+    }
+
+    private async Task DeleteFile(FileMetadata file)
+    {
+        files = null;
+    }
+
+    private void DownloadFile(FileMetadata file)
+    {
+    }
+
+    private void HandleFileSelected(InputFileChangeEventArgs e)
+    {
+    }
+
+    public class FileMetadata
+    {
+        public string Name { get; set; }
+    }
+}
