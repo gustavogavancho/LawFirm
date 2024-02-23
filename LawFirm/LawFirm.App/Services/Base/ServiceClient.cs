@@ -239,21 +239,21 @@ namespace LawFirm.App.Services.Base
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task StorageGETAsync();
+        System.Threading.Tasks.Task StorageAsync();
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task StorageGETAsync(System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task StorageAsync(System.Threading.CancellationToken cancellationToken);
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task StoragePOSTAsync(FileParameter file);
+        System.Threading.Tasks.Task UploadAsync(FileParameter file);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task StoragePOSTAsync(FileParameter file, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task UploadAsync(FileParameter file, System.Threading.CancellationToken cancellationToken);
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
@@ -2521,15 +2521,15 @@ namespace LawFirm.App.Services.Base
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task StorageGETAsync()
+        public virtual System.Threading.Tasks.Task StorageAsync()
         {
-            return StorageGETAsync(System.Threading.CancellationToken.None);
+            return StorageAsync(System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task StorageGETAsync(System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task StorageAsync(System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append("api/Storage");
@@ -2589,18 +2589,18 @@ namespace LawFirm.App.Services.Base
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task StoragePOSTAsync(FileParameter file)
+        public virtual System.Threading.Tasks.Task UploadAsync(FileParameter file)
         {
-            return StoragePOSTAsync(file, System.Threading.CancellationToken.None);
+            return UploadAsync(file, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task StoragePOSTAsync(FileParameter file, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task UploadAsync(FileParameter file, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append("api/Storage");
+            urlBuilder_.Append("api/Storage/upload");
 
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -2649,6 +2649,16 @@ namespace LawFirm.App.Services.Base
                         if (status_ == 200)
                         {
                             return;
+                        }
+                        else
+                        if (status_ == 400)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<ProblemDetails>("Bad Request", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                         else
                         {

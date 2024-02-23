@@ -1,4 +1,7 @@
-﻿<FormSection Title="Files" HelpText="Detailed, confidential case documents for legal review and analysis.">
+﻿@inject IStorageService StorargeService
+@inject IJSRuntime JsRuntime
+
+<FormSection Title="Files" HelpText="Detailed, confidential case documents for legal review and analysis.">
     <div class="mb-3">
         <InputFile id="fileInput" class="form-control" OnChange="HandleFileSelected" multiple />
     </div>
@@ -38,6 +41,9 @@
 </FormSection>
 
 @code {
+    [Parameter]
+    public string FilePath { get; set; }
+
     private List<FileMetadata> files;
 
     protected override async Task OnInitializedAsync()
@@ -59,8 +65,25 @@
     {
     }
 
-    private void HandleFileSelected(InputFileChangeEventArgs e)
+    private async Task HandleFileSelected(InputFileChangeEventArgs e)
     {
+        var file = e.File;
+
+        if (file != null)
+        {
+            try
+            {
+                using var stream = file.OpenReadStream(maxAllowedSize: 10 * 1024 * 1024);
+
+                var fileParameter = new FileParameter(stream, $"{FilePath}/{file.Name}", file.ContentType);
+
+                await StorargeService.UploadFileAsync(fileParameter);
+            }
+            catch (IOException ex)
+            {
+                await JsRuntime.InvokeVoidAsync("showErrorToastr", "The file you are trying to upload is larger than our 10 MB limit.");
+            }
+        }
     }
 
     public class FileMetadata

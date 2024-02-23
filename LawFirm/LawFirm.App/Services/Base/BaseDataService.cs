@@ -13,7 +13,6 @@ public class BaseDataService
     {
         _client = client;
         _localStorage = localStorage;
-
     }
 
     protected ApiResponse<Guid> ConvertApiExceptions<Guid>(ApiException ex)

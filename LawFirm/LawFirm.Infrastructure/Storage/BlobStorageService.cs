@@ -14,13 +14,16 @@ public class BlobStorageService : IStorageService
         _settings = settings.Value;
     }
 
-    public async Task<string> UploadFileAsync(Stream fileStream, string fileName)
+    public async Task<string> UploadFileAsync(Stream fileStream, string blobName)
     {
         var blobServiceClient = new BlobServiceClient(_settings.ConnectionString);
+
         var blobContainerClient = blobServiceClient.GetBlobContainerClient(_settings.Container);
-        var blobClient = blobContainerClient.GetBlobClient(fileName);
+
+        var blobClient = blobContainerClient.GetBlobClient(blobName);
 
         await blobClient.UploadAsync(fileStream, true);
+
         return blobClient.Uri.ToString();
     }
 
