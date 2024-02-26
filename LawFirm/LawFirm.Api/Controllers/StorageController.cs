@@ -16,18 +16,18 @@ public class StorageController : ControllerBase
         _storageService = storageService;
     }
 
-    [HttpGet]
-    public async Task<IActionResult> List()
+    [HttpGet("listfiles/{folder}")]
+    public async Task<ActionResult<List<string>>> ListFiles(string folder)
     {
-        var files = await _storageService.ListFilesAsync();
+        var files = await _storageService.ListFilesAsync(folder);
 
         return Ok(files);
     }
 
-    [HttpPost("upload")]
+    [HttpPost("uploadfile")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> Upload(IFormFile file)
+    public async Task<IActionResult> UploadFile(IFormFile file)
     {
         if (file.Length > 0)
         {
@@ -42,8 +42,8 @@ public class StorageController : ControllerBase
         return BadRequest("Invalid file");
     }
 
-    [HttpGet("download/{fileName}")]
-    public async Task<IActionResult> Download(string fileName)
+    [HttpGet("downloadfile/{fileName}")]
+    public async Task<IActionResult> DownloadFile(string fileName)
     {
         var stream = await _storageService.DownloadFileAsync(fileName);
         if (stream == null)
@@ -54,8 +54,8 @@ public class StorageController : ControllerBase
         return File(stream, "application/octet-stream", fileName);
     }
 
-    [HttpDelete("delete/{fileName}")]
-    public async Task<IActionResult> Delete(string fileName)
+    [HttpDelete("deletefile/{fileName}")]
+    public async Task<IActionResult> DeleteFile(string fileName)
     {
         var result = await _storageService.DeleteFileAsync(fileName);
         if (result)

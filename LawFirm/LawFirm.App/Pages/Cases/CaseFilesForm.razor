@@ -18,13 +18,13 @@
                 <tbody>
                     @foreach (var file in files)
                     {
-                        <tr>
-                            <td>@file.Name</td>
+                        <tr style="align-items: center;">
+                            <td>@file</td>
                             <td>
-                                <button title="Download" type="button" class="btn btn-primary btn-sm" @onclick="@(() => DownloadFile(file))">
+                                <button title="Download" type="button" class="btn btn-primary btn-sm" @onclick="(() => DownloadFile(file))">
                                     <i class="bi bi-download"></i>
                                 </button>
-                                <button title="Delete" type="button" class="btn btn-danger btn-sm" @onclick="@(() => DeleteFile(file))">
+                                <button title="Delete" type="button" class="btn btn-danger btn-sm">
                                     <i class="bi bi-trash3"></i>
                                 </button>
                             </td>
@@ -44,25 +44,11 @@
     [Parameter]
     public string FilePath { get; set; }
 
-    private List<FileMetadata> files;
+    private List<string> files;
 
-    protected override async Task OnInitializedAsync()
+    protected async override Task OnInitializedAsync()
     {
-        files = new() { new FileMetadata { Name = "File1" }, new FileMetadata { Name = "File2" } };
-    }
-
-    private async Task UploadFile()
-    {
-        files = null;
-    }
-
-    private async Task DeleteFile(FileMetadata file)
-    {
-        files = null;
-    }
-
-    private void DownloadFile(FileMetadata file)
-    {
+        if (FilePath is not null) await GetFiles();
     }
 
     private async Task HandleFileSelected(InputFileChangeEventArgs e)
@@ -77,17 +63,38 @@
 
                 var fileParameter = new FileParameter(stream, $"{FilePath}/{file.Name}", file.ContentType);
 
-                await StorargeService.UploadFileAsync(fileParameter);
+                await StorargeService.UploadFile(fileParameter);
+
+                await GetFiles();
             }
-            catch (IOException ex)
+            catch (IOException)
             {
                 await JsRuntime.InvokeVoidAsync("showErrorToastr", "The file you are trying to upload is larger than our 10 MB limit.");
             }
         }
     }
 
-    public class FileMetadata
+    private async Task GetFiles()
     {
-        public string Name { get; set; }
+        try
+        {
+            files = await StorargeService.GetFiles(FilePath);
+        }
+        catch (Exception)
+        {
+            await JsRuntime.InvokeVoidAsync("showErrorToastr", "Our team is fixing the storage issue; please retry later or contact support for assistance.");
+        }
+    }
+
+    private async Task DownloadFile(string file)
+    {
+        try
+        {
+            await StorargeService.DownloadFile(file);
+        }
+        catch (Exception)
+        {
+            await JsRuntime.InvokeVoidAsync("showErrorToastr", "Our team is fixing the storage issue; please retry later or contact support for assistance.");
+        }
     }
 }

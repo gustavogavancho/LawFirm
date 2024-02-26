@@ -27,13 +27,15 @@ public class BlobStorageService : IStorageService
         return blobClient.Uri.ToString();
     }
 
-    public async Task<IEnumerable<string>> ListFilesAsync()
+    public async Task<IEnumerable<string>> ListFilesAsync(string folder)
     {
         var blobServiceClient = new BlobServiceClient(_settings.ConnectionString);
         var blobContainerClient = blobServiceClient.GetBlobContainerClient(_settings.Container);
         var files = new List<string>();
 
-        await foreach (var blobItem in blobContainerClient.GetBlobsAsync())
+        string folderPrefix = string.IsNullOrEmpty(folder) ? "" : folder.TrimEnd('/') + '/';
+
+        await foreach (var blobItem in blobContainerClient.GetBlobsAsync(prefix: folderPrefix))
         {
             files.Add(blobItem.Name);
         }

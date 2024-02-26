@@ -4,5 +4,7 @@ namespace LawFirm.App.Contracts;
 
 public interface IStorageService
 {
-    Task UploadFileAsync(FileParameter content);
+    Task UploadFile(FileParameter content);
+    Task<List<string>> GetFiles(string folderName);
+    Task DownloadFile(string file);
 }
