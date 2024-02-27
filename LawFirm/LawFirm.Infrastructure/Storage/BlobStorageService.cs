@@ -64,6 +64,8 @@ public class BlobStorageService : IStorageService
         var blobContainerClient = blobServiceClient.GetBlobContainerClient(_settings.Container);
         var blobClient = blobContainerClient.GetBlobClient(fileName);
 
-        return await blobClient.DeleteIfExistsAsync();
+        var exists = await blobClient.DeleteIfExistsAsync();
+
+        return exists;
     }
 }

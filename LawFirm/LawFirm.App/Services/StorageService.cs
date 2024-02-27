@@ -11,18 +11,23 @@ public class StorageService : BaseDataService, IStorageService
 
     }
 
+    public async Task DeleteFile(string file)
+    {
+        await _client.DeleteFileAsync(file);
+    }
+
     public async Task DownloadFile(string file)
     {
-        await _client.DownloadfileAsync(file);
+        await _client.DownloadFileAsync(file);
     }
 
     public async Task<List<string>> GetFiles(string folderName)
     {
-        return (await _client.ListfilesAsync(folderName)).ToList();
+        return (await _client.ListFilesAsync(folderName)).ToList();
     }
 
     public async Task UploadFile(FileParameter content)
     {
-        await _client.UploadfileAsync(content);
+        await _client.UploadFileAsync(content);
     }
 }

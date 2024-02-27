@@ -239,39 +239,39 @@ namespace LawFirm.App.Services.Base
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<string>> ListfilesAsync(string folder);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<string>> ListFilesAsync(string folder);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<string>> ListfilesAsync(string folder, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<string>> ListFilesAsync(string folder, System.Threading.CancellationToken cancellationToken);
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task UploadfileAsync(FileParameter file);
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <returns>Success</returns>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task UploadfileAsync(FileParameter file, System.Threading.CancellationToken cancellationToken);
-
-        /// <returns>Success</returns>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task DownloadfileAsync(string fileName);
+        System.Threading.Tasks.Task UploadFileAsync(FileParameter file);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task DownloadfileAsync(string fileName, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task UploadFileAsync(FileParameter file, System.Threading.CancellationToken cancellationToken);
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task DeletefileAsync(string fileName);
+        System.Threading.Tasks.Task DownloadFileAsync(string fileName);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task DeletefileAsync(string fileName, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task DownloadFileAsync(string fileName, System.Threading.CancellationToken cancellationToken);
+
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task DeleteFileAsync(string fileName);
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task DeleteFileAsync(string fileName, System.Threading.CancellationToken cancellationToken);
 
     }
 
@@ -2521,21 +2521,21 @@ namespace LawFirm.App.Services.Base
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<string>> ListfilesAsync(string folder)
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<string>> ListFilesAsync(string folder)
         {
-            return ListfilesAsync(folder, System.Threading.CancellationToken.None);
+            return ListFilesAsync(folder, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<string>> ListfilesAsync(string folder, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<string>> ListFilesAsync(string folder, System.Threading.CancellationToken cancellationToken)
         {
             if (folder == null)
                 throw new System.ArgumentNullException("folder");
 
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append("api/Storage/listfiles/{folder}");
+            urlBuilder_.Append("api/Storage/listFiles/{folder}");
             urlBuilder_.Replace("{folder}", System.Uri.EscapeDataString(ConvertToString(folder, System.Globalization.CultureInfo.InvariantCulture)));
 
             var client_ = _httpClient;
@@ -2599,18 +2599,18 @@ namespace LawFirm.App.Services.Base
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task UploadfileAsync(FileParameter file)
+        public virtual System.Threading.Tasks.Task UploadFileAsync(FileParameter file)
         {
-            return UploadfileAsync(file, System.Threading.CancellationToken.None);
+            return UploadFileAsync(file, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task UploadfileAsync(FileParameter file, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task UploadFileAsync(FileParameter file, System.Threading.CancellationToken cancellationToken)
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append("api/Storage/uploadfile");
+            urlBuilder_.Append("api/Storage/uploadFile");
 
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -2692,22 +2692,23 @@ namespace LawFirm.App.Services.Base
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task DownloadfileAsync(string fileName)
+        public virtual System.Threading.Tasks.Task DownloadFileAsync(string fileName)
         {
-            return DownloadfileAsync(fileName, System.Threading.CancellationToken.None);
+            return DownloadFileAsync(fileName, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task DownloadfileAsync(string fileName, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task DownloadFileAsync(string fileName, System.Threading.CancellationToken cancellationToken)
         {
-            if (fileName == null)
-                throw new System.ArgumentNullException("fileName");
-
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append("api/Storage/downloadfile/{fileName}");
-            urlBuilder_.Replace("{fileName}", System.Uri.EscapeDataString(ConvertToString(fileName, System.Globalization.CultureInfo.InvariantCulture)));
+            urlBuilder_.Append("api/Storage/downloadFile?");
+            if (fileName != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("fileName") + "=").Append(System.Uri.EscapeDataString(ConvertToString(fileName, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            urlBuilder_.Length--;
 
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -2764,22 +2765,23 @@ namespace LawFirm.App.Services.Base
 
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task DeletefileAsync(string fileName)
+        public virtual System.Threading.Tasks.Task DeleteFileAsync(string fileName)
         {
-            return DeletefileAsync(fileName, System.Threading.CancellationToken.None);
+            return DeleteFileAsync(fileName, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task DeletefileAsync(string fileName, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task DeleteFileAsync(string fileName, System.Threading.CancellationToken cancellationToken)
         {
-            if (fileName == null)
-                throw new System.ArgumentNullException("fileName");
-
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append("api/Storage/deletefile/{fileName}");
-            urlBuilder_.Replace("{fileName}", System.Uri.EscapeDataString(ConvertToString(fileName, System.Globalization.CultureInfo.InvariantCulture)));
+            urlBuilder_.Append("api/Storage/deleteFile?");
+            if (fileName != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("fileName") + "=").Append(System.Uri.EscapeDataString(ConvertToString(fileName, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            urlBuilder_.Length--;
 
             var client_ = _httpClient;
             var disposeClient_ = false;

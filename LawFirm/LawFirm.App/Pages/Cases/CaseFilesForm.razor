@@ -24,7 +24,7 @@
                                 <button title="Download" type="button" class="btn btn-primary btn-sm" @onclick="(() => DownloadFile(file))">
                                     <i class="bi bi-download"></i>
                                 </button>
-                                <button title="Delete" type="button" class="btn btn-danger btn-sm">
+                                <button title="Delete" type="button" class="btn btn-danger btn-sm" @onclick="(() => DeleteFile(file))">
                                     <i class="bi bi-trash3"></i>
                                 </button>
                             </td>
@@ -91,6 +91,22 @@
         try
         {
             await StorargeService.DownloadFile(file);
+        }
+        catch (Exception)
+        {
+            await JsRuntime.InvokeVoidAsync("showErrorToastr", "Our team is fixing the storage issue; please retry later or contact support for assistance.");
+        }
+    }
+
+    private async Task DeleteFile(string file)
+    {
+        try
+        {
+            await StorargeService.DeleteFile(file);
+
+            await GetFiles();
+
+            await JsRuntime.InvokeVoidAsync("showSuccessToastr", "File deleted successfully!");
         }
         catch (Exception)
         {

@@ -7,4 +7,5 @@ public interface IStorageService
     Task UploadFile(FileParameter content);
     Task<List<string>> GetFiles(string folderName);
     Task DownloadFile(string file);
+    Task DeleteFile(string file);
 }
