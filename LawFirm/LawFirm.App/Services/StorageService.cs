@@ -17,9 +17,7 @@ public class StorageService : BaseDataService, IStorageService
     }
     public async Task DownloadFile(string file)
     {
-        //var check = await _client.DownloadFileAsync(file);
-
-        return null;
+        await _client.DownloadFileAsync(file);
     }
 
     public async Task<List<string>> GetFiles(string folderName)
@@ -30,10 +28,5 @@ public class StorageService : BaseDataService, IStorageService
     public async Task UploadFile(FileParameter content)
     {
         await _client.UploadFileAsync(content);
-    }
-
-    Task<FileResponse> IStorageService.DownloadFile(string file)
-    {
-        throw new NotImplementedException();
     }
 }

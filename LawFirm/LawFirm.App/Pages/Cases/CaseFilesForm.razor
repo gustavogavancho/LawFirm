@@ -112,16 +112,10 @@
     {
         try
         {
-            var check = await StorargeService.DownloadFile(file);
-
-            await JsRuntime.InvokeVoidAsync("blazorDownloadStream", file, check.Stream);
-
-
+            await StorargeService.DownloadFile(file);
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            var check = ex.Message;
-            var check2 = ex.InnerException;
             await JsRuntime.InvokeVoidAsync("showErrorToastr", "Our team is fixing the storage issue; please retry later or contact support for assistance.");
         }
     }
