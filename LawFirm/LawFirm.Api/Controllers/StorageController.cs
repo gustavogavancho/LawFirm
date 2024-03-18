@@ -43,6 +43,9 @@ public class StorageController : ControllerBase
     }
 
     [HttpGet("downloadFile")]
+    [ProducesResponseType(typeof(FileStreamResult), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesDefaultResponseType]
     public async Task<IActionResult> DownloadFile([FromQuery] string fileName)
     {
         var stream = await _storageService.DownloadFileAsync(fileName);

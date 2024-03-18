@@ -112,7 +112,9 @@
     {
         try
         {
-            await StorargeService.DownloadFile(file);
+            var blob = await StorargeService.DownloadFile(file);
+
+            await JsRuntime.InvokeVoidAsync("BlazorDownloadFile", file, Convert.ToBase64String(blob));
         }
         catch (Exception)
         {
@@ -120,7 +122,7 @@
         }
     }
 
-    private async Task DeleteFile(string file)
+    private void DeleteFile(string file)
     {
         fileToDelete = file;
         showConfirmationDialog = true;

@@ -15,9 +15,11 @@ public class StorageService : BaseDataService, IStorageService
     {
         await _client.DeleteFileAsync(file);
     }
-    public async Task DownloadFile(string file)
+    public async Task<byte[]> DownloadFile(string file)
     {
-        await _client.DownloadFileAsync(file);
+        var stream = await _client.DownloadFileAsync(file);
+
+        return await ReadStreamAsync(stream.Stream);
     }
 
     public async Task<List<string>> GetFiles(string folderName)
@@ -28,5 +30,18 @@ public class StorageService : BaseDataService, IStorageService
     public async Task UploadFile(FileParameter content)
     {
         await _client.UploadFileAsync(content);
+    }
+
+    private static async Task<byte[]> ReadStreamAsync(Stream stream)
+    {
+        // Create a MemoryStream to hold the read data
+        using (MemoryStream memoryStream = new MemoryStream())
+        {
+            // Copy the stream to the MemoryStream
+            await stream.CopyToAsync(memoryStream);
+
+            // Return the byte array
+            return memoryStream.ToArray();
+        }
     }
 }
