@@ -19,7 +19,7 @@ public class StorageController : ControllerBase
     [HttpGet("listFiles/{folder}")]
     public async Task<ActionResult<List<string>>> ListFiles(string folder)
     {
-        var files = await _storageService.ListFilesAsync(folder);
+        var files = await _storageService.ListFiles(folder);
 
         return Ok(files);
     }
@@ -31,12 +31,9 @@ public class StorageController : ControllerBase
     {
         if (file.Length > 0)
         {
-            using (var stream = file.OpenReadStream())
-            {
-                var url = await _storageService.UploadFileAsync(stream, file.FileName);
-
-                return Ok(new { Url = url });
-            }
+            using var stream = file.OpenReadStream();
+            var url = await _storageService.UploadFile(stream, file.FileName);
+            return Ok(new { Url = url });
         }
 
         return BadRequest("Invalid file");
@@ -48,11 +45,9 @@ public class StorageController : ControllerBase
     [ProducesDefaultResponseType]
     public async Task<IActionResult> DownloadFile([FromQuery] string fileName)
     {
-        var stream = await _storageService.DownloadFileAsync(fileName);
-        if (stream == null)
-        {
-            return NotFound();
-        }
+        var stream = await _storageService.DownloadFile(fileName);
+
+        if (stream == null) return NotFound();
 
         return File(stream, "application/octet-stream", fileName);
     }
@@ -60,14 +55,11 @@ public class StorageController : ControllerBase
     [HttpDelete("deleteFile")]
     public async Task<IActionResult> DeleteFile([FromQuery] string fileName)
     {
-        var result = await _storageService.DeleteFileAsync(fileName);
+        var result = await _storageService.DeleteFile(fileName);
+        
         if (result)
-        {
             return Ok(new { message = $"File {fileName} deleted successfully." });
-        }
-        else
-        {
+        else 
             return NotFound(new { message = $"File {fileName} not found." });
-        }
     }
 }

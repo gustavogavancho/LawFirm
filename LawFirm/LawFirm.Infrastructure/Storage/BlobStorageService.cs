@@ -1,5 +1,6 @@
 ﻿using Azure.Storage.Blobs;
 using LawFirm.Application.Contracts.Infrastructure;
+using LawFirm.Application.Exceptions;
 using LawFirm.Application.Models.Storage;
 using Microsoft.Extensions.Options;
 
@@ -14,7 +15,7 @@ public class BlobStorageService : IStorageService
         _settings = settings.Value;
     }
 
-    public async Task<string> UploadFileAsync(Stream fileStream, string blobName)
+    public async Task<string> UploadFile(Stream fileStream, string blobName)
     {
         var blobServiceClient = new BlobServiceClient(_settings.ConnectionString);
 
@@ -27,7 +28,7 @@ public class BlobStorageService : IStorageService
         return blobClient.Uri.ToString();
     }
 
-    public async Task<IEnumerable<string>> ListFilesAsync(string folder)
+    public async Task<IEnumerable<string>> ListFiles(string folder)
     {
         var blobServiceClient = new BlobServiceClient(_settings.ConnectionString);
         var blobContainerClient = blobServiceClient.GetBlobContainerClient(_settings.Container);
@@ -43,7 +44,7 @@ public class BlobStorageService : IStorageService
         return files;
     }
 
-    public async Task<Stream> DownloadFileAsync(string fileName)
+    public async Task<Stream> DownloadFile(string fileName)
     {
         var blobServiceClient = new BlobServiceClient(_settings.ConnectionString);
         var blobContainerClient = blobServiceClient.GetBlobContainerClient(_settings.Container);
@@ -55,10 +56,10 @@ public class BlobStorageService : IStorageService
             return downloadInfo.Value.Content;
         }
 
-        return null; // O maneja este caso como prefieras (p.ej., lanzando una excepción)
+        throw new StorageException("File not found or unable to download");
     }
 
-    public async Task<bool> DeleteFileAsync(string fileName)
+    public async Task<bool> DeleteFile(string fileName)
     {
         var blobServiceClient = new BlobServiceClient(_settings.ConnectionString);
         var blobContainerClient = blobServiceClient.GetBlobContainerClient(_settings.Container);

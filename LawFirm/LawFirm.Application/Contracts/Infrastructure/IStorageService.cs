@@ -2,8 +2,8 @@
 
 public interface IStorageService
 {
-    Task<string> UploadFileAsync(Stream fileStream, string blobName);
-    Task<IEnumerable<string>> ListFilesAsync(string folder);
-    Task<Stream> DownloadFileAsync(string fileName);
-    Task<bool> DeleteFileAsync(string fileName);
+    Task<string> UploadFile(Stream fileStream, string blobName);
+    Task<IEnumerable<string>> ListFiles(string folder);
+    Task<Stream> DownloadFile(string fileName);
+    Task<bool> DeleteFile(string fileName);
 }

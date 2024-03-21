@@ -43,6 +43,10 @@ public class ExceptionHandlerMiddleware
                 httpStatusCode = HttpStatusCode.BadRequest;
                 result = badRequestException.Message;
                 break;
+            case StorageException storageException:
+                httpStatusCode = HttpStatusCode.BadRequest;
+                result = storageException.Message;
+                break;
             case NotFoundException:
                 httpStatusCode = HttpStatusCode.NotFound;
                 break;
