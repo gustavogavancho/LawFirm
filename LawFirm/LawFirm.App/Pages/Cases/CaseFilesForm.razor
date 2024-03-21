@@ -112,6 +112,7 @@
     {
         try
         {
+            isLoading = true;
             var blob = await StorargeService.DownloadFile(file);
 
             await JsRuntime.InvokeVoidAsync("BlazorDownloadFile", file, Convert.ToBase64String(blob));
@@ -119,6 +120,10 @@
         catch (Exception)
         {
             await JsRuntime.InvokeVoidAsync("showErrorToastr", "Our team is fixing the storage issue; please retry later or contact support for assistance.");
+        }
+        finally
+        {
+            isLoading = false;
         }
     }
 
