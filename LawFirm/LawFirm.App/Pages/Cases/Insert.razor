@@ -20,6 +20,8 @@
 
     <CaseDetailsForm Case="caseEntity"/>
 
+    <CaseChargesForm Case="caseEntity" />
+
     <div class="mt-4 mb-2">
         <div class="row">
             <div class="offset-4 col-8 text-end">
@@ -38,6 +40,7 @@
     {
         caseEntity.CounterParts = new List<CounterPartVm> { new() };
         caseEntity.Clients = new List<ClientVm>();
+        caseEntity.Charges = new List<ChargeVm> { new() };
     }
 
     private async Task HandleValidSubmit()
@@ -64,6 +67,7 @@
                 caseEntity = new();
                 caseEntity.Clients = new List<ClientVm>();
                 caseEntity.CounterParts = new List<CounterPartVm>() { new() };
+                caseEntity.Charges = new List<ChargeVm> { new() };
             }
         }
         catch (Exception)

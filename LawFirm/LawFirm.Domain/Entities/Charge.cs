@@ -1,6 +1,6 @@
 ﻿namespace LawFirm.Domain.Entities;
 
-public class IlegalAct
+public class Charge
 {
     public Guid Id { get; set; }
     public string Description { get; set; }

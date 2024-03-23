@@ -3206,6 +3206,9 @@ namespace LawFirm.App.Services.Base
         [System.Text.Json.Serialization.JsonPropertyName("counterParts")]
         public System.Collections.Generic.ICollection<CounterPartVm> CounterParts { get; set; }
 
+        [System.Text.Json.Serialization.JsonPropertyName("charges")]
+        public System.Collections.Generic.ICollection<ChargeVm> Charges { get; set; }
+
         [System.Text.Json.Serialization.JsonPropertyName("clients")]
         public System.Collections.Generic.ICollection<ClientVm> Clients { get; set; }
 
@@ -3237,6 +3240,15 @@ namespace LawFirm.App.Services.Base
         [System.Text.Json.Serialization.JsonPropertyName("password")]
         [System.ComponentModel.DataAnnotations.Required]
         public string Password { get; set; }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.3.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class ChargeVm
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("description")]
+        public string Description { get; set; }
 
     }
 
@@ -3559,6 +3571,9 @@ namespace LawFirm.App.Services.Base
 
         [System.Text.Json.Serialization.JsonPropertyName("counterParts")]
         public System.Collections.Generic.ICollection<CounterPartVm> CounterParts { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("charges")]
+        public System.Collections.Generic.ICollection<ChargeVm> Charges { get; set; }
 
         [System.Text.Json.Serialization.JsonPropertyName("events")]
         public System.Collections.Generic.ICollection<EventVm> Events { get; set; }

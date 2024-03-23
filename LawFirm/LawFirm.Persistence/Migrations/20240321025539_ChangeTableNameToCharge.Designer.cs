@@ -3,6 +3,7 @@ using System;
 using LawFirm.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LawFirm.Persistence.Migrations
 {
     [DbContext(typeof(LawFirmContext))]
-    partial class LawFirmContextModelSnapshot : ModelSnapshot
+    [Migration("20240321025539_ChangeTableNameToCharge")]
+    partial class ChangeTableNameToCharge
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.20");
@@ -304,7 +306,7 @@ namespace LawFirm.Persistence.Migrations
             modelBuilder.Entity("LawFirm.Domain.Entities.Charge", b =>
                 {
                     b.HasOne("LawFirm.Domain.Entities.Case", null)
-                        .WithMany("Charges")
+                        .WithMany("IlegalActs")
                         .HasForeignKey("CaseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -372,11 +374,11 @@ namespace LawFirm.Persistence.Migrations
 
             modelBuilder.Entity("LawFirm.Domain.Entities.Case", b =>
                 {
-                    b.Navigation("Charges");
-
                     b.Navigation("CounterParts");
 
                     b.Navigation("Events");
+
+                    b.Navigation("IlegalActs");
 
                     b.Navigation("Notes");
 

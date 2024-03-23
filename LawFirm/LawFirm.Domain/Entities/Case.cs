@@ -12,7 +12,7 @@ public class Case : AuditableEntity
     public string CourtInCharge { get; set; }
     public string Judge { get; set; }
     public string ClientType { get; set; }
-    public List<IlegalAct> IlegalActs { get; set; }
+    public List<Charge> Charges { get; set; }
     public string Stage { get; set; }
     public List<Status> Status { get; set; }
     public List<Notificacion> Notificacions { get; set; }

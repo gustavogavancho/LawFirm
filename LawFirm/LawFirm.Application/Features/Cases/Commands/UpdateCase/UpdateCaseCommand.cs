@@ -17,5 +17,6 @@ public class UpdateCaseCommand : IRequest
     public string ClientType { get; set; }
     public string Stage { get; set; }
     public List<CounterPartVm> CounterParts { get; set; }
+    public List<ChargeVm> Charges { get; set; }
     public List<EventVm> Events { get; set; }
 }

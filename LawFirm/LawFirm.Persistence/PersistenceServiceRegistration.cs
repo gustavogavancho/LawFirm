@@ -10,7 +10,6 @@ public static class PersistenceServiceRegistration
 {
     public static IServiceCollection AddPersistenceServices(this IServiceCollection services, IConfiguration configuration)
     {
-        //TODO: Remove sensitive login
         services.AddDbContext<LawFirmContext>(options =>
             options.UseSqlite(configuration.GetConnectionString("LawFirmContext"))
             .EnableSensitiveDataLogging());
