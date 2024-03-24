@@ -3199,6 +3199,9 @@ namespace LawFirm.App.Services.Base
         [System.Text.Json.Serialization.JsonPropertyName("stage")]
         public string Stage { get; set; }
 
+        [System.Text.Json.Serialization.JsonPropertyName("createdDate")]
+        public System.DateTime CreatedDate { get; set; }
+
         [System.Text.Json.Serialization.JsonPropertyName("counterParts")]
         public System.Collections.Generic.ICollection<CounterPartVm> CounterParts { get; set; }
 

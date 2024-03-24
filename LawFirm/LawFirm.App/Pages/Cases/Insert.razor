@@ -14,9 +14,9 @@
 
     <FluentValidationValidator />
 
-    <ClientSelectionForm Case="caseEntity" />
+    <CaseClientsForm Case="caseEntity" />
 
-    <CounterPartsForm Case="caseEntity" />
+    <CaseCounterPartsForm Case="caseEntity" />
 
     <CaseDetailsForm Case="caseEntity"/>
 
@@ -59,11 +59,18 @@
                 return;
             }
 
+            if (!caseEntity.Charges.Any())
+            {
+                await JsRuntime.InvokeVoidAsync("showWarningToastr", "You must select a charge.");
+                return;
+            }
+
             var caseCreated = await CaseDataService.CreateCase(caseEntity, caseEntity.Clients.Select(x => x.Id).ToList());
 
             if (caseCreated is not null)
             {
                 await JsRuntime.InvokeVoidAsync("showSuccessToastr", "The client has been added successfully!");
+                await JsRuntime.InvokeVoidAsync("scrollUtils.scrollToTop");
                 caseEntity = new();
                 caseEntity.Clients = new List<ClientVm>();
                 caseEntity.CounterParts = new List<CounterPartVm>() { new() };
@@ -74,6 +81,5 @@
         {
             await JsRuntime.InvokeVoidAsync("showErrorToastr", "Something went wrong, please try again or contact your supplier.");
         }
-        await JsRuntime.InvokeVoidAsync("scrollUtils.scrollToTop");
     }
 }

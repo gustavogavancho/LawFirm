@@ -23,9 +23,9 @@ else
         @if (caseEntity is not null)
         {
 
-            <ClientSelectionForm Case="caseEntity" />
+            <CaseClientsForm Case="caseEntity" />
 
-            <CounterPartsForm Case="caseEntity" />
+            <CaseCounterPartsForm Case="caseEntity" />
 
             <CaseDetailsForm Case="caseEntity" />
 
@@ -80,6 +80,12 @@ else
                 return;
             }
 
+            if (!caseEntity.Charges.Any())
+            {
+                await JsRuntime.InvokeVoidAsync("showWarningToastr", "You must select a charge.");
+                return;
+            }
+
             await CaseDataService.UpdateCase(caseEntity, caseEntity.Clients.Select(x => x.Id).ToList());
 
             await JsRuntime.InvokeVoidAsync("showSuccessToastr", "The client has been updated successfully!");
@@ -88,6 +94,5 @@ else
         {
             await JsRuntime.InvokeVoidAsync("showErrorToastr", "Something went wrong, please try again or contact your supplier.");
         }
-        await JsRuntime.InvokeVoidAsync("scrollUtils.scrollToTop");
     }
 }

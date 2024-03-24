@@ -43,6 +43,7 @@ else
                     <th>Client</th>
                     <th>Counter Part</th>
                     <th>Stage</th>
+                    <th>Date</th>
                     <th></th>
                 </HeaderTemplate>
                 <RowTemplate>
@@ -51,7 +52,7 @@ else
                     <td>
                         @foreach (var item in caseEntity.Clients)
                         {
-                        <li style="list-style-type: none;">@(!String.IsNullOrEmpty(item.FirstName) ? $"{item.FirstName} {item.LastName}" : $"{item.BusinessName}")</li>
+                            <li style="list-style-type: none;">@(!String.IsNullOrEmpty(item.FirstName) ? $"{item.FirstName} {item.LastName}" : $"{item.BusinessName}")</li>
                         }
                     </td>
                     <td>
@@ -61,6 +62,7 @@ else
                         }
                     </td>
                     <td>@caseEntity.Stage</td>
+                    <td>@caseEntity.CreatedDate.ToShortDateString()</td>
                     <td class="text-end">
                         <AuthorizeView>
                             <Authorized>
