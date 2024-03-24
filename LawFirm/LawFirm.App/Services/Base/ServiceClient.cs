@@ -3205,6 +3205,9 @@ namespace LawFirm.App.Services.Base
         [System.Text.Json.Serialization.JsonPropertyName("counterParts")]
         public System.Collections.Generic.ICollection<CounterPartVm> CounterParts { get; set; }
 
+        [System.Text.Json.Serialization.JsonPropertyName("notifications")]
+        public System.Collections.Generic.ICollection<NotificationVm> Notifications { get; set; }
+
         [System.Text.Json.Serialization.JsonPropertyName("charges")]
         public System.Collections.Generic.ICollection<ChargeVm> Charges { get; set; }
 
@@ -3345,6 +3348,9 @@ namespace LawFirm.App.Services.Base
         [System.Text.Json.Serialization.JsonPropertyName("counterParts")]
         public System.Collections.Generic.ICollection<CounterPartVm> CounterParts { get; set; }
 
+        [System.Text.Json.Serialization.JsonPropertyName("notifications")]
+        public System.Collections.Generic.ICollection<NotificationVm> Notifications { get; set; }
+
         [System.Text.Json.Serialization.JsonPropertyName("charges")]
         public System.Collections.Generic.ICollection<ChargeVm> Charges { get; set; }
 
@@ -3471,6 +3477,18 @@ namespace LawFirm.App.Services.Base
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.4.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class NotificationVm
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("description")]
+        public string Description { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("notificationDate")]
+        public System.DateTime NotificationDate { get; set; }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.4.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class ProblemDetails
     {
 
@@ -3579,6 +3597,9 @@ namespace LawFirm.App.Services.Base
 
         [System.Text.Json.Serialization.JsonPropertyName("events")]
         public System.Collections.Generic.ICollection<EventVm> Events { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("notifications")]
+        public System.Collections.Generic.ICollection<NotificationVm> Notifications { get; set; }
 
     }
 

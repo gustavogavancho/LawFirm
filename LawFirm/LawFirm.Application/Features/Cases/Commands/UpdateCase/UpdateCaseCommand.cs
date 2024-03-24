@@ -19,4 +19,5 @@ public class UpdateCaseCommand : IRequest
     public List<CounterPartVm> CounterParts { get; set; }
     public List<ChargeVm> Charges { get; set; }
     public List<EventVm> Events { get; set; }
+    public List<NotificationVm> Notifications { get; set; }
 }

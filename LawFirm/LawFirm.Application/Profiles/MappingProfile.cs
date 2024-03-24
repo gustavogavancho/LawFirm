@@ -26,6 +26,7 @@ public class MappingProfile : Profile
 
         CreateMap<CounterPart, CounterPartVm>().ReverseMap();
         CreateMap<Charge, ChargeVm>().ReverseMap();
+        CreateMap<Notificacion, NotificationVm>().ReverseMap();
 
         CreateMap<Event, CreateEventCommand>().ReverseMap();
         CreateMap<Event, UpdateEventCommand>().ReverseMap();

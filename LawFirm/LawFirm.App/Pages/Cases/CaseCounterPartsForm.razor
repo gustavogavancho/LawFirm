@@ -7,7 +7,7 @@ else
     <FormSection Title="Counterparts" HelpText="In litigation, the counterpart of a case is the opposing side.">
         <div class="row" hidden="@Disabled">
             <div class="mb-2">
-                <button title="addCounterPart" class="btn-sm btn-primary fw-bold" type="button" @onclick="AddCounterPart">
+                <button class="btn-sm btn-primary fw-bold" type="button" @onclick="AddCounterPart">
                     New Counter Part
                 </button>
             </div>
@@ -29,7 +29,7 @@ else
                 </div>
 
                 <div class="col-1" style="margin-top:31px;">
-                    <button title="addCounterPart" class="btn btn-danger" hidden="@Disabled" type="button" @onclick="() => RemoveCounterPart(counterPart)">
+                    <button class="btn btn-danger" hidden="@Disabled" type="button" @onclick="() => RemoveCounterPart(counterPart)">
                         <i class="bi bi-file-minus-fill"></i>
                     </button>
                 </div>

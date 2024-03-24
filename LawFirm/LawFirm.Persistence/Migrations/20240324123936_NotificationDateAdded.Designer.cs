@@ -3,6 +3,7 @@ using System;
 using LawFirm.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LawFirm.Persistence.Migrations
 {
     [DbContext(typeof(LawFirmContext))]
-    partial class LawFirmContextModelSnapshot : ModelSnapshot
+    [Migration("20240324123936_NotificationDateAdded")]
+    partial class NotificationDateAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.20");
@@ -358,7 +360,7 @@ namespace LawFirm.Persistence.Migrations
             modelBuilder.Entity("LawFirm.Domain.Entities.Notificacion", b =>
                 {
                     b.HasOne("LawFirm.Domain.Entities.Case", null)
-                        .WithMany("Notifications")
+                        .WithMany("Notificacions")
                         .HasForeignKey("CaseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -383,7 +385,7 @@ namespace LawFirm.Persistence.Migrations
 
                     b.Navigation("Notes");
 
-                    b.Navigation("Notifications");
+                    b.Navigation("Notificacions");
 
                     b.Navigation("Status");
                 });

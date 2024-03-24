@@ -7,7 +7,7 @@ else
     <FormSection Title="Charges" HelpText="The charges for which a client is being prosecuted.">
         <div class="row" hidden="@Disabled">
             <div class="mb-2">
-                <button title="addCharge" class="btn-sm btn-primary fw-bold" type="button" @onclick="AddCharge">
+                <button class="btn-sm btn-primary fw-bold" type="button" @onclick="AddCharge">
                     New Charge
                 </button>
             </div>
@@ -23,7 +23,7 @@ else
                 </div>
 
                 <div class="col-1" style="margin-top:31px;">
-                    <button title="addCounterPart" class="btn btn-danger" hidden="@Disabled" type="button" @onclick="() => RemoveCharge(charge)">
+                    <button class="btn btn-danger" hidden="@Disabled" type="button" @onclick="() => RemoveCharge(charge)">
                         <i class="bi bi-file-minus-fill"></i>
                     </button>
                 </div>
