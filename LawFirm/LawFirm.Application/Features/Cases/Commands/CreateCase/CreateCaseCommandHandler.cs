@@ -32,6 +32,7 @@ public class CreateCaseCommandHandler : IRequestHandler<CreateCaseCommand, CaseV
 
         var @case = _mapper.Map<Case>(request);
 
+
         @case = await _caseRepository.AddAsync(@case);
 
         request.Ids.ForEach(async id =>

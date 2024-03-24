@@ -22,7 +22,7 @@ public class GetPagedCaseListQueryHandler : IRequestHandler<GetPagedCaseListQuer
     {
         var cases = await _caseRepository.ListAllAsync(true, x => x.Clients, x=> x.CounterParts);
 
-        var mappedItems =  _mapper.Map<List<CaseVm>>(cases);
+        var mappedItems =  _mapper.Map<List<CaseVm>>(cases.OrderByDescending(x => x.CreatedDate));
 
         return PagedList<CaseVm>.ToPagedList(mappedItems, request.ItemsParameters.PageNumber, request.ItemsParameters.PageSize);
     }

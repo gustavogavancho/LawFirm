@@ -15,4 +15,5 @@ public class CreateCaseCommand : IRequest<CaseVm>
     public string ClientType { get; set; }
     public string Stage { get; set; }
     public List<CounterPartVm> CounterParts { get; set; }
+    public List<ChargeVm> Charges { get; set; }
 }

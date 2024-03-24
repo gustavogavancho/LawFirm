@@ -44,7 +44,7 @@
         }
         else
         {
-            <NoItemsRedirect NoItemsMessage="You don't have any events" RefPage="case" RefPageText="why not add one?" />
+            <NoItemsRedirect NoItemsMessage="You don't have any events" RefPage="@($"case-event-insert/{Case.Id}")" RefPageText="why not add one?" />
         }
     }
 

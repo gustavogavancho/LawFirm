@@ -2,7 +2,7 @@
 
 namespace LawFirm.Application.Features.Cases.Commands.CreateCase;
 
-public class CreateCaseCommandValidator :AbstractValidator<CreateCaseCommand>
+public class CreateCaseCommandValidator : AbstractValidator<CreateCaseCommand>
 {
     public CreateCaseCommandValidator()
     {
