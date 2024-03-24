@@ -1,0 +1,52 @@
+﻿@if (Case.Notes is null)
+{
+    <p>Loading..</p>
+}
+else
+{
+    <FormSection Title="Notes" HelpText="Summarized legal case notes for efficient reference and understanding by professionals.">
+        <div class="row" hidden="@Disabled">
+            <div class="mb-2">
+                <button class="btn-sm btn-primary fw-bold" type="button" @onclick="AddNote">
+                    New Charge
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            @foreach (var note in Case.Notes)
+            {
+
+                <div class="col-6">
+                    <label for="counterPartName" class="form-label text-muted fw-bold">Description</label>
+                    <InputText @bind-Value="note.Description" class=" form-control" id="counterPartName" Disabled="@Disabled" />
+                    <ValidationMessage For="@(() => note.Description)" />
+                </div>
+
+                <div class="col-1" style="margin-top:31px;">
+                    <button class="btn btn-danger" hidden="@Disabled" type="button" @onclick="() => RemoveNote(note)">
+                        <i class="bi bi-file-minus-fill"></i>
+                    </button>
+                </div>
+            }
+
+        </div>
+    </FormSection>
+}
+
+@code {
+    [Parameter, EditorRequired]
+    public CaseVm Case { get; set; }
+
+    [Parameter]
+    public bool Disabled { get; set; }
+
+    private void AddNote()
+    {
+        Case.Notes.Add(new NoteVm());
+    }
+
+    private void RemoveNote(NoteVm charge)
+    {
+        Case.Notes.Remove(charge);
+    }
+}

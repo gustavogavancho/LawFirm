@@ -21,4 +21,5 @@ public class UpdateCaseCommand : IRequest
     public List<EventVm> Events { get; set; }
     public List<NotificationVm> Notifications { get; set; }
     public List<StatusVm> Statuses { get; set; }
+    public List<NoteVm> Notes { get; set; }
 }

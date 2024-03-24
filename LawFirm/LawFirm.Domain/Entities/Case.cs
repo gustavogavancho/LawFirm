@@ -16,7 +16,7 @@ public class Case : AuditableEntity
     public string Stage { get; set; }
     public List<Status> Statuses { get; set; }
     public List<Notificacion> Notifications { get; set; }
-    public List<Notes> Notes { get; set; }
+    public List<Note> Notes { get; set; }
     public List<CounterPart> CounterParts { get; set; }
     public List<Client> Clients { get; set; }
     public List<Event> Events { get; set; }

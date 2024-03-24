@@ -1,6 +1,6 @@
 ﻿namespace LawFirm.Domain.Entities;
 
-public class Notes
+public class Note
 {
     public Guid Id { get; set; }
     public string Description { get; set; }

@@ -3220,6 +3220,9 @@ namespace LawFirm.App.Services.Base
         [System.Text.Json.Serialization.JsonPropertyName("statuses")]
         public System.Collections.Generic.ICollection<StatusVm> Statuses { get; set; }
 
+        [System.Text.Json.Serialization.JsonPropertyName("notes")]
+        public System.Collections.Generic.ICollection<NoteVm> Notes { get; set; }
+
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.4.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
@@ -3360,6 +3363,9 @@ namespace LawFirm.App.Services.Base
         [System.Text.Json.Serialization.JsonPropertyName("statuses")]
         public System.Collections.Generic.ICollection<StatusVm> Statuses { get; set; }
 
+        [System.Text.Json.Serialization.JsonPropertyName("notes")]
+        public System.Collections.Generic.ICollection<NoteVm> Notes { get; set; }
+
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.4.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
@@ -3479,6 +3485,15 @@ namespace LawFirm.App.Services.Base
 
         [System.Text.Json.Serialization.JsonPropertyName("hasNext")]
         public bool HasNext { get; set; }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.4.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class NoteVm
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("description")]
+        public string Description { get; set; }
 
     }
 
@@ -3618,6 +3633,9 @@ namespace LawFirm.App.Services.Base
 
         [System.Text.Json.Serialization.JsonPropertyName("statuses")]
         public System.Collections.Generic.ICollection<StatusVm> Statuses { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("notes")]
+        public System.Collections.Generic.ICollection<NoteVm> Notes { get; set; }
 
     }
 

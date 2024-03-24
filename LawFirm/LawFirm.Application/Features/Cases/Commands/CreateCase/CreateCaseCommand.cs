@@ -18,4 +18,5 @@ public class CreateCaseCommand : IRequest<CaseVm>
     public List<NotificationVm> Notifications { get; set; }
     public List<ChargeVm> Charges { get; set; }
     public List<StatusVm> Statuses { get; set; }
+    public List<NoteVm> Notes { get; set; }
 }

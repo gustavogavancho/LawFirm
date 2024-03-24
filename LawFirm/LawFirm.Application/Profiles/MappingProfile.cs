@@ -28,6 +28,7 @@ public class MappingProfile : Profile
         CreateMap<Charge, ChargeVm>().ReverseMap();
         CreateMap<Notificacion, NotificationVm>().ReverseMap();
         CreateMap<Status, StatusVm>().ReverseMap();
+        CreateMap<Note, NoteVm>().ReverseMap();
 
         CreateMap<Event, CreateEventCommand>().ReverseMap();
         CreateMap<Event, UpdateEventCommand>().ReverseMap();

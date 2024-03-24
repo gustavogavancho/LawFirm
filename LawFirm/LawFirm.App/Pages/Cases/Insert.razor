@@ -26,6 +26,8 @@
     
     <CaseStatusesForm Case="caseEntity" />
 
+    <CaseNotesForm Case="caseEntity" />
+
     <div class="mt-4 mb-2">
         <div class="row">
             <div class="offset-4 col-8 text-end">
@@ -47,6 +49,7 @@
         caseEntity.Charges = new List<ChargeVm> { new() };
         caseEntity.Notifications = new List<NotificationVm> { new() { NotificationDate = DateTime.Now } };
         caseEntity.Statuses = new List<StatusVm> { new() };
+        caseEntity.Notes = new List<NoteVm> { new() };
     }
 
     private async Task HandleValidSubmit()
@@ -83,6 +86,12 @@
                 return;
             }
 
+            if (!caseEntity.Notes.Any())
+            {
+                await JsRuntime.InvokeVoidAsync("showWarningToastr", "You must add a note.");
+                return;
+            }
+
             var caseCreated = await CaseDataService.CreateCase(caseEntity, caseEntity.Clients.Select(x => x.Id).ToList());
 
             if (caseCreated is not null)
@@ -95,6 +104,7 @@
                 caseEntity.Charges = new List<ChargeVm> { new() };
                 caseEntity.Notifications = new List<NotificationVm> { new() { NotificationDate = DateTime.Now } };
                 caseEntity.Statuses = new List<StatusVm> { new() };
+                caseEntity.Notes = new List<NoteVm> { new() };
             }
         }
         catch (Exception)

@@ -38,6 +38,8 @@ else
             <CaseNotificationsForm Case="caseEntity" />
 
             <CaseStatusesForm Case="caseEntity" />
+
+            <CaseNotesForm Case="caseEntity" />
         }
         <div class="mt-4 mb-2">
             <div class="row">
@@ -99,6 +101,12 @@ else
             if (!caseEntity.Statuses.Any())
             {
                 await JsRuntime.InvokeVoidAsync("showWarningToastr", "You must add a status.");
+                return;
+            }
+
+            if (!caseEntity.Notes.Any())
+            {
+                await JsRuntime.InvokeVoidAsync("showWarningToastr", "You must add a note.");
                 return;
             }
 
