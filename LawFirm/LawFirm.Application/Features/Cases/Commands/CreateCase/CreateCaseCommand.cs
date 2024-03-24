@@ -17,4 +17,5 @@ public class CreateCaseCommand : IRequest<CaseVm>
     public List<CounterPartVm> CounterParts { get; set; }
     public List<NotificationVm> Notifications { get; set; }
     public List<ChargeVm> Charges { get; set; }
+    public List<StatusVm> Statuses { get; set; }
 }

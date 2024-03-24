@@ -29,7 +29,7 @@ public class UpdateCaseCommandHandler : IRequestHandler<UpdateCaseCommand>
         if (validationResult.Errors.Count > 0)
             throw new ValidationException(validationResult);
 
-        var existingCase = await _caseRepository.GetByIdAsync(request.Id, false, x => x.Clients, x => x.CounterParts, x => x.Events, x=> x.Charges, x=> x.Notifications);
+        var existingCase = await _caseRepository.GetByIdAsync(request.Id, false, x => x.Clients, x => x.CounterParts, x => x.Events, x=> x.Charges, x=> x.Notifications, x => x.Statuses);
 
         if (existingCase == null)
         {

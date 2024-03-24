@@ -23,6 +23,8 @@
     <CaseChargesForm Case="caseEntity" />
 
     <CaseNotificationsForm Case="caseEntity" />
+    
+    <CaseStatusesForm Case="caseEntity" />
 
     <div class="mt-4 mb-2">
         <div class="row">
@@ -44,6 +46,7 @@
         caseEntity.Clients = new List<ClientVm>();
         caseEntity.Charges = new List<ChargeVm> { new() };
         caseEntity.Notifications = new List<NotificationVm> { new() { NotificationDate = DateTime.Now } };
+        caseEntity.Statuses = new List<StatusVm> { new() };
     }
 
     private async Task HandleValidSubmit()
@@ -58,19 +61,25 @@
 
             if (!caseEntity.CounterParts.Any())
             {
-                await JsRuntime.InvokeVoidAsync("showWarningToastr", "You must select a counter part.");
+                await JsRuntime.InvokeVoidAsync("showWarningToastr", "You must add a counter part.");
                 return;
             }
 
             if (!caseEntity.Charges.Any())
             {
-                await JsRuntime.InvokeVoidAsync("showWarningToastr", "You must select a charge.");
+                await JsRuntime.InvokeVoidAsync("showWarningToastr", "You must add a charge.");
                 return;
             }
 
             if (!caseEntity.Notifications.Any())
             {
-                await JsRuntime.InvokeVoidAsync("showWarningToastr", "You must select a notification.");
+                await JsRuntime.InvokeVoidAsync("showWarningToastr", "You must add a notification.");
+                return;
+            }
+
+            if (!caseEntity.Statuses.Any())
+            {
+                await JsRuntime.InvokeVoidAsync("showWarningToastr", "You must add a status.");
                 return;
             }
 
@@ -85,6 +94,7 @@
                 caseEntity.CounterParts = new List<CounterPartVm>() { new() };
                 caseEntity.Charges = new List<ChargeVm> { new() };
                 caseEntity.Notifications = new List<NotificationVm> { new() { NotificationDate = DateTime.Now } };
+                caseEntity.Statuses = new List<StatusVm> { new() };
             }
         }
         catch (Exception)

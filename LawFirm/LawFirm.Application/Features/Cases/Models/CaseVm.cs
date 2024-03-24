@@ -20,4 +20,5 @@ public class CaseVm
     public List<ChargeVm> Charges { get; set; }
     public List<ClientVm> Clients { get; set; }
     public List<EventVm> Events { get; set; }
+    public List<StatusVm> Statuses { get; set; }
 }

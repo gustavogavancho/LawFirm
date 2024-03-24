@@ -14,7 +14,7 @@ public class Case : AuditableEntity
     public string ClientType { get; set; }
     public List<Charge> Charges { get; set; }
     public string Stage { get; set; }
-    public List<Status> Status { get; set; }
+    public List<Status> Statuses { get; set; }
     public List<Notificacion> Notifications { get; set; }
     public List<Notes> Notes { get; set; }
     public List<CounterPart> CounterParts { get; set; }

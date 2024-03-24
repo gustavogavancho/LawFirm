@@ -3217,6 +3217,9 @@ namespace LawFirm.App.Services.Base
         [System.Text.Json.Serialization.JsonPropertyName("events")]
         public System.Collections.Generic.ICollection<EventVm> Events { get; set; }
 
+        [System.Text.Json.Serialization.JsonPropertyName("statuses")]
+        public System.Collections.Generic.ICollection<StatusVm> Statuses { get; set; }
+
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.4.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
@@ -3353,6 +3356,9 @@ namespace LawFirm.App.Services.Base
 
         [System.Text.Json.Serialization.JsonPropertyName("charges")]
         public System.Collections.Generic.ICollection<ChargeVm> Charges { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("statuses")]
+        public System.Collections.Generic.ICollection<StatusVm> Statuses { get; set; }
 
     }
 
@@ -3556,6 +3562,15 @@ namespace LawFirm.App.Services.Base
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.4.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class StatusVm
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("description")]
+        public string Description { get; set; }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.4.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class UpdateCaseCommand
     {
 
@@ -3600,6 +3615,9 @@ namespace LawFirm.App.Services.Base
 
         [System.Text.Json.Serialization.JsonPropertyName("notifications")]
         public System.Collections.Generic.ICollection<NotificationVm> Notifications { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("statuses")]
+        public System.Collections.Generic.ICollection<StatusVm> Statuses { get; set; }
 
     }
 

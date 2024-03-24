@@ -18,5 +18,6 @@ public class CaseVmValidation : AbstractValidator<CaseVm>
         RuleForEach(x => x.CounterParts).SetValidator(new CounterPartVmValidation());
         RuleForEach(x => x.Charges).SetValidator(new ChargeVmValidation());
         RuleForEach(x => x.Notifications).SetValidator(new NotificationVmValidation());
+        RuleForEach(x => x.Statuses).SetValidator(new StatusVmValidation());
     }
 }
