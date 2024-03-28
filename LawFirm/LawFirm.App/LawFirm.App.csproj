@@ -1,9 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
+		<BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -16,6 +17,7 @@
 		<PackageReference Include="Blazored.LocalStorage" Version="4.3.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="6.0.20" />
 		<PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Localization" Version="6.0.28" />
 		<PackageReference Include="MudBlazor" Version="6.10.0" />
 		<PackageReference Include="Syncfusion.Blazor.Schedule" Version="23.2.7" />
 		<PackageReference Include="Syncfusion.Blazor.Themes" Version="23.2.7" />
@@ -24,6 +26,24 @@
 
 	<ItemGroup>
 	  <Folder Include="Profiles\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Shared\Resources\Resource.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>Resource.resx</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Update="Shared\Resources\Resource.es.resx">
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Shared\Resources\Resource.resx">
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	    <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
 	</ItemGroup>
 
 </Project>

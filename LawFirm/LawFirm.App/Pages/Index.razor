@@ -1,10 +1,10 @@
 ﻿@page "/"
-@using System.Collections.ObjectModel
 
 @inject IEventDataService EventDataService
 @inject IJSRuntime JsRuntime
+@inject IStringLocalizer<Shared.Resources.Resource> localizer
 
-<PageTitle>Events - LawFirm</PageTitle>
+<PageTitle>Events - LawFirm - @localizer["Title"]</PageTitle>
 
 <div style="height:calc(100vh - 90px)">
     <SfSchedule TValue="EventVm" Height="100%" EnableAutoRowHeight="true" @bind-SelectedDate="@CurrentDate" AllowDragAndDrop="false" AllowResizing="false" AllowMultiCellSelection="false" AllowMultiRowSelection="false">
