@@ -1,10 +1,11 @@
 ﻿@inject NavigationManager Navigation
+@inject IStringLocalizer<Resources.Resource> localizer
 
-<div class="container-fluid text-end">
+<div class="px-2">
     <AuthorizeView>
         <div>
-            Hello, @context.User!.Claims.FirstOrDefault(c => c.Type == "email")!.Value
-            <a href="#" @onclick="BeginSignOut">Log out</a>
+            @localizer["Hello"], @context.User!.Claims.FirstOrDefault(c => c.Type == "email")!.Value
+            <a href="#" @onclick="BeginSignOut">@localizer["Logout"]</a>
         </div>
     </AuthorizeView>
 </div>

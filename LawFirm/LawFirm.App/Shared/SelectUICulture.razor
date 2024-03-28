@@ -2,7 +2,7 @@
 @inject IStringLocalizer<Resources.Resource> localizer
 @inject ILocalStorageService _localstorage
 
-<div>
+<div class="px-2">
     <select class="form-select" @bind="UICulture" style="width: 110px; border-color: #0056b3; background-color: #e9ecef; color: #495057;">
         @foreach (var culture in uicultures)
         {

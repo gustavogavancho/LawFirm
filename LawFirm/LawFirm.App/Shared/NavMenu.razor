@@ -1,4 +1,6 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
+﻿@inject IStringLocalizer<Resources.Resource> localizer
+
+<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="">LawFirm.App</a>
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
@@ -11,29 +13,29 @@
     <nav class="flex-column">
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
+                <span class="oi oi-home" aria-hidden="true"></span> @localizer["Home"]
             </NavLink>
         </div>
         <AuthorizeView Roles="Admin">
             <div class="nav-item px-3">
                 <NavLink class="nav-link" href="user" Match="NavLinkMatch.Prefix">
-                    <span class="oi oi-person" aria-hidden="true"></span> Users
+                    <span class="oi oi-person" aria-hidden="true"></span> @localizer["Users"]
                 </NavLink>
             </div>
         </AuthorizeView>
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="client">
-                <span class="oi oi-people" aria-hidden="true"></span> Clients
+                <span class="oi oi-people" aria-hidden="true"></span> @localizer["Clients"]
             </NavLink>
         </div>
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="case">
-                <span class="oi oi-bookmark" aria-hidden="true"></span> Cases
+                <span class="oi oi-bookmark" aria-hidden="true"></span> @localizer["Cases"]
             </NavLink>
         </div>
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="event">
-                <span class="oi oi-bell" aria-hidden="true"></span> Events
+                <span class="oi oi-bell" aria-hidden="true"></span> @localizer["Events"]
             </NavLink>
         </div>
     </nav>
