@@ -117,11 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddItHere" xml:space="preserve">
+    <value>add it here.</value>
+  </data>
+  <data name="Calendar" xml:space="preserve">
+    <value>Calendar</value>
+  </data>
   <data name="Cases" xml:space="preserve">
     <value>Cases</value>
   </data>
   <data name="Clients" xml:space="preserve">
     <value>Clients</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Confirm</value>
+  </data>
+  <data name="CreateNewUser" xml:space="preserve">
+    <value>Do you want to create a new user?</value>
   </data>
   <data name="Events" xml:space="preserve">
     <value>Events</value>
@@ -132,11 +144,23 @@
   <data name="Home" xml:space="preserve">
     <value>Home</value>
   </data>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
   <data name="Logout" xml:space="preserve">
     <value>Log out</value>
   </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="Please" xml:space="preserve">
+    <value>Please</value>
+  </data>
   <data name="Title" xml:space="preserve">
     <value>Title</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Username</value>
   </data>
   <data name="Users" xml:space="preserve">
     <value>Users</value>

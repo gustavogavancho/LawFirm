@@ -10,6 +10,7 @@
 
 .navbar-brand {
     font-size: 1.1rem;
+    margin-left: 0px;
 }
 
 .oi {
@@ -59,5 +60,9 @@
     .collapse {
         /* Never collapse the sidebar for wide screens */
         display: block;
+    }
+
+    .navbar-brand {
+        margin-left: 20px;
     }
 }

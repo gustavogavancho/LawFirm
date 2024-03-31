@@ -3,7 +3,7 @@
 @inject ILocalStorageService _localstorage
 
 <div class="px-2">
-    <select class="form-select" @bind="UICulture" style="width: 110px; border-color: #0056b3; background-color: #e9ecef; color: #495057;">
+    <select class="form-select form-select-sm" @bind="UICulture" style="width: 95px; background-color: #e9ecef; color: #495057;">
         @foreach (var culture in uicultures)
         {
             <option value="@culture">@culture.DisplayName</option>

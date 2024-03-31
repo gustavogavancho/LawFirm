@@ -3,7 +3,7 @@
 
 <div class="px-2">
     <AuthorizeView>
-        <div>
+        <div style="font-size: 13px;">
             @localizer["Hello"], @context.User!.Claims.FirstOrDefault(c => c.Type == "email")!.Value
             <a href="#" @onclick="BeginSignOut">@localizer["Logout"]</a>
         </div>

@@ -40,7 +40,8 @@ builder.Services.AddScoped<IEventDataService, EventDataService>();
 builder.Services.AddSyncfusionBlazor();
 
 builder.Services.AddLocalization();
+
 var host = builder.Build();
-// 3. Set the Default UI Culture
+
 await host.SetDefaultUICulture();
 await builder.Build().RunAsync();

@@ -1,0 +1,123 @@
+﻿@page "/calendar"
+
+@inject IEventDataService EventDataService
+@inject IJSRuntime JsRuntime
+@inject IStringLocalizer<Shared.Resources.Resource> localizer
+
+<PageTitle>Events - LawFirm - @localizer["Title"]</PageTitle>
+
+<div style="height:calc(100vh - 90px)">
+    <SfSchedule TValue="EventVm" Height="100%" EnableAutoRowHeight="true" @bind-SelectedDate="@CurrentDate" AllowDragAndDrop="false" AllowResizing="false" AllowMultiCellSelection="false" AllowMultiRowSelection="false">
+
+        <ScheduleEvents TValue="EventVm" OnActionBegin="OnActionBegin">
+        </ScheduleEvents>
+
+        <ScheduleTemplates>
+            <EditorTemplate>
+                <form>
+                    <FormFieldSet>
+                        <label for="title" class="form-label text-muted fw-bold">Title</label>
+                        <InputText class="form-control form-control-sm" @bind-Value="@((context as EventVm).Title)" id="title"></InputText>
+                        <ValidationMessage For="()=>((context as EventVm).Title)" />
+                    </FormFieldSet>
+                    <FormFieldSet>
+                        <label for="description" class="form-label text-muted fw-bold">Description</label>
+                        <InputText class="form-control form-control-sm" @bind-Value="@((context as EventVm).Description)" id="description"></InputText>
+                        <ValidationMessage For="()=>((context as EventVm).Description)" />
+                    </FormFieldSet>
+                    <FormFieldSet>
+                        <label for="location" class="form-label text-muted fw-bold">Location</label>
+                        <InputText class="form-control form-control-sm" @bind-Value="@((context as EventVm).Location)" id="location"></InputText>
+                        <ValidationMessage For="()=>((context as EventVm).Location)" />
+                    </FormFieldSet>
+                    <FormFieldSet>
+                        <label for="startDate" class="form-label text-muted fw-bold">Start Date</label>
+                        <InputDate Type="InputDateType.DateTimeLocal" class="form-control form-control-sm" @bind-Value:format="dd/MM/yyyy hh:mm:ss" @bind-Value="@((context as EventVm).EventStartDate)" id="startDate" />
+                        <ValidationMessage For="()=>((context as EventVm).EventStartDate)" />
+                    </FormFieldSet>
+                    <FormFieldSet>
+                        <label for="endDate" class="form-label text-muted fw-bold">End Date</label>
+                        <InputDate Type="InputDateType.DateTimeLocal" class="form-control form-control-sm" @bind-Value:format="dd/MM/yyyy hh:mm:ss" @bind-Value="@((context as EventVm).EventEndDate)" id="endDate" />
+                        <ValidationMessage For="()=>((context as EventVm).EventEndDate)" />
+                    </FormFieldSet>
+                </form>
+            </EditorTemplate>
+        </ScheduleTemplates>
+
+        <ScheduleEventSettings DataSource="events" AllowAdding="false" EnableTooltip="true">
+            <ScheduleField Id="Id">
+                <FieldSubject Name="Title" Validation="@ValidationRules"></FieldSubject>
+                <FieldLocation Name="Location" Validation="@ValidationRules"></FieldLocation>
+                <FieldDescription Name="Description" Validation="@ValidationRules"></FieldDescription>
+                <FieldStartTime Name="EventStartDate"></FieldStartTime>
+                <FieldEndTime Name="EventEndDate"></FieldEndTime>
+            </ScheduleField>
+        </ScheduleEventSettings>
+
+        <ScheduleViews>
+            <ScheduleView Option="View.Day"></ScheduleView>
+            <ScheduleView Option="View.Week"></ScheduleView>
+            <ScheduleView Option="View.WorkWeek"></ScheduleView>
+            <ScheduleView Option="View.Month"></ScheduleView>
+            <ScheduleView Option="View.Agenda"></ScheduleView>
+        </ScheduleViews>
+
+    </SfSchedule>
+</div>
+
+@code {
+    DateTime CurrentDate = DateTime.Now;
+    ObservableCollection<EventVm> events = new();
+    ValidationRules ValidationRules = new ValidationRules { Required = true };
+
+    protected async override Task OnInitializedAsync()
+    {
+        await GetEvents();
+    }
+
+    private async Task OnActionBegin(ActionEventArgs<EventVm> args)
+    {
+        if (args.ActionType == ActionType.EventRemove)
+        {
+            var deletedRecords = args.DeletedRecords;
+
+            if (deletedRecords.Any())
+            {
+                await EventDataService.DeleteEvent(deletedRecords[0].Id);
+                await JsRuntime.InvokeVoidAsync("showSuccessToastr", "The event has been deleted successfully!");
+            }
+        }
+
+        if (args.ActionType == ActionType.EventChange)
+        {
+            var updatedRecords = args.ChangedRecords;
+
+            if (updatedRecords.Any())
+            {
+                args.Cancel = true;
+
+                if (updatedRecords[0].EventEndDate <= updatedRecords[0].EventStartDate)
+                    await JsRuntime.InvokeVoidAsync("showErrorToastr", "End date must be greater than start date.");
+
+                try
+                {
+                    await EventDataService.UpdateEvent(updatedRecords[0].Id, updatedRecords[0]);
+                    await GetEvents();
+                    await JsRuntime.InvokeVoidAsync("showSuccessToastr", "The event has been updated successfully!");
+                }
+                catch (Exception)
+                {
+                    await JsRuntime.InvokeVoidAsync("showErrorToastr", "Something went wrong. Please contact your provider.");
+                }
+
+            }
+        }
+    }
+
+    private async Task GetEvents()
+    {
+        var response = await EventDataService.GetEvents();
+
+        events = new ObservableCollection<EventVm>(response);
+    }
+}
