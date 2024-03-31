@@ -66,10 +66,10 @@ else
                     <td class="text-end">
                         <AuthorizeView>
                             <Authorized>
-                                <button title="Events" class="btn btn-primary btn-sm" @onclick="@(() => Navigation.NavigateTo($"/case-event-insert/{caseEntity.Id}"))">
+                                <button title="Events" class="btn btn-success btn-sm" @onclick="@(() => Navigation.NavigateTo($"/case-event-insert/{caseEntity.Id}"))">
                                     <i class="bi bi-calendar-check"></i>
                                 </button>
-                                <button title="Details" class="btn btn-primary btn-sm" @onclick="@(() => Navigation.NavigateTo($"/case-detail/{caseEntity.Id}"))">
+                                <button title="Details" class="btn btn-warning btn-sm" @onclick="@(() => Navigation.NavigateTo($"/case-detail/{caseEntity.Id}"))">
                                     <i class="bi bi-list-task"></i>
                                 </button>
                                 <button title="Edit" class="btn btn-primary btn-sm" @onclick="@(() => Navigation.NavigateTo($"/case-update/{caseEntity.Id}"))">

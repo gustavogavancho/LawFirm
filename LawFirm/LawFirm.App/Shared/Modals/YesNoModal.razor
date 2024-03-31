@@ -1,4 +1,6 @@
-﻿<div class="modal-overlay">
+﻿@inject IStringLocalizer<Shared.Resources.Resource> localizer
+
+<div class="modal-overlay">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
@@ -9,15 +11,15 @@
                 <p>@Message</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" @onclick="@(() => Confirm(true))">Yes</button>
-                <button type="button" class="btn btn-secondary" @onclick="@(() => Confirm(false))">No</button>
+                <button type="button" class="btn btn-primary" @onclick="@(() => Confirm(true))">@localizer["Yes"]</button>
+                <button type="button" class="btn btn-secondary" @onclick="@(() => Confirm(false))">@localizer["No"]</button>
             </div>
         </div>
     </div>
 </div>
 
 @code {
-    [Parameter]
+    [Parameter, EditorRequired]
     public string Message { get; set; }
 
     [Parameter]

@@ -49,7 +49,7 @@ else
                     <td>@eventItem.EventEndDate</td>
                     <td class="text-end">
                         <AuthorizeView>
-                            <button title="Details" class="btn btn-primary btn-sm" @onclick="@(() => Navigation.NavigateTo($"/case-detail/{eventItem.CaseId}"))">
+                            <button title="Details" class="btn btn-warning btn-sm" @onclick="@(() => Navigation.NavigateTo($"/case-detail/{eventItem.CaseId}"))">
                                 <i class="bi bi-list-task"></i>
                             </button>
                             <button title="Edit" class="btn btn-primary btn-sm" @onclick="@(() => Navigation.NavigateTo($"/event-update/{eventItem.Id}"))">

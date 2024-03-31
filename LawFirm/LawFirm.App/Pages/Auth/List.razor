@@ -11,14 +11,14 @@
 
 @if (showConfirmationDialog)
 {
-    <YesNoModal Message="Do you want to delete this item?" OnConfirmation="HandleConfirmation" />
+    <YesNoModal Message="@(localizer["DeleteConfirmation"])" OnConfirmation="HandleConfirmation" />
 }
 
 <SimpleIndexBar RefText="@(localizer["CreateNewUser"])" ComplementText="@(localizer["Please"])" RefPage="user-add" RefPageDescription="@(localizer["AddItHere"])" />
 
 @if (userList is null)
 {
-    <p>Loading...</p>
+    <p>@(localizer["Loading"])...</p>
 }
 else
 {
@@ -27,10 +27,10 @@ else
         <div class="responsive-table">
             <TableView Items="userList" Context="user">
                 <HeaderTemplate>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Email</th>
-                    <th>Username</th>
+                    <th>@localizer["FirstName"]</th>
+                    <th>@localizer["LastName"]</th>
+                    <th>@localizer["Email"]</th>
+                    <th>@localizer["Username"]</th>
                     <th></th>
                 </HeaderTemplate>
                 <RowTemplate>
@@ -40,10 +40,10 @@ else
                     <td>@user.UserName</td>
                     <td class="text-end">
                         <AuthorizeView>
-                            <button title="Edit" class="btn btn-primary btn-sm" @onclick="@(() => Navigation.NavigateTo($"/user-password/{user.Id}"))">
+                            <button title="@(localizer["ChangePassword"])" class="btn btn-primary btn-sm" @onclick="@(() => Navigation.NavigateTo($"/user-password/{user.Id}"))">
                                 <i class="bi bi-shield-lock-fill"></i>
                             </button>
-                            <button title="Delete" class="btn btn-danger btn-sm" @onclick="@(() => ShowConfirmationModal(user.Id))">
+                            <button title="@(localizer["Delete"])" class="btn btn-danger btn-sm" @onclick="@(() => ShowConfirmationModal(user.Id))">
                                 <i class="bi bi-trash3"></i>
                             </button>
                         </AuthorizeView>
@@ -54,7 +54,7 @@ else
     }
     else
     {
-        <NoItemsRedirect NoItemsMessage="You don't have any users" RefPage="user-add" RefPageText="why not add one?" />
+        <NoItemsRedirect NoItemsMessage="@(localizer["NoUsers"])" RefPage="user-add" RefPageText="@(localizer["AddUserSuggestion"])" />
     }
 }
 
@@ -83,14 +83,13 @@ else
             {
                 await AuthenticationService.DeleteUser(userIdSelected);
                 await GetUsersAsync();
-                await JsRuntime.InvokeVoidAsync("showSuccessToastr", "The user has been deleted successfully!");
+                await JsRuntime.InvokeVoidAsync("showSuccessToastr", localizer["DeletedUser"]);
             }
             catch (Exception)
             {
-                await JsRuntime.InvokeVoidAsync("showErrorToastr", "Something went wrong, please try again or contact your supplier.");
+                await JsRuntime.InvokeVoidAsync("showErrorToastr", localizer["GenericError"]);
             }
         }
-
         showConfirmationDialog = false;
     }
 

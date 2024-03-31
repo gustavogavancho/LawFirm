@@ -110,7 +110,7 @@ a, .btn-link {
     }
 
 table {
-    font-size: 14px;
+    font-size: 13px;
 }
 
 .responsive-table {
@@ -136,3 +136,7 @@ table {
     .jumbotron input {
         border: 2px solid #151f42;
     }
+
+label {
+    font-size: 13px;
+}

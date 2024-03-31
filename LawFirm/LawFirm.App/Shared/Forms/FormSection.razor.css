@@ -1,3 +1,9 @@
 ﻿.card-brand {
     border-top: 4px solid #151f42;
 }
+
+.text-secondary {
+    font-size: 13px;
+    text-align: justify;
+    text-justify: inter-word;
+}
