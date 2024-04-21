@@ -8,6 +8,7 @@ using LawFirm.Persistence;
 using LawFirm.Identity;
 using LawFirm.Api.Utility;
 using FluentValidation.AspNetCore;
+using LawFirm.Infrastructure.Notification;
 
 namespace LawFirm.Api;
 
@@ -17,12 +18,16 @@ public static class StartupExtensions
     {
         AddSwagger(builder.Services);
 
+        builder.Services.AddSignalR();
+
         builder.Services.AddApplicationServices();
         builder.Services.AddInfrastructureServices(builder.Configuration);
         builder.Services.AddPersistenceServices(builder.Configuration);
         builder.Services.AddIdentityServices(builder.Configuration);
         builder.Services.AddScoped<ILoggedInUserService, LoggedInUserService>();
         builder.Services.AddHttpContextAccessor();
+
+        builder.Services.AddHostedService<NotificationService>();
 
         builder.Services.AddControllers();
 
@@ -55,6 +60,7 @@ public static class StartupExtensions
         app.UseAuthentication();
         app.UseCustomExceptionHandler();
         app.UseCors("Open");
+        app.MapHub<NotificationHub>("notificationhub");
         app.UseAuthorization();
         app.MapControllers();
 

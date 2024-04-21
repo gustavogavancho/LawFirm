@@ -10,6 +10,7 @@ public class Event : AuditableEntity
     public string Description { get; set; }
     public DateTime EventStartDate { get; set; }
     public DateTime EventEndDate { get; set; }
+    public bool IsNotified { get; set; }
 
     public Guid CaseId { get; set; }
 }

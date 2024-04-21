@@ -1,4 +1,7 @@
-﻿@inherits LayoutComponentBase
+﻿@using Microsoft.AspNetCore.SignalR.Client
+
+@inherits LayoutComponentBase
+@inject IJSRuntime JSRuntime
 
 <div class="page">
     <div class="sidebar">
@@ -16,3 +19,33 @@
         </article>
     </main>
 </div>
+
+@code {
+    private HubConnection hubConnection;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await JSRuntime.InvokeVoidAsync("requestNotificationPermission");
+
+        hubConnection = new HubConnectionBuilder()
+            .WithUrl("https://localhost:7024/notificationhub")
+            .WithAutomaticReconnect()
+            .Build();
+
+        hubConnection.On<string>("ReceiveMessage", async (message) =>
+        {
+            await JSRuntime.InvokeVoidAsync("showNotification", "New Event Notification", message);
+            StateHasChanged(); // Trigger UI updates
+        });
+
+        await hubConnection.StartAsync();
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (hubConnection != null)
+        {
+            await hubConnection.DisposeAsync();
+        }
+    }
+}

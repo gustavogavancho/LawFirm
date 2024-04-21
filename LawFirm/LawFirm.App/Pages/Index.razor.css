@@ -1,0 +1,17 @@
+﻿.notification-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1050;
+}
+
+.toast {
+    position: relative;
+    min-width: 300px;
+    max-width: 100%;
+    background-color: #ffffff;
+    -webkit-box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    pointer-events: auto;
+    overflow: hidden;
+}
