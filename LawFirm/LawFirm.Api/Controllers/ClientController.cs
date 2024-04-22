@@ -3,6 +3,7 @@ using LawFirm.Application.Features.Clients.Commands.DeleteClient;
 using LawFirm.Application.Features.Clients.Commands.UpdateClient;
 using LawFirm.Application.Features.Clients.Models;
 using LawFirm.Application.Features.Clients.Queries.GetClientDetail;
+using LawFirm.Application.Features.Clients.Queries.GetLatestClients;
 using LawFirm.Application.Features.Clients.Queries.GetPagedClientList;
 using LawFirm.Application.Models.Pagination;
 using LawFirm.Domain.Pagination;
@@ -36,6 +37,17 @@ public class ClientController : ControllerBase
         Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(dtos.MetaData));
 
         return Ok(new PagingResponse<ClientVm> { Items = dtos, MetaData = dtos.MetaData});
+    }
+
+    [HttpGet("latestClients", Name = "GetRecentClients")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
+    [ProducesDefaultResponseType]
+    public async Task<ActionResult<List<ClientVm>>> GetRecentClients()
+    {
+        var dtos = await _mediator.Send(new GetLatestClientsQuery());
+
+        return Ok(dtos);
     }
 
     [HttpPost(Name = "CreateClient")]

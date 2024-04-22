@@ -17,4 +17,11 @@ public class ClientRepository : BaseRepository<Client>, IClientRepository
 
         return clients;
     }
+
+    public async Task<List<Client>> GetLastestClients()
+    {
+        var clients = await _dbContext.Client.OrderByDescending(x => x.CreatedDate).Take(5).AsNoTracking().ToListAsync();
+
+        return clients;
+    }
 }

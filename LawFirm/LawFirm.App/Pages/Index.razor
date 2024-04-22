@@ -1,9 +1,56 @@
 ﻿@page "/"
 
-<PageTitle>Index</PageTitle>
+@inject IClientDataService ClientDataService
 
-<h1>Index</h1>
+<PageTitle>Inicio - LawFirm</PageTitle>
+
+<div class="container-fluid">
+    @if(clients is null)
+    {
+        <p>Loading...</p>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-md-4">
+                <div class="alert alert-secondary" style="font-size: 13px;">
+                    <span class="bi bi-app-indicator" aria-hidden="true"></span>
+                    <strong>Latests Clients</strong>
+                </div>
+                <div class="responsive-table">
+                    <TableView Items="clients" Context="client">
+                        <HeaderTemplate>
+                            <th>Client Type</th>
+                            <th>Firt Name</th>
+                            <th>Last Name</th>
+                            <th>Nit</th>
+                            <th>Business Name</th>
+                            <th>Representative</th>
+                        </HeaderTemplate>
+                        <RowTemplate>
+                            <td>@client.ClientType</td>
+                            <td>@client.FirstName</td>
+                            <td>@client.LastName</td>
+                            <td>@client.Nit</td>
+                            <td>@client.BusinessName</td>
+                            <td>@client.Representative</td>
+                        </RowTemplate>
+                    </TableView>
+                </div>
+            </div>
+            <div>
+            </div>
+            <div>
+            </div>
+        </div>
+    }
+</div>
 
 @code {
-    
+    ICollection<ClientVm> clients;
+
+    protected override async Task OnInitializedAsync()
+    {
+        clients = await ClientDataService.LatestClients();
+    }
 }

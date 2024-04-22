@@ -10,4 +10,5 @@ public interface IClientDataService
     Task<ClientVm> GetClient(Guid id);
     Task UpdateClient(Guid id, ClientVm request);
     Task DeleteClient(Guid id);
+    Task<ICollection<ClientVm>> LatestClients();
 }

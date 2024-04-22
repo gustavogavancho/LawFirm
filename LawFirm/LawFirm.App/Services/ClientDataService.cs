@@ -55,4 +55,11 @@ public class ClientDataService : BaseDataService, IClientDataService
     {
         return await _client.FindClientsBySearchTermAsync(searchTerm);
     }
+
+    public async Task<ICollection<ClientVm>> LatestClients()
+    {
+        var latestClients = await _client.GetRecentClientsAsync();
+        
+        return latestClients;
+    }
 }
