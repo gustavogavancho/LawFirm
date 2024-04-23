@@ -5,6 +5,7 @@ using LawFirm.Application.Features.Events.Models;
 using LawFirm.Application.Features.Events.Queries.FindEvent;
 using LawFirm.Application.Features.Events.Queries.GetEventDetail;
 using LawFirm.Application.Features.Events.Queries.GetEventList;
+using LawFirm.Application.Features.Events.Queries.GetEventsByStartDate;
 using LawFirm.Application.Features.Events.Queries.GetPagedEventList;
 using LawFirm.Application.Models.Pagination;
 using LawFirm.Domain.Pagination;
@@ -35,6 +36,18 @@ public class EventController : ControllerBase
     public async Task<ActionResult<List<EventVm>>> GetEvents()
     {
         var response = await _mediator.Send(new GetEventListQuery());
+
+        return Ok(response);
+    }
+
+    [AllowAnonymous]
+    [HttpGet("{date:datetime}", Name = "GetEventsByDate")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
+    [ProducesDefaultResponseType]
+    public async Task<ActionResult<List<EventVm>>> GetEventsByDate(DateTime date)
+    {
+        var response = await _mediator.Send(new GetEventsByStartDateQuery { Date = date});
 
         return Ok(response);
     }

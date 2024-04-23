@@ -35,6 +35,13 @@ public class EventDataService : BaseDataService, IEventDataService
         return seachedEvents;
     }
 
+    public async Task<ICollection<EventVm>> FindEventsByStartDate(DateTime date)
+    {
+        var events = await _client.GetEventsByDateAsync(date);
+
+        return events;
+    }
+
     public async Task<EventVm> GetEvent(Guid id)
     {
         var selectedEvent = await _client.GetEventAsync(id);

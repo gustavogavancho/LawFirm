@@ -1,5 +1,5 @@
 ﻿using LawFirm.Application.Features.Events.Commands.UpdateEventNotification;
-using LawFirm.Application.Features.Events.Queries.GetEventsByDate;
+using LawFirm.Application.Features.Events.Queries.GetUnnotifiedEventsByDate;
 using LawFirm.Infrastructure.Notification;
 using MediatR;
 using Microsoft.AspNetCore.SignalR;
@@ -34,7 +34,7 @@ public class NotificationService : BackgroundService
 
                 var minTime = gmtMinus5Time.AddMinutes(15);
 
-                var events = await mediator.Send(new GetEventsByDateQuery { CurrentDate = gmtMinus5Time });
+                var events = await mediator.Send(new GetUnnotifiedEventsByDateQuery { CurrentDate = gmtMinus5Time });
 
                 var upcomingEvents = events.Where(e => e.EventStartDate >= gmtMinus5Time && e.EventStartDate <= minTime);
 

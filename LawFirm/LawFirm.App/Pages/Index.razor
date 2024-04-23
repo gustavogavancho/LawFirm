@@ -1,11 +1,12 @@
 ﻿@page "/"
 
 @inject IClientDataService ClientDataService
+@inject IEventDataService EventDataService
 
 <PageTitle>Inicio - LawFirm</PageTitle>
 
 <div class="container-fluid">
-    @if(clients is null)
+    @if (clients is null)
     {
         <p>Loading...</p>
     }
@@ -14,8 +15,8 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="alert alert-secondary" style="font-size: 13px;">
-                    <span class="bi bi-app-indicator" aria-hidden="true"></span>
-                    <strong>Latests Clients</strong>
+                    <span class="bi bi-people-fill" aria-hidden="true"></span>
+                    <strong>&nbsp;Latests Clients</strong>
                 </div>
                 <div class="responsive-table">
                     <TableView Items="clients" Context="client">
@@ -38,9 +39,37 @@
                     </TableView>
                 </div>
             </div>
-            <div>
+            <div class="col-md-4">
+                <div class="alert alert-secondary" style="font-size: 13px;">
+                    <span class="bi bi-app-indicator" aria-hidden="true"></span>
+                    <strong>&nbsp;Today's Events</strong>
+                </div>
+                <div>
+                    <SfSchedule TValue="EventVm" Height="100%" EnableAutoRowHeight="true" @bind-SelectedDate="@currentDate" AllowDragAndDrop="false" AllowResizing="false" AllowMultiCellSelection="false" AllowMultiRowSelection="false" AllowInline="false">
+
+                        <ScheduleEventSettings DataSource="events" AllowAdding="false" EnableTooltip="true">
+                            <ScheduleField Id="Id">
+                                <FieldSubject Name="Title"></FieldSubject>
+                                <FieldLocation Name="Location"></FieldLocation>
+                                <FieldDescription Name="Description"></FieldDescription>
+                                <FieldStartTime Name="EventStartDate"></FieldStartTime>
+                                <FieldEndTime Name="EventEndDate"></FieldEndTime>
+                            </ScheduleField>
+                        </ScheduleEventSettings>
+
+                        <ScheduleViews>
+                            <ScheduleView Option="View.Day"></ScheduleView>
+                            @*<ScheduleView Option="View.Agenda"></ScheduleView>*@
+                        </ScheduleViews>
+
+                    </SfSchedule>
+                </div>
             </div>
-            <div>
+            <div class="col-md-4">
+                <div class="alert alert-secondary" style="font-size: 13px;">
+                    <span class="bi bi-app-indicator" aria-hidden="true"></span>
+                    <strong>&nbsp;Latests Cases</strong>
+                </div>
             </div>
         </div>
     }
@@ -48,9 +77,12 @@
 
 @code {
     ICollection<ClientVm> clients;
+    ICollection<EventVm> events;
+    DateTime currentDate = DateTime.Now;
 
     protected override async Task OnInitializedAsync()
     {
         clients = await ClientDataService.LatestClients();
+        events = await EventDataService.FindEventsByStartDate(DateTime.Now);
     }
 }
