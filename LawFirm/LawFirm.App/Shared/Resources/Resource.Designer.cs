@@ -79,6 +79,15 @@ namespace LawFirm.App.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Business Name.
+        /// </summary>
+        public static string BusinessName {
+            get {
+                return ResourceManager.GetString("BusinessName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Calendar.
         /// </summary>
         public static string Calendar {
@@ -115,11 +124,29 @@ namespace LawFirm.App.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Client Type.
+        /// </summary>
+        public static string ClientType {
+            get {
+                return ResourceManager.GetString("ClientType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Confirm.
         /// </summary>
         public static string Confirm {
             get {
                 return ResourceManager.GetString("Confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to create a new client?.
+        /// </summary>
+        public static string CreateNewClient {
+            get {
+                return ResourceManager.GetString("CreateNewClient", resourceCulture);
             }
         }
         
@@ -250,11 +277,47 @@ namespace LawFirm.App.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string Name {
+            get {
+                return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Next.
+        /// </summary>
+        public static string Next {
+            get {
+                return ResourceManager.GetString("Next", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nit.
+        /// </summary>
+        public static string Nit {
+            get {
+                return ResourceManager.GetString("Nit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No.
         /// </summary>
         public static string No {
             get {
                 return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You don&apos;t have any clients.
+        /// </summary>
+        public static string NoClients {
+            get {
+                return ResourceManager.GetString("NoClients", resourceCulture);
             }
         }
         
@@ -282,6 +345,33 @@ namespace LawFirm.App.Shared.Resources {
         public static string Please {
             get {
                 return ResourceManager.GetString("Please", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Previous.
+        /// </summary>
+        public static string Previous {
+            get {
+                return ResourceManager.GetString("Previous", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Representative.
+        /// </summary>
+        public static string Representative {
+            get {
+                return ResourceManager.GetString("Representative", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search for a client....
+        /// </summary>
+        public static string SearchClient {
+            get {
+                return ResourceManager.GetString("SearchClient", resourceCulture);
             }
         }
         

@@ -57,4 +57,11 @@ public class CaseDataService : BaseDataService, ICaseDataService
     {
         return await _client.FindCasesBySearchTermAsync(searchTerm);
     }
+
+    public async Task<ICollection<CaseVm>> GetLatestCases()
+    {
+        var latestsCases = await _client.GetLatestsCasesAsync();
+
+        return latestsCases;
+    }
 }

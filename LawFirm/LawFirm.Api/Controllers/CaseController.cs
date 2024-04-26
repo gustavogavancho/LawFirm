@@ -5,6 +5,7 @@ using LawFirm.Application.Features.Cases.Models;
 using LawFirm.Application.Features.Cases.Queries.FindCase;
 using LawFirm.Application.Features.Cases.Queries.GetCaseDetail;
 using LawFirm.Application.Features.Cases.Queries.GetCaseList;
+using LawFirm.Application.Features.Cases.Queries.GetLatestCases;
 using LawFirm.Application.Models.Pagination;
 using LawFirm.Domain.Pagination;
 using MediatR;
@@ -30,7 +31,7 @@ public class CaseController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
     [ProducesDefaultResponseType]
-    public async Task<ActionResult<PagingResponse<CaseVm>>> GetClients([FromQuery] ItemsParameters itemsParameters)
+    public async Task<ActionResult<PagingResponse<CaseVm>>> GetCases([FromQuery] ItemsParameters itemsParameters)
     {
         var dtos = await _mediator.Send(new GetPagedCaseListQuery() { ItemsParameters = itemsParameters });
 
@@ -39,11 +40,23 @@ public class CaseController : ControllerBase
         return Ok(new PagingResponse<CaseVm> { Items = dtos, MetaData = dtos.MetaData });
     }
 
+    [AllowAnonymous]
+    [HttpGet("getLatestCases", Name = "GetLatestsCases")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]
+    [ProducesDefaultResponseType]
+    public async Task<ActionResult<List<CaseVm>>> GetLatestCases()
+    {
+        var dtos = await _mediator.Send(new GetLastestCasesQuery());
+
+        return Ok(dtos);
+    }
+
     [HttpPost(Name = "CreateCase")]
     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(CaseVm))]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
-    public async Task<ActionResult<CaseVm>> CreateClient([FromBody] CreateCaseCommand createCaseCommand)
+    public async Task<ActionResult<CaseVm>> CreateCase([FromBody] CreateCaseCommand createCaseCommand)
     {
         var entity = await _mediator.Send(createCaseCommand);
 

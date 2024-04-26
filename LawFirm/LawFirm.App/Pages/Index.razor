@@ -2,28 +2,29 @@
 
 @inject IClientDataService ClientDataService
 @inject IEventDataService EventDataService
+@inject ICaseDataService ICaseDataService
 
 <PageTitle>Inicio - LawFirm</PageTitle>
 
 <div class="container-fluid">
-    @if (clients is null)
-    {
-        <p>Loading...</p>
-    }
-    else
-    {
-        <div class="row">
-            <div class="col-md-4">
-                <div class="alert alert-secondary" style="font-size: 13px;">
-                    <span class="bi bi-people-fill" aria-hidden="true"></span>
-                    <strong>&nbsp;Latests Clients</strong>
-                </div>
-                <div class="responsive-table">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="alert alert-secondary" style="font-size: 13px;">
+                <span class="bi bi-people-fill" aria-hidden="true"></span>
+                <strong>&nbsp;Latests Clients</strong>
+            </div>
+            @if (clients is null)
+            {
+                <p>Loading...</p>
+            }
+            else
+            {
+                <div class="responsive-table" style="height:calc(50vh - 124px)">
                     <TableView Items="clients" Context="client">
                         <HeaderTemplate>
                             <th>Client Type</th>
                             <th>Firt Name</th>
-                            <th>Last Name</th>
+                            <th>Last Name</th> 
                             <th>Nit</th>
                             <th>Business Name</th>
                             <th>Representative</th>
@@ -37,52 +38,92 @@
                             <td>@client.Representative</td>
                         </RowTemplate>
                     </TableView>
+
                 </div>
+            }
+            <div class="alert alert-secondary mt-4" style="font-size: 13px;">
+                <span class="bi bi-bookmark-fill" aria-hidden="true"></span>
+                <strong>&nbsp;Latests Cases</strong>
             </div>
-            <div class="col-md-4">
-                <div class="alert alert-secondary" style="font-size: 13px;">
-                    <span class="bi bi-app-indicator" aria-hidden="true"></span>
-                    <strong>&nbsp;Today's Events</strong>
-                </div>
-                <div>
-                    <SfSchedule TValue="EventVm" Height="100%" EnableAutoRowHeight="true" @bind-SelectedDate="@currentDate" AllowDragAndDrop="false" AllowResizing="false" AllowMultiCellSelection="false" AllowMultiRowSelection="false" AllowInline="false">
-
-                        <ScheduleEventSettings DataSource="events" AllowAdding="false" EnableTooltip="true">
-                            <ScheduleField Id="Id">
-                                <FieldSubject Name="Title"></FieldSubject>
-                                <FieldLocation Name="Location"></FieldLocation>
-                                <FieldDescription Name="Description"></FieldDescription>
-                                <FieldStartTime Name="EventStartDate"></FieldStartTime>
-                                <FieldEndTime Name="EventEndDate"></FieldEndTime>
-                            </ScheduleField>
-                        </ScheduleEventSettings>
-
-                        <ScheduleViews>
-                            <ScheduleView Option="View.Day"></ScheduleView>
-                            @*<ScheduleView Option="View.Agenda"></ScheduleView>*@
-                        </ScheduleViews>
-
-                    </SfSchedule>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="alert alert-secondary" style="font-size: 13px;">
-                    <span class="bi bi-app-indicator" aria-hidden="true"></span>
-                    <strong>&nbsp;Latests Cases</strong>
-                </div>
+            <div>
+                @if (cases is null)
+                {
+                    <p>Loading...</p>
+                }
+                else
+                {
+                    <div class="responsive-table" style="height:calc(50vh - 124px)">
+                        <TableView Items="cases" Context="caseEntity">
+                            <HeaderTemplate>
+                                <th>Client Type</th>
+                                <th>File Number</th>
+                                <th>Client</th>
+                                <th>Counter Part</th>
+                                <th>Stage</th>
+                                <th>Date</th>
+                            </HeaderTemplate>
+                            <RowTemplate>
+                                <td>@caseEntity.ClientType</td>
+                                <td>@caseEntity.FileNumber</td>
+                                <td>
+                                    @foreach (var item in caseEntity.Clients)
+                                    {
+                                    <li style="list-style-type: none;">@(!String.IsNullOrEmpty(item.FirstName) ? $"{item.FirstName} {item.LastName}" : $"{item.BusinessName}")</li>
+                                    }
+                                </td>
+                                <td>
+                                    @foreach (var item in caseEntity.CounterParts)
+                                    {
+                                    <li style="list-style-type: none;">@($"{item.Name}")</li>
+                                    }
+                                </td>
+                                <td>@caseEntity.Stage</td>
+                                <td>@caseEntity.CreatedDate.ToShortDateString()</td>
+                            </RowTemplate>
+                        </TableView>
+                    </div>
+                }
             </div>
         </div>
-    }
+        <div class="col-md-6">
+            <div class="alert alert-secondary" style="font-size: 13px;">
+                <span class="bi bi-bell-fill" aria-hidden="true"></span>
+                <strong>&nbsp;Today's Events</strong>
+            </div>
+            <div style="height:calc(100vh - 153px)">
+                <SfSchedule TValue="EventVm" Height="100%" EnableAutoRowHeight="true" Readonly="true" @bind-SelectedDate="@currentDate" AllowDragAndDrop="false" AllowResizing="false" AllowMultiCellSelection="false" AllowMultiRowSelection="false" AllowInline="false">
+
+                    <ScheduleEventSettings DataSource="events" AllowAdding="false" EnableTooltip="true">
+                        <ScheduleField Id="Id">
+                            <FieldSubject Name="Title"></FieldSubject>
+                            <FieldLocation Name="Location"></FieldLocation>
+                            <FieldDescription Name="Description"></FieldDescription>
+                            <FieldStartTime Name="EventStartDate"></FieldStartTime>
+                            <FieldEndTime Name="EventEndDate"></FieldEndTime>
+                        </ScheduleField>
+                    </ScheduleEventSettings>
+
+                    <ScheduleViews>
+                        <ScheduleView Option="View.Day"></ScheduleView>
+                        @* <ScheduleView Option="View.Agenda"></ScheduleView> *@
+                    </ScheduleViews>
+
+                </SfSchedule>
+            </div>
+        </div>
+    </div>
 </div>
 
 @code {
     ICollection<ClientVm> clients;
     ICollection<EventVm> events;
+    ICollection<CaseVm> cases;
     DateTime currentDate = DateTime.Now;
 
     protected override async Task OnInitializedAsync()
     {
         clients = await ClientDataService.LatestClients();
         events = await EventDataService.FindEventsByStartDate(DateTime.Now);
+        cases = await ICaseDataService.GetLatestCases();
     }
 }

@@ -123,6 +123,9 @@
   <data name="AddUserSuggestion" xml:space="preserve">
     <value>¿Por qué no agregar uno?</value>
   </data>
+  <data name="BusinessName" xml:space="preserve">
+    <value>Razón Social</value>
+  </data>
   <data name="Calendar" xml:space="preserve">
     <value>Calendario</value>
   </data>
@@ -135,8 +138,14 @@
   <data name="Clients" xml:space="preserve">
     <value>Clientes</value>
   </data>
+  <data name="ClientType" xml:space="preserve">
+    <value>Tipo Cliente</value>
+  </data>
   <data name="Confirm" xml:space="preserve">
     <value>Confirmar</value>
+  </data>
+  <data name="CreateNewClient" xml:space="preserve">
+    <value>¿Quieres crear un nuevo usuario?</value>
   </data>
   <data name="CreateNewUser" xml:space="preserve">
     <value>¿Quieres crear un nuevo usuario?</value>
@@ -180,8 +189,17 @@
   <data name="Logout" xml:space="preserve">
     <value>Cerrar sesión</value>
   </data>
+  <data name="Next" xml:space="preserve">
+    <value>Siguiente</value>
+  </data>
+  <data name="Nit" xml:space="preserve">
+    <value>Identificación</value>
+  </data>
   <data name="No" xml:space="preserve">
     <value>No</value>
+  </data>
+  <data name="NoClientes" xml:space="preserve">
+    <value>No tienes clientes registrados</value>
   </data>
   <data name="NoUsers" xml:space="preserve">
     <value>No tienes usuarios registrados</value>
@@ -192,6 +210,15 @@
   <data name="Please" xml:space="preserve">
     <value>Por favor</value>
   </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Anterior</value>
+  </data>
+  <data name="Representative" xml:space="preserve">
+    <value>Representante</value>
+  </data>
+  <data name="SearchClient" xml:space="preserve">
+    <value>Buscar un cliente...</value>
+  </data>
   <data name="Title" xml:space="preserve">
     <value>Título</value>
   </data>
@@ -200,8 +227,5 @@
   </data>
   <data name="Users" xml:space="preserve">
     <value>Usuarios</value>
-  </data>
-  <data name="Yes" xml:space="preserve">
-    <value>Sí</value>
   </data>
 </root>

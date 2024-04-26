@@ -123,6 +123,9 @@
   <data name="AddUserSuggestion" xml:space="preserve">
     <value>why not add one?</value>
   </data>
+  <data name="BusinessName" xml:space="preserve">
+    <value>Business Name</value>
+  </data>
   <data name="Calendar" xml:space="preserve">
     <value>Calendar</value>
   </data>
@@ -135,8 +138,14 @@
   <data name="Clients" xml:space="preserve">
     <value>Clients</value>
   </data>
+  <data name="ClientType" xml:space="preserve">
+    <value>Client Type</value>
+  </data>
   <data name="Confirm" xml:space="preserve">
     <value>Confirm</value>
+  </data>
+  <data name="CreateNewClient" xml:space="preserve">
+    <value>Do you want to create a new client?</value>
   </data>
   <data name="CreateNewUser" xml:space="preserve">
     <value>Do you want to create a new user?</value>
@@ -180,8 +189,20 @@
   <data name="Logout" xml:space="preserve">
     <value>Log out</value>
   </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="Nit" xml:space="preserve">
+    <value>Nit</value>
+  </data>
   <data name="No" xml:space="preserve">
     <value>No</value>
+  </data>
+  <data name="NoClients" xml:space="preserve">
+    <value>You don't have any clients</value>
   </data>
   <data name="NoUsers" xml:space="preserve">
     <value>You don't have any users</value>
@@ -191,6 +212,15 @@
   </data>
   <data name="Please" xml:space="preserve">
     <value>Please</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Previous</value>
+  </data>
+  <data name="Representative" xml:space="preserve">
+    <value>Representative</value>
+  </data>
+  <data name="SearchClient" xml:space="preserve">
+    <value>Search for a client...</value>
   </data>
   <data name="Title" xml:space="preserve">
     <value>Title</value>

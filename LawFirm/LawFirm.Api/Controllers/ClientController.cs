@@ -39,6 +39,7 @@ public class ClientController : ControllerBase
         return Ok(new PagingResponse<ClientVm> { Items = dtos, MetaData = dtos.MetaData});
     }
 
+    [AllowAnonymous]
     [HttpGet("latestClients", Name = "GetRecentClients")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(void), StatusCodes.Status401Unauthorized)]

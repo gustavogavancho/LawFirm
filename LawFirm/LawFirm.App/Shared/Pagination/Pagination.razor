@@ -1,4 +1,6 @@
-﻿<nav aria-label="Page navigation example">
+﻿@inject IStringLocalizer<Shared.Resources.Resource> localizer
+
+<nav aria-label="Page navigation example">
     <ul class="pagination justify-content-center">
         @foreach (var link in links)
         {
@@ -28,7 +30,7 @@
     private void CreatePaginationLinks()
     {
         links = new List<PagingLinkViewModel>();
-        links.Add(new PagingLinkViewModel(MetaData.CurrentPage - 1, MetaData.HasPrevious, "Previous"));
+        links.Add(new PagingLinkViewModel(MetaData.CurrentPage - 1, MetaData.HasPrevious, localizer["Previous"]));
 
         for (int i = 1; i <= MetaData.TotalPages; i++)
         {
@@ -38,7 +40,7 @@
             }
         }
 
-        links.Add(new PagingLinkViewModel(MetaData.CurrentPage + 1, MetaData.HasNext, "Next"));
+        links.Add(new PagingLinkViewModel(MetaData.CurrentPage + 1, MetaData.HasNext, localizer["Next"]));
     }
     private async Task OnSelectedPage(PagingLinkViewModel link)
     {
