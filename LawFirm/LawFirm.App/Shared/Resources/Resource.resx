@@ -120,6 +120,9 @@
   <data name="AddItHere" xml:space="preserve">
     <value>add it here.</value>
   </data>
+  <data name="AddUser" xml:space="preserve">
+    <value>Add User</value>
+  </data>
   <data name="AddUserSuggestion" xml:space="preserve">
     <value>why not add one?</value>
   </data>
@@ -129,11 +132,17 @@
   <data name="Calendar" xml:space="preserve">
     <value>Calendar</value>
   </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
   <data name="Cases" xml:space="preserve">
     <value>Cases</value>
   </data>
   <data name="ChangePassword" xml:space="preserve">
     <value>Change Password</value>
+  </data>
+  <data name="ChangePasswordDescription" xml:space="preserve">
+    <value>If you forgot or lost your password for the appplication, you may be able to change or reset it here.</value>
   </data>
   <data name="Clients" xml:space="preserve">
     <value>Clients</value>
@@ -144,11 +153,23 @@
   <data name="Confirm" xml:space="preserve">
     <value>Confirm</value>
   </data>
+  <data name="ConfirmAction" xml:space="preserve">
+    <value>Confirm Action</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Confirm Password</value>
+  </data>
   <data name="CreateNewClient" xml:space="preserve">
     <value>Do you want to create a new client?</value>
   </data>
   <data name="CreateNewUser" xml:space="preserve">
     <value>Do you want to create a new user?</value>
+  </data>
+  <data name="Credentials" xml:space="preserve">
+    <value>Credentials</value>
+  </data>
+  <data name="CredentialsDescription" xml:space="preserve">
+    <value>Verification of identity or tools for authentication.</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
@@ -210,6 +231,9 @@
   <data name="Password" xml:space="preserve">
     <value>Password</value>
   </data>
+  <data name="PasswordChangedSuccessfully" xml:space="preserve">
+    <value>¡Password changed successfully!</value>
+  </data>
   <data name="Please" xml:space="preserve">
     <value>Please</value>
   </data>
@@ -222,8 +246,23 @@
   <data name="SearchClient" xml:space="preserve">
     <value>Search for a client...</value>
   </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Submit</value>
+  </data>
   <data name="Title" xml:space="preserve">
     <value>Title</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>Usuario</value>
+  </data>
+  <data name="UserAddedConfirmation" xml:space="preserve">
+    <value>The user has been added successfully!</value>
+  </data>
+  <data name="UserDetails" xml:space="preserve">
+    <value>User Details</value>
+  </data>
+  <data name="UserDetailsDescription" xml:space="preserve">
+    <value>A person or entity that engages with a product, service, or system in some way, such as by using it, interacting with it, or consuming it.</value>
   </data>
   <data name="Username" xml:space="preserve">
     <value>Username</value>

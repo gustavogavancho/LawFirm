@@ -70,6 +70,15 @@ namespace LawFirm.App.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add User.
+        /// </summary>
+        public static string AddUser {
+            get {
+                return ResourceManager.GetString("AddUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to why not add one?.
         /// </summary>
         public static string AddUserSuggestion {
@@ -97,6 +106,15 @@ namespace LawFirm.App.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cases.
         /// </summary>
         public static string Cases {
@@ -111,6 +129,15 @@ namespace LawFirm.App.Shared.Resources {
         public static string ChangePassword {
             get {
                 return ResourceManager.GetString("ChangePassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you forgot or lost your password for the appplication, you may be able to change or reset it here..
+        /// </summary>
+        public static string ChangePasswordDescription {
+            get {
+                return ResourceManager.GetString("ChangePasswordDescription", resourceCulture);
             }
         }
         
@@ -142,6 +169,24 @@ namespace LawFirm.App.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Confirm Action.
+        /// </summary>
+        public static string ConfirmAction {
+            get {
+                return ResourceManager.GetString("ConfirmAction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm Password.
+        /// </summary>
+        public static string ConfirmPassword {
+            get {
+                return ResourceManager.GetString("ConfirmPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do you want to create a new client?.
         /// </summary>
         public static string CreateNewClient {
@@ -156,6 +201,24 @@ namespace LawFirm.App.Shared.Resources {
         public static string CreateNewUser {
             get {
                 return ResourceManager.GetString("CreateNewUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Credentials.
+        /// </summary>
+        public static string Credentials {
+            get {
+                return ResourceManager.GetString("Credentials", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verification of identity or tools for authentication..
+        /// </summary>
+        public static string CredentialsDescription {
+            get {
+                return ResourceManager.GetString("CredentialsDescription", resourceCulture);
             }
         }
         
@@ -340,6 +403,15 @@ namespace LawFirm.App.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ¡Password changed successfully!.
+        /// </summary>
+        public static string PasswordChangedSuccessfully {
+            get {
+                return ResourceManager.GetString("PasswordChangedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please.
         /// </summary>
         public static string Please {
@@ -376,11 +448,56 @@ namespace LawFirm.App.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Submit.
+        /// </summary>
+        public static string Submit {
+            get {
+                return ResourceManager.GetString("Submit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Title.
         /// </summary>
         public static string Title {
             get {
                 return ResourceManager.GetString("Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Usuario.
+        /// </summary>
+        public static string User {
+            get {
+                return ResourceManager.GetString("User", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The user has been added successfully!.
+        /// </summary>
+        public static string UserAddedConfirmation {
+            get {
+                return ResourceManager.GetString("UserAddedConfirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User Details.
+        /// </summary>
+        public static string UserDetails {
+            get {
+                return ResourceManager.GetString("UserDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A person or entity that engages with a product, service, or system in some way, such as by using it, interacting with it, or consuming it..
+        /// </summary>
+        public static string UserDetailsDescription {
+            get {
+                return ResourceManager.GetString("UserDetailsDescription", resourceCulture);
             }
         }
         

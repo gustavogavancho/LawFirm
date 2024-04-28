@@ -5,52 +5,53 @@
 @inject NavigationManager Navigation
 @inject IAuthenticationService AuthenticationService
 @inject IJSRuntime JsRuntime
+@inject IStringLocalizer<Shared.Resources.Resource> localizer
 
-<PageTitle>Add User - Law Firm</PageTitle>
+<PageTitle>@(localizer["User"]) - Law Firm</PageTitle>
 
-<SimpleNavigation BasePageRef="user" BasePage="User" CurrentPage="Add User" />
+<SimpleNavigation BasePageRef="user" BasePage="@(localizer["User"])" CurrentPage="@(localizer["AddUser"])" />
 
 <EditForm Model="userViewModel" OnValidSubmit="HandleValidSubmit">
 
     <FluentValidationValidator />
 
-    <FormSection Title="User details" 
-                 HelpText="A person or entity that engages with a product, service, or system in some way, such as by using it, interacting with it, or consuming it.">
+    <FormSection Title="@(localizer["UserDetails"])" 
+                 HelpText="@(localizer["UserDetailsDescription"])">
         <FormFieldSet Width="col-11">
-            <label for="firstName" class="form-label text-muted fw-bold">First Name</label>
+            <label for="firstName" class="form-label text-muted fw-bold">@(localizer["FirstName"])</label>
             <InputText @bind-Value="userViewModel.FirstName" class=" form-control form-control-sm" id="firstName" />
             <ValidationMessage For="@(() => userViewModel.FirstName)" />
         </FormFieldSet>
 
         <FormFieldSet Width="col-11">
-            <label for="lastName" class="form-label text-muted fw-bold">Last Name</label>
+            <label for="lastName" class="form-label text-muted fw-bold">@(localizer["LastName"])</label>
             <InputText @bind-Value="userViewModel.LastName" class=" form-control form-control-sm" id="lastName" />
             <ValidationMessage For="@(() => userViewModel.LastName)" />
         </FormFieldSet>
 
         <FormFieldSet Width="col-11">
-            <label for="email" class="form-label text-muted fw-bold">Email</label>
+            <label for="email" class="form-label text-muted fw-bold">@(localizer["Email"])</label>
             <InputText @bind-Value="userViewModel.Email" class=" form-control form-control-sm" id="email" />
             <ValidationMessage For="@(() => userViewModel.Email)" />
         </FormFieldSet>
     </FormSection>
 
-    <FormSection Title="Credentials" 
-                 HelpText="verification of identity or tools for authentication.">
+    <FormSection Title="@localizer["Credentials"]" 
+                 HelpText="@localizer["CredentialsDescription"]">
         <FormFieldSet Width="col-11">
-            <label for="userName" class="form-label text-muted fw-bold">User Name</label>
+            <label for="userName" class="form-label text-muted fw-bold">@localizer["Username"]</label>
             <InputText @bind-Value="userViewModel.UserName" class=" form-control form-control-sm" id="userName" />
             <ValidationMessage For="@(() => userViewModel.UserName)" />
         </FormFieldSet>
 
         <FormFieldSet Width="col-11">
-            <label for="password" class="form-label text-muted fw-bold">Password</label>
+            <label for="password" class="form-label text-muted fw-bold">@localizer["Password"]</label>
             <InputText type="password" @bind-Value="userViewModel.Password" class=" form-control form-control-sm" id="password" />
             <ValidationMessage For="@(() => userViewModel.Password)" />
         </FormFieldSet>
 
         <FormFieldSet Width="col-11">
-            <label for="confirmPassword" class="form-label text-muted fw-bold">Confirm Password</label>
+            <label for="confirmPassword" class="form-label text-muted fw-bold">@localizer["ConfirmPassword"]</label>
             <InputText type="password" @bind-Value="userViewModel.ConfirmPassword" class=" form-control form-control-sm" id="confirmPassword" />
             <ValidationMessage For="@(() => userViewModel.ConfirmPassword)" />
         </FormFieldSet>
@@ -59,8 +60,8 @@
     <div class="mt-4 mb-2">
         <div class="row">
             <div class="offset-4 col-8 text-end">
-                <button class="btn btn-primary btn-sm" type="submit">Submit</button>
-                <button class="btn btn-outline-secondary btn-sm" type="button" @onclick="HandleCancel">Cancel</button>
+                <button class="btn btn-primary btn-sm" type="submit">@localizer["Submit"]</button>
+                <button class="btn btn-outline-secondary btn-sm" type="button" @onclick="HandleCancel">@localizer["Cancel"]</button>
             </div>
         </div>
     </div>
@@ -76,13 +77,13 @@
         {
             if (await AuthenticationService.Register(userViewModel.FirstName, userViewModel.LastName, userViewModel.UserName, userViewModel.Email, userViewModel.Password))
             {
-                await JsRuntime.InvokeVoidAsync("showSuccessToastr", "The user has been added successfully!");
+                await JsRuntime.InvokeVoidAsync("showSuccessToastr", localizer["UserAddedConfirmation"].ToString());
                 userViewModel = new();
             }
         }
         catch (ApiException)
         {
-            await JsRuntime.InvokeVoidAsync("showErrorToastr", "Something went wrong, please try again or contact your supplier.");
+            await JsRuntime.InvokeVoidAsync("showErrorToastr", localizer["GenericError"].ToString());
         }
         await JsRuntime.InvokeVoidAsync("scrollUtils.scrollToTop");
     }

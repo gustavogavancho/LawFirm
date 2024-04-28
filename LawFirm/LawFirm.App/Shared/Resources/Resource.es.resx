@@ -120,6 +120,9 @@
   <data name="AddItHere" xml:space="preserve">
     <value>añadelo aquí.</value>
   </data>
+  <data name="AddUser" xml:space="preserve">
+    <value>Agregar Usuario</value>
+  </data>
   <data name="AddUserSuggestion" xml:space="preserve">
     <value>¿Por qué no agregar uno?</value>
   </data>
@@ -129,11 +132,17 @@
   <data name="Calendar" xml:space="preserve">
     <value>Calendario</value>
   </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
   <data name="Cases" xml:space="preserve">
     <value>Casos</value>
   </data>
   <data name="ChangePassword" xml:space="preserve">
     <value>Cambiar contraseña</value>
+  </data>
+  <data name="ChangePasswordDescription" xml:space="preserve">
+    <value>Si ha olvidado o perdido la contraseña de la aplicación, puede cambiarla o restablecerla aquí.</value>
   </data>
   <data name="Clients" xml:space="preserve">
     <value>Clientes</value>
@@ -144,11 +153,23 @@
   <data name="Confirm" xml:space="preserve">
     <value>Confirmar</value>
   </data>
+  <data name="ConfirmAction" xml:space="preserve">
+    <value>Confirmar acción</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Comfirmar Contraseña</value>
+  </data>
   <data name="CreateNewClient" xml:space="preserve">
     <value>¿Quieres crear un nuevo usuario?</value>
   </data>
   <data name="CreateNewUser" xml:space="preserve">
     <value>¿Quieres crear un nuevo usuario?</value>
+  </data>
+  <data name="Credentials" xml:space="preserve">
+    <value>Credenciales</value>
+  </data>
+  <data name="CredentialsDescription" xml:space="preserve">
+    <value>Verificación de la identidad o herramientas de autenticación.</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Eliminar</value>
@@ -207,6 +228,9 @@
   <data name="Password" xml:space="preserve">
     <value>Contraseña</value>
   </data>
+  <data name="PasswordChangedSuccessfully" xml:space="preserve">
+    <value>¡La contraseña se cambio exitosamente!</value>
+  </data>
   <data name="Please" xml:space="preserve">
     <value>Por favor</value>
   </data>
@@ -219,13 +243,31 @@
   <data name="SearchClient" xml:space="preserve">
     <value>Buscar un cliente...</value>
   </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Enviar</value>
+  </data>
   <data name="Title" xml:space="preserve">
     <value>Título</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>Usuario</value>
+  </data>
+  <data name="UserAddedConfirmation" xml:space="preserve">
+    <value>¡El usuario ha sido añadido exitosamente!</value>
+  </data>
+  <data name="UserDetails" xml:space="preserve">
+    <value>Información de Usuario</value>
+  </data>
+  <data name="UserDetailsDescription" xml:space="preserve">
+    <value>Persona o entidad que se relaciona de algún modo con un producto, servicio o sistema, por ejemplo, utilizándolo, interactuando con él o consumiéndolo.</value>
   </data>
   <data name="Username" xml:space="preserve">
     <value>Usuario</value>
   </data>
   <data name="Users" xml:space="preserve">
     <value>Usuarios</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Si</value>
   </data>
 </root>

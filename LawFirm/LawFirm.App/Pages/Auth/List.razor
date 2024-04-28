@@ -7,7 +7,7 @@
 @inject IJSRuntime JsRuntime
 @inject IStringLocalizer<Shared.Resources.Resource> localizer
 
-<PageTitle>User - Law Firm</PageTitle>
+<PageTitle>@(localizer["User"]) - Law Firm</PageTitle>
 
 @if (showConfirmationDialog)
 {
@@ -83,11 +83,11 @@ else
             {
                 await AuthenticationService.DeleteUser(userIdSelected);
                 await GetUsersAsync();
-                await JsRuntime.InvokeVoidAsync("showSuccessToastr", localizer["DeletedUser"]);
+                await JsRuntime.InvokeVoidAsync("showSuccessToastr", localizer["DeletedUser"].ToString());
             }
             catch (Exception)
             {
-                await JsRuntime.InvokeVoidAsync("showErrorToastr", localizer["GenericError"]);
+                await JsRuntime.InvokeVoidAsync("showErrorToastr", localizer["GenericError"].ToString());
             }
         }
         showConfirmationDialog = false;
