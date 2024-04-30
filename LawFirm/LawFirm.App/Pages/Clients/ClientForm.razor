@@ -1,62 +1,64 @@
-﻿<FormSection Title="Client Information"
-             HelpText="Refers to information or data about a customer or client.">
+﻿@inject IStringLocalizer<Shared.Resources.Resource> localizer
+
+<FormSection Title="@localizer["ClientInformation"]"
+             HelpText="@localizer["ClientInformationDescription"]">
 
     <FormFieldSet Width="col-11">
-        <label for="clientType" class="form-label text-muted fw-bold">Client Type</label>
+        <label for="clientType" class="form-label text-muted fw-bold">@localizer["ClientType"]</label>
         <InputSelect @bind-Value="Client.ClientType" class="form-select" id="clientType" disabled="@Disabled">
             <option value=""></option>
-            <option value="Natural Person">Natural Person</option>
-            <option value="Legal Person">Legal Person</option>
+            <option value="Natural Person">@localizer["NaturalPerson"]</option>
+            <option value="Legal Person">@localizer["LegalPerson"]</option>
         </InputSelect>
         <ValidationMessage For="@(() => Client.ClientType)" />
     </FormFieldSet>
 
     <FormFieldSet Width="col-11">
-        <label for="firstName" class="form-label text-muted fw-bold">First Name</label>
-        <InputText @bind-Value="Client.FirstName" class=" form-control" id="firstName" disabled="@(Client.ClientType == "Legal Person" || Disabled)" />
+        <label for="firstName" class="form-label text-muted fw-bold">@localizer["FirstName"]</label>
+        <InputText @bind-Value="Client.FirstName" class=" form-control" id="firstName" disabled="@((Client.ClientType == "Legal Person" || Client.ClientType == "Persona Jurídica") || Disabled)" />
         <ValidationMessage For="@(() => Client.FirstName)" />
     </FormFieldSet>
 
     <FormFieldSet Width="col-11">
-        <label for="lastName" class="form-label text-muted fw-bold">Last Name</label>
-        <InputText @bind-Value="Client.LastName" class=" form-control" id="lastName" disabled="@(Client.ClientType == "Legal Person" || Disabled)" />
+        <label for="lastName" class="form-label text-muted fw-bold">@localizer["LastName"]</label>
+        <InputText @bind-Value="Client.LastName" class=" form-control" id="lastName" disabled="@((Client.ClientType == "Legal Person" || Client.ClientType == "Persona Jurídica") || Disabled)" />
         <ValidationMessage For="@(() => Client.LastName)" />
     </FormFieldSet>
 
     <FormFieldSet Width="col-11">
-        <label for="businessName" class="form-label text-muted fw-bold">Business Name</label>
-        <InputText @bind-Value="Client.BusinessName" class=" form-control" id="businessName" disabled="@(Client.ClientType == "Natural Person" || Disabled)" />
+        <label for="businessName" class="form-label text-muted fw-bold">@localizer["BusinessName"]</label>
+        <InputText @bind-Value="Client.BusinessName" class=" form-control" id="businessName" disabled="@((Client.ClientType == "Natural Person" || Client.ClientType == "Persona Natural") || Disabled)" />
         <ValidationMessage For="@(() => Client.BusinessName)" />
     </FormFieldSet>
 
     <FormFieldSet Width="col-11">
-        <label for="nit" class="form-label text-muted fw-bold">Nit</label>
+        <label for="nit" class="form-label text-muted fw-bold">@localizer["Nit"]</label>
         <InputNumber @bind-Value="Client.Nit" class=" form-control" id="nit" disabled="@Disabled" />
         <ValidationMessage For="@(() => Client.Nit)" />
     </FormFieldSet>
 
     <FormFieldSet Width="col-11">
-        <label for="representative" class="form-label text-muted fw-bold">Representative</label>
-        <InputText @bind-Value="Client.Representative" class=" form-control" id="representative" disabled="@(Client.ClientType == "Natural Person" || Disabled)" />
+        <label for="representative" class="form-label text-muted fw-bold">@localizer["Representative"]</label>
+        <InputText @bind-Value="Client.Representative" class=" form-control" id="representative" disabled="@((Client.ClientType == "Natural Person" || Client.ClientType == "Persona Natural") || Disabled)" />
         <ValidationMessage For="@(() => Client.Representative)" />
     </FormFieldSet>
 
 </FormSection>
 
-<FormSection Title="Contact Details"
-             HelpText="Information or data that allows individuals or entities to get in touch with a person, organization, or business.">
+<FormSection Title="@localizer["ContactDetails"]"
+             HelpText="@localizer["ContactDetailsDescription"]">
     <FormFieldSet Width="col-11">
-        <label for="phoneNumber" class="form-label text-muted fw-bold">Phone Number</label>
+        <label for="phoneNumber" class="form-label text-muted fw-bold">@localizer["PhoneNumber"]</label>
         <InputNumber @bind-Value="Client.PhoneNumber" class=" form-control" id="phoneNumber" disabled="@Disabled" />
         <ValidationMessage For="@(() => Client.PhoneNumber)" />
     </FormFieldSet>
     <FormFieldSet Width="col-11">
-        <label for="address" class="form-label text-muted fw-bold">Address</label>
+        <label for="address" class="form-label text-muted fw-bold">@localizer["Address"]</label>
         <InputText @bind-Value="Client.Address" class=" form-control" id="address" disabled="@Disabled" />
         <ValidationMessage For="@(() => Client.Address)" />
     </FormFieldSet>
     <FormFieldSet Width="col-11">
-        <label for="email" class="form-label text-muted fw-bold">Email</label>
+        <label for="email" class="form-label text-muted fw-bold">@localizer["Email"]</label>
         <InputText @bind-Value="Client.Email" class=" form-control" id="email" disabled="@Disabled" />
         <ValidationMessage For="@(() => Client.Email)" />
     </FormFieldSet>

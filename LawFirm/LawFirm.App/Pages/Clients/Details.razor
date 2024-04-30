@@ -4,14 +4,15 @@
 
 @inject IClientDataService ClientDataService
 @inject NavigationManager Navigation
+@inject IStringLocalizer<Shared.Resources.Resource> localizer
 
-<PageTitle>Client Details - LawFirm</PageTitle>
+<PageTitle>@localizer["Client"] - LawFirm</PageTitle>
 
-<SimpleNavigation BasePageRef="client" BasePage="Client" CurrentPage="Client Details"/>
+<SimpleNavigation BasePageRef="client" BasePage="@localizer["Client"]" CurrentPage="@localizer["ClientDetails"]" />
 
 @if (client is null)
 {
-    <p>Loading...</p>
+    <p>@localizer["Loading"]...</p>
 }
 else
 {
@@ -22,7 +23,7 @@ else
         <div class="mt-4 mb-2">
             <div class="row">
                 <div class="offset-4 col-8 text-end">
-                    <button class="btn btn-secondary" type="button" @onclick="@(() => Navigation.NavigateTo("client"))">Go back</button>
+                    <button class="btn btn-secondary" type="button" @onclick="@(() => Navigation.NavigateTo("client"))">@localizer["GoBack"]</button>
                 </div>
             </div>
         </div>
