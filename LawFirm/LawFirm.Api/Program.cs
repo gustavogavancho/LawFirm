@@ -1,4 +1,7 @@
 using LawFirm.Api;
+using LawFirm.Identity;
+using LawFirm.Persistence;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 
 Log.Logger = new LoggerConfiguration()
@@ -21,5 +24,13 @@ var app = builder
 app.UseSerilogRequestLogging();
 
 app.Run();
+
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<LawFirmContext>();
+    var dbContext2 = scope.ServiceProvider.GetRequiredService<LawFirmIdentityContext>();
+    dbContext.Database.Migrate(); // This will apply all pending migrations
+    dbContext2.Database.Migrate(); // This will apply all pending migrations
+}
 
 public partial class Program { }
