@@ -91,15 +91,9 @@ namespace LawFirm.Identity.Migrations
                     b.HasData(
                         new
                         {
-<<<<<<< HEAD
-                            Id = "d8631735-0757-4b50-af2a-f1a3e6ba1eb0",
+                            Id = "801e88f8-ccee-4bbb-9d94-ba23d99892f8",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "135596f4-63f2-4226-b212-b9186a25ffc7",
-=======
-                            Id = "dfa31c17-a44a-4b94-bdc8-33cd493d35bd",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "c134a675-5bda-48ba-97a3-93601bed8462",
->>>>>>> 38a3f0b4f3c456601e8b1b9fb555230ac05ea9b6
+                            ConcurrencyStamp = "cd1b6309-08d9-4b72-975e-6d009c52431d",
                             Email = "ggavancholeon@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "",
@@ -107,15 +101,9 @@ namespace LawFirm.Identity.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "GGAVANCHOLEON@GMAIL.COM",
                             NormalizedUserName = "ADMIN",
-<<<<<<< HEAD
-                            PasswordHash = "AQAAAAEAACcQAAAAEBmByz2xC2OVnQ8sOftiXuS4seCKHd9K2JUigpT3p9KoKHawb5rBoy+0pGdKDrphlw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHFYdmsIsJKlV/r+5JLtYBw7KvQE6hc6olF/jQXLYaeUJw1lW67997feJnpUBprfVA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "793e0958-3bd6-437e-ac0c-08467a4a78c0",
-=======
-                            PasswordHash = "AQAAAAEAACcQAAAAEKOJ4a/aLbUh6IMehcz55RLXk8ewuNcXL4kNOl/H0HqklPA7oULg5yPhndeCn7Yc1A==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "0be0974f-8869-41da-b135-b75f841e9128",
->>>>>>> 38a3f0b4f3c456601e8b1b9fb555230ac05ea9b6
+                            SecurityStamp = "d6ef5cec-1d58-47c7-9323-847a475546f6",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -149,25 +137,15 @@ namespace LawFirm.Identity.Migrations
                     b.HasData(
                         new
                         {
-<<<<<<< HEAD
-                            Id = "18cb5280-891f-4289-8b17-48b977513541",
-                            ConcurrencyStamp = "aa04eb30-fee0-4aa8-a9e4-ef83be99629d",
-=======
-                            Id = "e9ea3def-3240-4b7a-9242-e4655b5d73e8",
-                            ConcurrencyStamp = "c4a37ca4-ef12-4198-9dcb-1c037f7ab3f4",
->>>>>>> 38a3f0b4f3c456601e8b1b9fb555230ac05ea9b6
+                            Id = "a0423e64-37cc-40a6-98d0-558fd4c6b683",
+                            ConcurrencyStamp = "1e75692b-8e69-465c-be54-8c7d185f80fb",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-<<<<<<< HEAD
-                            Id = "295c446d-f2b6-48fd-ab1b-1acc78d139ab",
-                            ConcurrencyStamp = "97f9f7ea-6666-4bef-b4b5-f8a9d7c74c5e",
-=======
-                            Id = "820629ca-e73e-43de-9f2c-75578b155fb0",
-                            ConcurrencyStamp = "429ea303-db71-4b36-9a81-afc3e0130461",
->>>>>>> 38a3f0b4f3c456601e8b1b9fb555230ac05ea9b6
+                            Id = "f2a0e2fe-0991-40ba-a887-eb7346aff47d",
+                            ConcurrencyStamp = "37eacab9-b4d2-42e7-b6f9-5b47d017e31a",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -258,13 +236,8 @@ namespace LawFirm.Identity.Migrations
                     b.HasData(
                         new
                         {
-<<<<<<< HEAD
-                            UserId = "d8631735-0757-4b50-af2a-f1a3e6ba1eb0",
-                            RoleId = "18cb5280-891f-4289-8b17-48b977513541"
-=======
-                            UserId = "dfa31c17-a44a-4b94-bdc8-33cd493d35bd",
-                            RoleId = "e9ea3def-3240-4b7a-9242-e4655b5d73e8"
->>>>>>> 38a3f0b4f3c456601e8b1b9fb555230ac05ea9b6
+                            UserId = "801e88f8-ccee-4bbb-9d94-ba23d99892f8",
+                            RoleId = "a0423e64-37cc-40a6-98d0-558fd4c6b683"
                         });
                 });
 

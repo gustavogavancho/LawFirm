@@ -23,8 +23,6 @@ var app = builder
 
 app.UseSerilogRequestLogging();
 
-app.Run();
-
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<LawFirmContext>();
@@ -32,5 +30,7 @@ using (var scope = app.Services.CreateScope())
     dbContext.Database.Migrate(); // This will apply all pending migrations
     dbContext2.Database.Migrate(); // This will apply all pending migrations
 }
+
+app.Run();
 
 public partial class Program { }

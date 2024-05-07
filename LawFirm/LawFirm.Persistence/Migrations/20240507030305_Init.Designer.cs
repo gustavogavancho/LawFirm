@@ -11,11 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LawFirm.Persistence.Migrations
 {
     [DbContext(typeof(LawFirmContext))]
-<<<<<<<< HEAD:LawFirm/LawFirm.Persistence/Migrations/20240507025928_Init.Designer.cs
-    [Migration("20240507025928_Init")]
-========
-    [Migration("20240507024550_Init")]
->>>>>>>> 38a3f0b4f3c456601e8b1b9fb555230ac05ea9b6:LawFirm/LawFirm.Persistence/Migrations/20240507024550_Init.Designer.cs
+    [Migration("20240507030305_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

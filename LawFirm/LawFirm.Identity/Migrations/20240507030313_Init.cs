@@ -159,38 +159,22 @@ namespace LawFirm.Identity.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-<<<<<<<< HEAD:LawFirm/LawFirm.Identity/Migrations/20240507025942_Init.cs
-                values: new object[] { "18cb5280-891f-4289-8b17-48b977513541", "aa04eb30-fee0-4aa8-a9e4-ef83be99629d", "Admin", "ADMIN" });
-========
-                values: new object[] { "820629ca-e73e-43de-9f2c-75578b155fb0", "429ea303-db71-4b36-9a81-afc3e0130461", "User", "USER" });
->>>>>>>> 38a3f0b4f3c456601e8b1b9fb555230ac05ea9b6:LawFirm/LawFirm.Identity/Migrations/20240507024621_Init.cs
+                values: new object[] { "a0423e64-37cc-40a6-98d0-558fd4c6b683", "1e75692b-8e69-465c-be54-8c7d185f80fb", "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-<<<<<<<< HEAD:LawFirm/LawFirm.Identity/Migrations/20240507025942_Init.cs
-                values: new object[] { "295c446d-f2b6-48fd-ab1b-1acc78d139ab", "97f9f7ea-6666-4bef-b4b5-f8a9d7c74c5e", "User", "USER" });
-========
-                values: new object[] { "e9ea3def-3240-4b7a-9242-e4655b5d73e8", "c4a37ca4-ef12-4198-9dcb-1c037f7ab3f4", "Admin", "ADMIN" });
->>>>>>>> 38a3f0b4f3c456601e8b1b9fb555230ac05ea9b6:LawFirm/LawFirm.Identity/Migrations/20240507024621_Init.cs
+                values: new object[] { "f2a0e2fe-0991-40ba-a887-eb7346aff47d", "37eacab9-b4d2-42e7-b6f9-5b47d017e31a", "User", "USER" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-<<<<<<<< HEAD:LawFirm/LawFirm.Identity/Migrations/20240507025942_Init.cs
-                values: new object[] { "d8631735-0757-4b50-af2a-f1a3e6ba1eb0", 0, "135596f4-63f2-4226-b212-b9186a25ffc7", "ggavancholeon@gmail.com", false, "", "", false, null, "GGAVANCHOLEON@GMAIL.COM", "ADMIN", "AQAAAAEAACcQAAAAEBmByz2xC2OVnQ8sOftiXuS4seCKHd9K2JUigpT3p9KoKHawb5rBoy+0pGdKDrphlw==", null, false, "793e0958-3bd6-437e-ac0c-08467a4a78c0", false, "admin" });
-========
-                values: new object[] { "dfa31c17-a44a-4b94-bdc8-33cd493d35bd", 0, "c134a675-5bda-48ba-97a3-93601bed8462", "ggavancholeon@gmail.com", false, "", "", false, null, "GGAVANCHOLEON@GMAIL.COM", "ADMIN", "AQAAAAEAACcQAAAAEKOJ4a/aLbUh6IMehcz55RLXk8ewuNcXL4kNOl/H0HqklPA7oULg5yPhndeCn7Yc1A==", null, false, "0be0974f-8869-41da-b135-b75f841e9128", false, "admin" });
->>>>>>>> 38a3f0b4f3c456601e8b1b9fb555230ac05ea9b6:LawFirm/LawFirm.Identity/Migrations/20240507024621_Init.cs
+                values: new object[] { "801e88f8-ccee-4bbb-9d94-ba23d99892f8", 0, "cd1b6309-08d9-4b72-975e-6d009c52431d", "ggavancholeon@gmail.com", false, "", "", false, null, "GGAVANCHOLEON@GMAIL.COM", "ADMIN", "AQAAAAEAACcQAAAAEHFYdmsIsJKlV/r+5JLtYBw7KvQE6hc6olF/jQXLYaeUJw1lW67997feJnpUBprfVA==", null, false, "d6ef5cec-1d58-47c7-9323-847a475546f6", false, "admin" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-<<<<<<<< HEAD:LawFirm/LawFirm.Identity/Migrations/20240507025942_Init.cs
-                values: new object[] { "18cb5280-891f-4289-8b17-48b977513541", "d8631735-0757-4b50-af2a-f1a3e6ba1eb0" });
-========
-                values: new object[] { "e9ea3def-3240-4b7a-9242-e4655b5d73e8", "dfa31c17-a44a-4b94-bdc8-33cd493d35bd" });
->>>>>>>> 38a3f0b4f3c456601e8b1b9fb555230ac05ea9b6:LawFirm/LawFirm.Identity/Migrations/20240507024621_Init.cs
+                values: new object[] { "a0423e64-37cc-40a6-98d0-558fd4c6b683", "801e88f8-ccee-4bbb-9d94-ba23d99892f8" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
