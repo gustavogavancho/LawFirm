@@ -24,11 +24,11 @@ builder.Services.AddAuthorizationCore();
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
 builder.Services.AddSingleton(new HttpClient
 {
-    BaseAddress = new Uri("https://localhost:7024")
+    BaseAddress = new Uri("https://lawfirmapi20240425223416.azurewebsites.net")
 });
 
 builder.Services.AddTransient<CustomAuthorizationMessageHandler>();
-builder.Services.AddHttpClient<IClient, Client>(client => client.BaseAddress = new Uri("https://localhost:7024"))
+builder.Services.AddHttpClient<IClient, Client>(client => client.BaseAddress = new Uri("https://lawfirmapi20240425223416.azurewebsites.net"))
     .AddHttpMessageHandler<CustomAuthorizationMessageHandler>();
 
 builder.Services.AddScoped<IClientDataService, ClientDataService>(); 

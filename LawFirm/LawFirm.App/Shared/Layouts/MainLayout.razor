@@ -28,7 +28,7 @@
         await JSRuntime.InvokeVoidAsync("requestNotificationPermission");
 
         hubConnection = new HubConnectionBuilder()
-            .WithUrl("https://localhost:7024/notificationhub")
+            .WithUrl("https://lawfirmapi20240425223416.azurewebsites.net/notificationhub")
             .WithAutomaticReconnect()
             .Build();
 
