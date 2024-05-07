@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LawFirm.Persistence.Migrations
 {
     [DbContext(typeof(LawFirmContext))]
-    [Migration("20240324172159_ChangeColumnName4")]
-    partial class ChangeColumnName4
+    [Migration("20240507025928_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -221,6 +221,9 @@ namespace LawFirm.Persistence.Migrations
 
                     b.Property<DateTime>("EventStartDate")
                         .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsNotified")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("TEXT");

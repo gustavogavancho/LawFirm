@@ -156,6 +156,26 @@ namespace LawFirm.Identity.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { "18cb5280-891f-4289-8b17-48b977513541", "aa04eb30-fee0-4aa8-a9e4-ef83be99629d", "Admin", "ADMIN" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { "295c446d-f2b6-48fd-ab1b-1acc78d139ab", "97f9f7ea-6666-4bef-b4b5-f8a9d7c74c5e", "User", "USER" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[] { "d8631735-0757-4b50-af2a-f1a3e6ba1eb0", 0, "135596f4-63f2-4226-b212-b9186a25ffc7", "ggavancholeon@gmail.com", false, "", "", false, null, "GGAVANCHOLEON@GMAIL.COM", "ADMIN", "AQAAAAEAACcQAAAAEBmByz2xC2OVnQ8sOftiXuS4seCKHd9K2JUigpT3p9KoKHawb5rBoy+0pGdKDrphlw==", null, false, "793e0958-3bd6-437e-ac0c-08467a4a78c0", false, "admin" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "RoleId", "UserId" },
+                values: new object[] { "18cb5280-891f-4289-8b17-48b977513541", "d8631735-0757-4b50-af2a-f1a3e6ba1eb0" });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",

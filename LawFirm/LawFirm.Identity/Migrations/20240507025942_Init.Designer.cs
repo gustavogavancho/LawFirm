@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LawFirm.Identity.Migrations
 {
     [DbContext(typeof(LawFirmIdentityContext))]
-    [Migration("20230822135907_AdminUserAdded")]
-    partial class AdminUserAdded
+    [Migration("20240507025942_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -93,9 +93,9 @@ namespace LawFirm.Identity.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "23f94478-ccca-497c-8681-d3b84ad96cc3",
+                            Id = "d8631735-0757-4b50-af2a-f1a3e6ba1eb0",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "283e8ef8-37f7-4646-ba34-e9f9336f72fb",
+                            ConcurrencyStamp = "135596f4-63f2-4226-b212-b9186a25ffc7",
                             Email = "ggavancholeon@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "",
@@ -103,9 +103,9 @@ namespace LawFirm.Identity.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "GGAVANCHOLEON@GMAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEElfJmERARcDLHydrSsdNWfZYsXNxkNi+sAnXn7ejMw/awHcEcZ7yGRp/SlsQaHZGg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBmByz2xC2OVnQ8sOftiXuS4seCKHd9K2JUigpT3p9KoKHawb5rBoy+0pGdKDrphlw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "0801c14e-3b3c-47db-9f57-1ba013eebfeb",
+                            SecurityStamp = "793e0958-3bd6-437e-ac0c-08467a4a78c0",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -139,15 +139,15 @@ namespace LawFirm.Identity.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "dc4d9c4c-76e0-4a6f-9a95-2e39e0bf8083",
-                            ConcurrencyStamp = "54337a26-7ff4-4b68-a8f8-0fde7e2b8146",
+                            Id = "18cb5280-891f-4289-8b17-48b977513541",
+                            ConcurrencyStamp = "aa04eb30-fee0-4aa8-a9e4-ef83be99629d",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "2619d998-5484-412b-9e8a-64706fc3356d",
-                            ConcurrencyStamp = "0ff6abcd-f67e-4a13-ba7b-ae111e8ac17c",
+                            Id = "295c446d-f2b6-48fd-ab1b-1acc78d139ab",
+                            ConcurrencyStamp = "97f9f7ea-6666-4bef-b4b5-f8a9d7c74c5e",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -238,8 +238,8 @@ namespace LawFirm.Identity.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "23f94478-ccca-497c-8681-d3b84ad96cc3",
-                            RoleId = "dc4d9c4c-76e0-4a6f-9a95-2e39e0bf8083"
+                            UserId = "d8631735-0757-4b50-af2a-f1a3e6ba1eb0",
+                            RoleId = "18cb5280-891f-4289-8b17-48b977513541"
                         });
                 });
 

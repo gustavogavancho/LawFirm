@@ -14,6 +14,7 @@ namespace LawFirm.Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Description = table.Column<string>(type: "TEXT", nullable: false),
                     FileNumber = table.Column<string>(type: "TEXT", nullable: false),
                     ProsecutorOffice = table.Column<string>(type: "TEXT", nullable: false),
                     Fiscal = table.Column<string>(type: "TEXT", nullable: false),
@@ -56,6 +57,25 @@ namespace LawFirm.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Charge",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Description = table.Column<string>(type: "TEXT", nullable: false),
+                    CaseId = table.Column<Guid>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Charge", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Charge_Case_CaseId",
+                        column: x => x.CaseId,
+                        principalTable: "Case",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "CounterPart",
                 columns: table => new
                 {
@@ -80,18 +100,27 @@ namespace LawFirm.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "IlegalAct",
+                name: "Event",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Title = table.Column<string>(type: "TEXT", nullable: false),
+                    Location = table.Column<string>(type: "TEXT", nullable: false),
                     Description = table.Column<string>(type: "TEXT", nullable: false),
-                    CaseId = table.Column<Guid>(type: "TEXT", nullable: false)
+                    EventStartDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    EventEndDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    IsNotified = table.Column<bool>(type: "INTEGER", nullable: false),
+                    CaseId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    CreatedBy = table.Column<string>(type: "TEXT", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    LastModifiedBy = table.Column<string>(type: "TEXT", nullable: true),
+                    LastModifiedDate = table.Column<DateTime>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_IlegalAct", x => x.Id);
+                    table.PrimaryKey("PK_Event", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_IlegalAct_Case_CaseId",
+                        name: "FK_Event_Case_CaseId",
                         column: x => x.CaseId,
                         principalTable: "Case",
                         principalColumn: "Id",
@@ -99,7 +128,7 @@ namespace LawFirm.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Notes",
+                name: "Note",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
@@ -108,9 +137,9 @@ namespace LawFirm.Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Notes", x => x.Id);
+                    table.PrimaryKey("PK_Note", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Notes_Case_CaseId",
+                        name: "FK_Note_Case_CaseId",
                         column: x => x.CaseId,
                         principalTable: "Case",
                         principalColumn: "Id",
@@ -123,6 +152,7 @@ namespace LawFirm.Persistence.Migrations
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     Description = table.Column<string>(type: "TEXT", nullable: false),
+                    NotificationDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     CaseId = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
@@ -179,30 +209,10 @@ namespace LawFirm.Persistence.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Event",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    ClientId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Description = table.Column<string>(type: "TEXT", nullable: false),
-                    EventStartDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    EventEndDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    CreatedBy = table.Column<string>(type: "TEXT", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    LastModifiedBy = table.Column<string>(type: "TEXT", nullable: true),
-                    LastModifiedDate = table.Column<DateTime>(type: "TEXT", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Event", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Event_Client_ClientId",
-                        column: x => x.ClientId,
-                        principalTable: "Client",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
+            migrationBuilder.CreateIndex(
+                name: "IX_Charge_CaseId",
+                table: "Charge",
+                column: "CaseId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ClientCase_ClientId",
@@ -215,18 +225,13 @@ namespace LawFirm.Persistence.Migrations
                 column: "CaseId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Event_ClientId",
+                name: "IX_Event_CaseId",
                 table: "Event",
-                column: "ClientId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_IlegalAct_CaseId",
-                table: "IlegalAct",
                 column: "CaseId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Notes_CaseId",
-                table: "Notes",
+                name: "IX_Note_CaseId",
+                table: "Note",
                 column: "CaseId");
 
             migrationBuilder.CreateIndex(
@@ -243,6 +248,9 @@ namespace LawFirm.Persistence.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Charge");
+
+            migrationBuilder.DropTable(
                 name: "ClientCase");
 
             migrationBuilder.DropTable(
@@ -252,10 +260,7 @@ namespace LawFirm.Persistence.Migrations
                 name: "Event");
 
             migrationBuilder.DropTable(
-                name: "IlegalAct");
-
-            migrationBuilder.DropTable(
-                name: "Notes");
+                name: "Note");
 
             migrationBuilder.DropTable(
                 name: "Notificacion");
