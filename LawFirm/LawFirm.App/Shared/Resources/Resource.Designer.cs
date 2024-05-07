@@ -61,29 +61,11 @@ namespace LawFirm.App.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add Client.
-        /// </summary>
-        public static string AddClient {
-            get {
-                return ResourceManager.GetString("AddClient", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to add it here..
         /// </summary>
         public static string AddItHere {
             get {
                 return ResourceManager.GetString("AddItHere", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Address.
-        /// </summary>
-        public static string Address {
-            get {
-                return ResourceManager.GetString("Address", resourceCulture);
             }
         }
         
@@ -160,51 +142,6 @@ namespace LawFirm.App.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Client.
-        /// </summary>
-        public static string Client {
-            get {
-                return ResourceManager.GetString("Client", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The client has been added successfully!.
-        /// </summary>
-        public static string ClientAddedConfirmation {
-            get {
-                return ResourceManager.GetString("ClientAddedConfirmation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Client Details.
-        /// </summary>
-        public static string ClientDetails {
-            get {
-                return ResourceManager.GetString("ClientDetails", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Client Information.
-        /// </summary>
-        public static string ClientInformation {
-            get {
-                return ResourceManager.GetString("ClientInformation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Refers to information or data about a customer or client..
-        /// </summary>
-        public static string ClientInformationDescription {
-            get {
-                return ResourceManager.GetString("ClientInformationDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Clients.
         /// </summary>
         public static string Clients {
@@ -219,15 +156,6 @@ namespace LawFirm.App.Shared.Resources {
         public static string ClientType {
             get {
                 return ResourceManager.GetString("ClientType", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The client has been updated successfully!.
-        /// </summary>
-        public static string ClientUpdatedConfirmation {
-            get {
-                return ResourceManager.GetString("ClientUpdatedConfirmation", resourceCulture);
             }
         }
         
@@ -255,24 +183,6 @@ namespace LawFirm.App.Shared.Resources {
         public static string ConfirmPassword {
             get {
                 return ResourceManager.GetString("ConfirmPassword", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Contact Details.
-        /// </summary>
-        public static string ContactDetails {
-            get {
-                return ResourceManager.GetString("ContactDetails", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Information or data that allows individuals or entities to get in touch with a person, organization, or business..
-        /// </summary>
-        public static string ContactDetailsDescription {
-            get {
-                return ResourceManager.GetString("ContactDetailsDescription", resourceCulture);
             }
         }
         
@@ -331,38 +241,11 @@ namespace LawFirm.App.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The client has been deleted successfully!.
-        /// </summary>
-        public static string DeletedClient {
-            get {
-                return ResourceManager.GetString("DeletedClient", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The user has been deleted successfully!.
         /// </summary>
         public static string DeletedUser {
             get {
                 return ResourceManager.GetString("DeletedUser", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Details.
-        /// </summary>
-        public static string Details {
-            get {
-                return ResourceManager.GetString("Details", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Edit.
-        /// </summary>
-        public static string Edit {
-            get {
-                return ResourceManager.GetString("Edit", resourceCulture);
             }
         }
         
@@ -403,15 +286,6 @@ namespace LawFirm.App.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Go Back.
-        /// </summary>
-        public static string GoBack {
-            get {
-                return ResourceManager.GetString("GoBack", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Hello.
         /// </summary>
         public static string Hello {
@@ -435,15 +309,6 @@ namespace LawFirm.App.Shared.Resources {
         public static string LastName {
             get {
                 return ResourceManager.GetString("LastName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Legal Person.
-        /// </summary>
-        public static string LegalPerson {
-            get {
-                return ResourceManager.GetString("LegalPerson", resourceCulture);
             }
         }
         
@@ -480,15 +345,6 @@ namespace LawFirm.App.Shared.Resources {
         public static string Name {
             get {
                 return ResourceManager.GetString("Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Natural Person.
-        /// </summary>
-        public static string NaturalPerson {
-            get {
-                return ResourceManager.GetString("NaturalPerson", resourceCulture);
             }
         }
         
@@ -556,15 +412,6 @@ namespace LawFirm.App.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Phone Number.
-        /// </summary>
-        public static string PhoneNumber {
-            get {
-                return ResourceManager.GetString("PhoneNumber", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Please.
         /// </summary>
         public static string Please {
@@ -592,15 +439,6 @@ namespace LawFirm.App.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Search.
-        /// </summary>
-        public static string Search {
-            get {
-                return ResourceManager.GetString("Search", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Search for a client....
         /// </summary>
         public static string SearchClient {
@@ -624,15 +462,6 @@ namespace LawFirm.App.Shared.Resources {
         public static string Title {
             get {
                 return ResourceManager.GetString("Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Update Client.
-        /// </summary>
-        public static string UpdateClient {
-            get {
-                return ResourceManager.GetString("UpdateClient", resourceCulture);
             }
         }
         

@@ -5,11 +5,10 @@
 @inject NavigationManager Navigation
 @inject IClientDataService ClientDataService
 @inject IJSRuntime JsRuntime
-@inject IStringLocalizer<Shared.Resources.Resource> localizer
 
-<PageTitle>@localizer["Client"] - Law Firm</PageTitle>
+<PageTitle>Insert Client - Law Firm</PageTitle>
 
-<SimpleNavigation BasePageRef="client" BasePage="@localizer["Client"]" CurrentPage="@localizer["AddClient"]" />
+<SimpleNavigation BasePageRef="client" BasePage="Client" CurrentPage="Insert Client" />
 
 <EditForm Model="client" OnValidSubmit="HandleValidSubmit">
 
@@ -20,8 +19,8 @@
     <div class="mt-4 mb-2">
         <div class="row">
             <div class="offset-4 col-8 text-end">
-                <button class="btn btn-primary" type="submit">@localizer["Submit"]</button>
-                <button class="btn btn-outline-secondary" type="button" @onclick="@(() => Navigation.NavigateTo("client"))">@localizer["Cancel"]</button>
+                <button class="btn btn-primary" type="submit">Submit</button>
+                <button class="btn btn-outline-secondary" type="button" @onclick="@(() => Navigation.NavigateTo("client"))">Cancel</button>
             </div>
         </div>
     </div>
@@ -40,13 +39,13 @@
 
             if (clientCreated is not null)
             {
-                await JsRuntime.InvokeVoidAsync("showSuccessToastr", localizer["ClientAddedConfirmation"].ToString());
+                await JsRuntime.InvokeVoidAsync("showSuccessToastr", "The client has been added successfully!");
                 client = new();
             }
         }
         catch (ApiException)
         {
-            await JsRuntime.InvokeVoidAsync("showErrorToastr", localizer["GenericError"].ToString());
+            await JsRuntime.InvokeVoidAsync("showErrorToastr", "Something went wrong, please try again or contact your supplier.");
         }
 
         await JsRuntime.InvokeVoidAsync("scrollUtils.scrollToTop");

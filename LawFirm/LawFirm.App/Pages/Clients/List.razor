@@ -7,7 +7,7 @@
 @inject IJSRuntime JsRuntime
 @inject IStringLocalizer<Shared.Resources.Resource> localizer
 
-<PageTitle>@localizer["Client"] - LawFirm</PageTitle>
+<PageTitle>Clients - LawFirm</PageTitle>
 
 @if (showConfirmationDialog)
 {
@@ -56,13 +56,13 @@ else
                     <td>@client.Representative</td>
                     <td class="text-end">
                         <AuthorizeView>
-                            <button title="@(localizer["Details"])" class="btn btn-warning btn-sm" @onclick="@(() => Navigation.NavigateTo($"/client/{client.Id}"))">
+                            <button title="Details" class="btn btn-warning btn-sm" @onclick="@(() => Navigation.NavigateTo($"/client/{client.Id}"))">
                                 <i class="bi bi-list-task"></i>
                             </button>
-                            <button title="@(localizer["Edit"])" class="btn btn-primary btn-sm" @onclick="@(() => Navigation.NavigateTo($"/client-update/{client.Id}"))">
+                            <button title="Edit" class="btn btn-primary btn-sm" @onclick="@(() => Navigation.NavigateTo($"/client-update/{client.Id}"))">
                                 <i class="bi bi-pencil-square"></i>
                             </button>
-                            <button title="@(localizer["Delete"])" class="btn btn-danger btn-sm" @onclick="@(() => ShowConfirmationModal(client.Id))">
+                            <button title="Delete" class="btn btn-danger btn-sm" @onclick="@(() => ShowConfirmationModal(client.Id))">
                                 <i class="bi bi-trash3"></i>
                             </button>
                         </AuthorizeView>
@@ -133,12 +133,12 @@ else
                     PageNumber = (PageNumber <= 1) ? 1 : PageNumber - 1;
 
                 await GetClients();
-                await JsRuntime.InvokeVoidAsync("showSuccessToastr", localizer["ClientDeleted"].ToString());
+                await JsRuntime.InvokeVoidAsync("showSuccessToastr", "The Client has been deleted successfully!");
 
             }
             catch (Exception)
             {
-                await JsRuntime.InvokeVoidAsync("showErrorToastr", localizer["GenericError"].ToString());
+                await JsRuntime.InvokeVoidAsync("showErrorToastr", "Something went wrong, please try again or contact your supplier.");
             }
         }
         showConfirmationDialog = false;

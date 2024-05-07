@@ -5,20 +5,19 @@
 @inject IClientDataService ClientDataService
 @inject NavigationManager Navigation
 @inject IJSRuntime JsRuntime
-@inject IStringLocalizer<Shared.Resources.Resource> localizer
 
-<PageTitle>@localizer["Client"] - LawFirm</PageTitle>
+<PageTitle>Client Search - LawFirm</PageTitle>
 
 @if (showConfirmationDialog)
 {
-    <YesNoModal Message="@(localizer["DeleteConfirmation"])" OnConfirmation="HandleConfirmation" />
+    <YesNoModal Message="Do you want to delete this item?" OnConfirmation="HandleConfirmation" />
 }
 
-<SimpleNavigation BasePageRef="client" BasePage="@localizer["Client"]" CurrentPage="@localizer["Search"]" />
+<SimpleNavigation BasePageRef="client" BasePage="Client" CurrentPage="Search" />
 
 @if (clients is null)
 {
-    <p>@localizer["Loading"]...</p>
+    <p>Loading...</p>
 }
 else
 {
@@ -27,12 +26,12 @@ else
         <div class="responsive-table">
             <TableView Items="clients" Context="client">
                 <HeaderTemplate>
-                    <th>@(localizer["ClientType"])</th>
-                    <th>@(localizer["Name"])</th>
-                    <th>@(localizer["LastName"])</th>
-                    <th>@(localizer["Nit"])</th>
-                    <th>@(localizer["BusinessName"])</th>
-                    <th>@(localizer["Representative"])</th>
+                    <th>Client Type</th>
+                    <th>Firt Name</th>
+                    <th>Last Name</th>
+                    <th>Nit</th>
+                    <th>Business Name</th>
+                    <th>Representative</th>
                     <th></th>
                 </HeaderTemplate>
                 <RowTemplate>
@@ -44,13 +43,13 @@ else
                     <td>@client.Representative</td>
                     <td class="text-end">
                         <AuthorizeView>
-                            <button title="@(localizer["Details"])" class="btn btn-primary" @onclick="@(() => Navigation.NavigateTo($"/client/{client.Id}"))">
+                            <button title="Details" class="btn btn-primary" @onclick="@(() => Navigation.NavigateTo($"/client/{client.Id}"))">
                                 <i class="bi bi-list-task"></i>
                             </button>
-                            <button title="@(localizer["Edit"])" class="btn btn-primary" @onclick="@(() => Navigation.NavigateTo($"/client-upsert/{client.Id}"))">
+                            <button title="Edit" class="btn btn-primary" @onclick="@(() => Navigation.NavigateTo($"/client-upsert/{client.Id}"))">
                                 <i class="bi bi-pencil-square"></i>
                             </button>
-                            <button title="@(localizer["Delete"])" class="btn btn-danger" @onclick="@(() => ShowConfirmationModal(client.Id))">
+                            <button title="Delete" class="btn btn-danger" @onclick="@(() => ShowConfirmationModal(client.Id))">
                                 <i class="bi bi-trash3"></i>
                             </button>
                         </AuthorizeView>
@@ -95,11 +94,11 @@ else
                 await ClientDataService.DeleteClient(clientId);
                 showConfirmationDialog = false;
                 await GetClients();
-                await JsRuntime.InvokeVoidAsync("showSuccessToastr", localizer["ClientDeleted"].ToString());
+                await JsRuntime.InvokeVoidAsync("showSuccessToastr", "The Client has been deleted successfully!");
             }
             catch (Exception)
             {
-                await JsRuntime.InvokeVoidAsync("showErrorToastr", localizer["GenericError"].ToString());
+                await JsRuntime.InvokeVoidAsync("showErrorToastr", "Something went wrong, please try again or contact your supplier.");
             }
 
         }

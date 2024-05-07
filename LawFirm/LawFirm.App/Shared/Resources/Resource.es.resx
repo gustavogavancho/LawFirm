@@ -117,14 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddClient" xml:space="preserve">
-    <value>Agregar Cliente</value>
-  </data>
   <data name="AddItHere" xml:space="preserve">
     <value>añadelo aquí.</value>
-  </data>
-  <data name="Address" xml:space="preserve">
-    <value>Dirección</value>
   </data>
   <data name="AddUser" xml:space="preserve">
     <value>Agregar Usuario</value>
@@ -150,29 +144,11 @@
   <data name="ChangePasswordDescription" xml:space="preserve">
     <value>Si ha olvidado o perdido la contraseña de la aplicación, puede cambiarla o restablecerla aquí.</value>
   </data>
-  <data name="Client" xml:space="preserve">
-    <value>Cliente</value>
-  </data>
-  <data name="Client Details" xml:space="preserve">
-    <value>Detalle clientes</value>
-  </data>
-  <data name="ClientAddedConfirmation" xml:space="preserve">
-    <value>¡El cliente ha sido añadido exitosamente!</value>
-  </data>
-  <data name="ClientInformation" xml:space="preserve">
-    <value>Información del cliente</value>
-  </data>
-  <data name="ClientInformationDescription" xml:space="preserve">
-    <value>Información o datos sobre un cliente.</value>
-  </data>
   <data name="Clients" xml:space="preserve">
     <value>Clientes</value>
   </data>
   <data name="ClientType" xml:space="preserve">
     <value>Tipo Cliente</value>
-  </data>
-  <data name="ClientUpdatedConfirmation" xml:space="preserve">
-    <value>¡El cliente ha sido actualizado exitosamente!</value>
   </data>
   <data name="Confirm" xml:space="preserve">
     <value>Confirmar</value>
@@ -182,12 +158,6 @@
   </data>
   <data name="ConfirmPassword" xml:space="preserve">
     <value>Comfirmar Contraseña</value>
-  </data>
-  <data name="ContactDetails" xml:space="preserve">
-    <value>Medios de Contacto</value>
-  </data>
-  <data name="ContactDetailsDescription" xml:space="preserve">
-    <value>Información o datos que permiten ponerse en contacto con una persona, organización o empresa.</value>
   </data>
   <data name="CreateNewClient" xml:space="preserve">
     <value>¿Quieres crear un nuevo usuario?</value>
@@ -207,17 +177,8 @@
   <data name="DeleteConfirmation" xml:space="preserve">
     <value>¿Quieres eliminar este ítem?</value>
   </data>
-  <data name="DeletedClient" xml:space="preserve">
-    <value>¡El cliente ha sido eliminado exitosamente!</value>
-  </data>
   <data name="DeletedUser" xml:space="preserve">
     <value>¡El usuario ha sido eliminado exitosamente!</value>
-  </data>
-  <data name="Details" xml:space="preserve">
-    <value>Detalles</value>
-  </data>
-  <data name="Edit" xml:space="preserve">
-    <value>Editar</value>
   </data>
   <data name="Email" xml:space="preserve">
     <value>Correo</value>
@@ -231,9 +192,6 @@
   <data name="GenericError" xml:space="preserve">
     <value>Algo ha salido mal, intente de nuevo o contacte a su proveedor.</value>
   </data>
-  <data name="GoBack" xml:space="preserve">
-    <value>Regresar</value>
-  </data>
   <data name="Hello" xml:space="preserve">
     <value>Hola</value>
   </data>
@@ -243,9 +201,6 @@
   <data name="LastName" xml:space="preserve">
     <value>Apellidos</value>
   </data>
-  <data name="LegalPerson" xml:space="preserve">
-    <value>Persona Jurídica</value>
-  </data>
   <data name="Loading" xml:space="preserve">
     <value>Cargando</value>
   </data>
@@ -254,9 +209,6 @@
   </data>
   <data name="Logout" xml:space="preserve">
     <value>Cerrar sesión</value>
-  </data>
-  <data name="NaturalPerson" xml:space="preserve">
-    <value>Persona Natural</value>
   </data>
   <data name="Next" xml:space="preserve">
     <value>Siguiente</value>
@@ -279,9 +231,6 @@
   <data name="PasswordChangedSuccessfully" xml:space="preserve">
     <value>¡La contraseña se cambio exitosamente!</value>
   </data>
-  <data name="PhoneNumber" xml:space="preserve">
-    <value>Teléfono</value>
-  </data>
   <data name="Please" xml:space="preserve">
     <value>Por favor</value>
   </data>
@@ -290,9 +239,6 @@
   </data>
   <data name="Representative" xml:space="preserve">
     <value>Representante</value>
-  </data>
-  <data name="Search" xml:space="preserve">
-    <value>Búsqueda</value>
   </data>
   <data name="SearchClient" xml:space="preserve">
     <value>Buscar un cliente...</value>
@@ -303,9 +249,6 @@
   <data name="Title" xml:space="preserve">
     <value>Título</value>
   </data>
-  <data name="UpdateClient" xml:space="preserve">
-    <value>Actualizar Cliente</value>
-  </data>
   <data name="User" xml:space="preserve">
     <value>Usuario</value>
   </data>
@@ -313,7 +256,7 @@
     <value>¡El usuario ha sido añadido exitosamente!</value>
   </data>
   <data name="UserDetails" xml:space="preserve">
-    <value>Información de usuario</value>
+    <value>Información de Usuario</value>
   </data>
   <data name="UserDetailsDescription" xml:space="preserve">
     <value>Persona o entidad que se relaciona de algún modo con un producto, servicio o sistema, por ejemplo, utilizándolo, interactuando con él o consumiéndolo.</value>
