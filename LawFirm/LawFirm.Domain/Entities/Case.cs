@@ -20,4 +20,6 @@ public class Case : AuditableEntity
     public List<CounterPart> CounterParts { get; set; }
     public List<Client> Clients { get; set; }
     public List<Event> Events { get; set; }
+    
+    public ConsultingFee ConsultingFee { get; set; }
 }
