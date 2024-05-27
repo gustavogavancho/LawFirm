@@ -48,15 +48,12 @@ public static class StartupExtensions
     {
         if (app.Environment.IsDevelopment())
         {
-
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "GloboTicket Ticket Management API");
+            });
         }
-
-        //TODO: DO NOT FORGET TO PUT THESE LINES OF CODE FOR DEVELOPMENT ONLY
-        app.UseSwagger();
-        app.UseSwaggerUI(c =>
-        {
-            c.SwaggerEndpoint("/swagger/v1/swagger.json", "GloboTicket Ticket Management API");
-        });
 
         app.UseHttpsRedirection();
         app.UseRouting();
