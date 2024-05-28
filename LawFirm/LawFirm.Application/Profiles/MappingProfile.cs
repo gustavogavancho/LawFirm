@@ -29,6 +29,8 @@ public class MappingProfile : Profile
         CreateMap<Notificacion, NotificationVm>().ReverseMap();
         CreateMap<Status, StatusVm>().ReverseMap();
         CreateMap<Note, NoteVm>().ReverseMap();
+        CreateMap<Deposit, DepositVm>().ReverseMap();
+        CreateMap<ConsultingFee, ConsultingFeeVM>().ReverseMap();
 
         CreateMap<Event, CreateEventCommand>().ReverseMap();
         CreateMap<Event, UpdateEventCommand>().ReverseMap();
