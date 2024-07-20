@@ -21,6 +21,7 @@ public static class PersistenceServiceRegistration
         services.AddScoped<IEventRepository, EventRepository>();
         services.AddScoped<ICaseRepository, CaseRepository>();
         services.AddScoped<ICounterPartRepository, CounterPartRepository>();
+        services.AddScoped<IConsultingFeeRepository, ConsultingFeeRepository>();
 
         return services;
     }

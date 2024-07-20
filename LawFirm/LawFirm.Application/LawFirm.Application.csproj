@@ -20,4 +20,8 @@
 	  <ProjectReference Include="..\LawFirm.Domain\LawFirm.Domain.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Features\ConsutingFees\Commands\" />
+	</ItemGroup>
+
 </Project>

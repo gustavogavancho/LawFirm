@@ -36,6 +36,7 @@ builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<IStorageService, StorageService>();
 builder.Services.AddScoped<ICaseDataService, CaseDataService>();
 builder.Services.AddScoped<IEventDataService, EventDataService>();
+builder.Services.AddScoped<IConsultingFeeDataService, ConsultingFeeDataService>();
 
 builder.Services.AddSyncfusionBlazor();
 

@@ -1,0 +1,151 @@
+﻿@page "/deposit"
+
+@attribute [Authorize]
+
+@inject IConsultingFeeDataService ConsultingFeeDataService
+@inject NavigationManager Navigation
+@inject IJSRuntime JsRuntime
+@inject IStringLocalizer<Shared.Resources.Resource> localizer
+
+<PageTitle>@localizer["Deposits"] - LawFirm</PageTitle>
+
+@if (showConfirmationDialog)
+{
+    <YesNoModal Message="@(localizer["DeleteConfirmation"])" OnConfirmation="HandleConfirmation" />
+}
+
+<SimpleIndexBar RefText="@(localizer["CreateNewUser"])" ComplementText="@(localizer["Please"])" RefPage="client-insert" RefPageDescription="@(localizer["AddItHere"])" />
+
+<div class="jumbotron">
+    <p class="mt-4">
+        <input @bind="searchTerm"
+               @onkeydown="SearchForClient"
+               @bind:event="oninput"
+               @ref=myInput
+               type="text"
+               placeholder="@(localizer["SearchClient"])"
+               class="form-control form-control-lg" />
+    </p>
+</div>
+
+@if (ConsultingFeeList is null)
+{
+    <p>@(localizer["Loading"])...</p>
+}
+else
+{
+    @if (ConsultingFeeList.Any())
+    {
+        <div class="responsive-table">
+            <TableView Items="ConsultingFeeList" Context="consultingFee">
+                <HeaderTemplate>
+                    <th>@(localizer["TotalAmmount"])</th>
+                    <th>@(localizer["ExpirationDate"])</th>
+                    <th></th>
+                </HeaderTemplate>
+                <RowTemplate>
+                    <td>@consultingFee.TotalAmmount</td>
+                    <td>@consultingFee.ExpirationDate</td>
+                    <td class="text-end">
+                        <AuthorizeView>
+                            <button title="@(localizer["Details"])" class="btn btn-warning btn-sm" @onclick="@(() => Navigation.NavigateTo($"/client/{consultingFee.Id}"))">
+                                <i class="bi bi-list-task"></i>
+                            </button>
+                            <button title="@(localizer["Edit"])" class="btn btn-primary btn-sm" @onclick="@(() => Navigation.NavigateTo($"/client-update/{consultingFee.Id}"))">
+                                <i class="bi bi-pencil-square"></i>
+                            </button>
+                            <button title="@(localizer["Delete"])" class="btn btn-danger btn-sm" @onclick="@(() => ShowConfirmationModal(consultingFee.Id))">
+                                <i class="bi bi-trash3"></i>
+                            </button>
+                        </AuthorizeView>
+                    </td>
+                </RowTemplate>
+            </TableView>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col">
+                <Pagination MetaData="MetaData" Spread="2" SelectedPage="SelectedPage" />
+            </div>
+        </div>
+    }
+    else
+    {
+        <NoItemsRedirect NoItemsMessage="@(localizer["NoClients"])" RefPage="client-upsert" RefPageText="@(localizer["AddUserSuggestion"])" />
+    }
+}
+
+@code {
+    private bool showConfirmationDialog;
+    private Guid clientId;
+    private ElementReference myInput;
+    private string searchTerm = "";
+
+    public MetaData MetaData { get; set; } = new MetaData();
+    public int PageNumber { get; set; } = 1;
+    private int pageSize = 15;
+
+    public ICollection<ConsultingFeeVM> ConsultingFeeList { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetClients();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await myInput.FocusAsync();
+        }
+    }
+
+    private async Task SelectedPage(int page)
+    {
+        PageNumber = page;
+        await GetClients();
+    }
+
+    private async Task GetClients()
+    {
+        var pagingReponse = await ConsultingFeeDataService.GetConsultingFees(PageNumber, pageSize);
+        ConsultingFeeList = pagingReponse.Items;
+        MetaData = pagingReponse.MetaData;
+    }
+
+    private async Task HandleConfirmation(bool confirmed)
+    {
+        if (confirmed)
+        {
+            try
+            {
+                // await ClientDataService.DeleteClient(clientId);
+
+                if (ConsultingFeeList.Count() <= 1)
+                    PageNumber = (PageNumber <= 1) ? 1 : PageNumber - 1;
+
+                await GetClients();
+                await JsRuntime.InvokeVoidAsync("showSuccessToastr", localizer["ClientDeleted"].ToString());
+
+            }
+            catch (Exception)
+            {
+                await JsRuntime.InvokeVoidAsync("showErrorToastr", localizer["GenericError"].ToString());
+            }
+        }
+        showConfirmationDialog = false;
+    }
+
+    private void ShowConfirmationModal(Guid id)
+    {
+        clientId = id;
+        showConfirmationDialog = true;
+    }
+
+    private void SearchForClient(KeyboardEventArgs args)
+    {
+        if (args.Key != "Enter") return;
+
+        Navigation.NavigateTo($"/client/search/{searchTerm}");
+    }
+}

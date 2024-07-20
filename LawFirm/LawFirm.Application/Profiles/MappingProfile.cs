@@ -5,6 +5,7 @@ using LawFirm.Application.Features.Cases.Models;
 using LawFirm.Application.Features.Clients.Commands.CreateClient;
 using LawFirm.Application.Features.Clients.Commands.UpdateClient;
 using LawFirm.Application.Features.Clients.Models;
+using LawFirm.Application.Features.ConsutingFees.Models;
 using LawFirm.Application.Features.Events.Commands.CreateEvent;
 using LawFirm.Application.Features.Events.Commands.UpdateEvent;
 using LawFirm.Application.Features.Events.Models;

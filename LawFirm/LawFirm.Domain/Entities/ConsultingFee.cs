@@ -1,6 +1,8 @@
-﻿namespace LawFirm.Domain.Entities;
+﻿using LawFirm.Domain.Common;
 
-public class ConsultingFee
+namespace LawFirm.Domain.Entities;
+
+public class ConsultingFee : AuditableEntity
 {
     public Guid Id { get; set; }
     public decimal TotalAmmount { get; set; }

@@ -1,4 +1,5 @@
 ﻿using LawFirm.Application.Features.Clients.Models;
+using LawFirm.Application.Features.ConsutingFees.Models;
 using LawFirm.Application.Features.Events.Models;
 
 namespace LawFirm.Application.Features.Cases.Models;
@@ -22,4 +23,5 @@ public class CaseVm
     public List<EventVm> Events { get; set; }
     public List<StatusVm> Statuses { get; set; }
     public List<NoteVm> Notes { get; set; }
+    public ConsultingFeeVM ConsultingFee { get; set; }
 }

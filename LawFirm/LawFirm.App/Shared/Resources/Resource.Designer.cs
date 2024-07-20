@@ -349,6 +349,15 @@ namespace LawFirm.App.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Deposits.
+        /// </summary>
+        public static string Deposits {
+            get {
+                return ResourceManager.GetString("Deposits", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Details.
         /// </summary>
         public static string Details {
@@ -381,6 +390,15 @@ namespace LawFirm.App.Shared.Resources {
         public static string Events {
             get {
                 return ResourceManager.GetString("Events", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expiration Date.
+        /// </summary>
+        public static string ExpirationDate {
+            get {
+                return ResourceManager.GetString("ExpirationDate", resourceCulture);
             }
         }
         
@@ -624,6 +642,15 @@ namespace LawFirm.App.Shared.Resources {
         public static string Title {
             get {
                 return ResourceManager.GetString("Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total Ammount.
+        /// </summary>
+        public static string TotalAmmount {
+            get {
+                return ResourceManager.GetString("TotalAmmount", resourceCulture);
             }
         }
         

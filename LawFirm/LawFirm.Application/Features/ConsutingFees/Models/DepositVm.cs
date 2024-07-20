@@ -1,4 +1,4 @@
-﻿namespace LawFirm.Application.Features.Cases.Models;
+﻿namespace LawFirm.Application.Features.ConsutingFees.Models;
 
 public class DepositVm
 {
