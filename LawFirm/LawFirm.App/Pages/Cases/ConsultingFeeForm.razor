@@ -1,0 +1,44 @@
+﻿@inject IConsultingFeeDataService ConsultingFeeDataService
+
+@if (Case.ConsultingFee is null)
+{
+    <p>Loading..</p>
+}
+else
+{
+    <FormSection Title="Consulting Fee" HelpText="Fee charged for expert advice and services by a law firm..">
+
+        <FormFieldSet Width="col-11">
+            <label for="totalAmount" class="form-label text-muted fw-bold">Total Ammout</label>
+            <InputNumber @bind-Value="Case.ConsultingFee.TotalAmmount" class=" form-control" id="totalAmount" Disabled="@Disabled" />
+            <ValidationMessage For="@(() => Case.ConsultingFee.TotalAmmount)" />
+        </FormFieldSet>
+
+        <FormFieldSet Width="col-11">
+            <label for="expirationDate" class="form-label text-muted fw-bold">ExpirationDate</label>
+            <InputDate Type="InputDateType.DateTimeLocal" @bind-Value:format="dd/MM/yyyy hh:mm:ss" @bind-Value="Case.ConsultingFee.ExpirationDate" class="form-control" id="expirationDate" disabled="@Disabled" />
+            <ValidationMessage For="@(() => Case.ConsultingFee.ExpirationDate)" />
+        </FormFieldSet>
+    </FormSection>
+}
+
+@code {
+
+    [Parameter, EditorRequired]
+    public CaseVm Case { get; set; }
+
+    [Parameter]
+    public bool Disabled { get; set; }
+
+
+    private void AddDeposit()
+    {
+        Case.ConsultingFee.Deposits.Add(new DepositVm());
+    }
+
+    private void RemoveDeposit(DepositVm charge)
+    {
+        Case.ConsultingFee.Deposits.Remove(charge);
+    }
+
+}
