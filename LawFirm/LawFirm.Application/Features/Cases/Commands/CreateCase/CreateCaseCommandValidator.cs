@@ -16,5 +16,6 @@ public class CreateCaseCommandValidator : AbstractValidator<CreateCaseCommand>
         RuleFor(x => x.Judge).NotEmpty();
         RuleFor(x => x.ClientType).NotEmpty();
         RuleFor(x => x.Stage).NotEmpty();
+        RuleFor(x => x.ConsultingFee).NotEmpty();
     }
 }

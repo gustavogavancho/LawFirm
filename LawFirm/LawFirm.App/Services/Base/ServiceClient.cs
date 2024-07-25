@@ -3809,6 +3809,9 @@ namespace LawFirm.App.Services.Base
         [System.Text.Json.Serialization.JsonPropertyName("notes")]
         public System.Collections.Generic.ICollection<NoteVm> Notes { get; set; }
 
+        [System.Text.Json.Serialization.JsonPropertyName("consultingFee")]
+        public ConsultingFeeVM ConsultingFee { get; set; }
+
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.1.0.0 (NJsonSchema v11.0.2.0 (Newtonsoft.Json v13.0.0.0))")]

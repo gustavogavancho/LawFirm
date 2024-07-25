@@ -1,4 +1,6 @@
 ﻿using LawFirm.Application.Features.Cases.Models;
+using LawFirm.Application.Features.ConsutingFees.Models;
+using LawFirm.Domain.Entities;
 using MediatR;
 
 namespace LawFirm.Application.Features.Cases.Commands.CreateCase;
@@ -19,4 +21,5 @@ public class CreateCaseCommand : IRequest<CaseVm>
     public List<ChargeVm> Charges { get; set; }
     public List<StatusVm> Statuses { get; set; }
     public List<NoteVm> Notes { get; set; }
+    public ConsultingFeeVM ConsultingFee { get; set; }
 }

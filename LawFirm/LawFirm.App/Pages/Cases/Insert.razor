@@ -52,7 +52,7 @@
         caseEntity.Notifications = new List<NotificationVm> { new() { NotificationDate = DateTime.Now } };
         caseEntity.Statuses = new List<StatusVm> { new() };
         caseEntity.Notes = new List<NoteVm> { new() };
-        caseEntity.ConsultingFee = new();
+        caseEntity.ConsultingFee = new() { ExpirationDate = DateTime.Now };
     }
 
     private async Task HandleValidSubmit()
