@@ -10,4 +10,5 @@ public class ConsultingFee : AuditableEntity
     public List<Deposit> Deposits { get; set; }
 
     public Guid CaseId { get; set; }
+    public Case Case { get; set; }
 }

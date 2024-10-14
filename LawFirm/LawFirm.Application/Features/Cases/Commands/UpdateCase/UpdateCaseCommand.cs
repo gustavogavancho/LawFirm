@@ -1,4 +1,5 @@
 ﻿using LawFirm.Application.Features.Cases.Models;
+using LawFirm.Application.Features.ConsutingFees.Models;
 using LawFirm.Application.Features.Events.Models;
 using MediatR;
 
@@ -22,4 +23,5 @@ public class UpdateCaseCommand : IRequest
     public List<NotificationVm> Notifications { get; set; }
     public List<StatusVm> Statuses { get; set; }
     public List<NoteVm> Notes { get; set; }
+    public ConsultingFeeVM ConsultingFee { get; set; }
 }

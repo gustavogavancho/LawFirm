@@ -14,8 +14,6 @@
     <YesNoModal Message="@(localizer["DeleteConfirmation"])" OnConfirmation="HandleConfirmation" />
 }
 
-<SimpleIndexBar RefText="@(localizer["CreateNewUser"])" ComplementText="@(localizer["Please"])" RefPage="client-insert" RefPageDescription="@(localizer["AddItHere"])" />
-
 <div class="jumbotron">
     <p class="mt-4">
         <input @bind="searchTerm"

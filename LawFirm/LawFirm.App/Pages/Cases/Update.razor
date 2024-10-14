@@ -40,6 +40,8 @@ else
             <CaseStatusesForm Case="caseEntity" />
 
             <CaseNotesForm Case="caseEntity" />
+
+            <ConsultingFeeForm Case="caseEntity" />
         }
         <div class="mt-4 mb-2">
             <div class="row">
@@ -62,6 +64,7 @@ else
     protected async override Task OnInitializedAsync()
     {
         caseEntity = await CaseDataService.GetCase(Id);
+        caseEntity.ConsultingFee = new() { ExpirationDate = DateTime.Now };
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)

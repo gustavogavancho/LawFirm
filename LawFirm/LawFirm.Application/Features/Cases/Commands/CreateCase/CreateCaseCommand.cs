@@ -21,5 +21,4 @@ public class CreateCaseCommand : IRequest<CaseVm>
     public List<ChargeVm> Charges { get; set; }
     public List<StatusVm> Statuses { get; set; }
     public List<NoteVm> Notes { get; set; }
-    public ConsultingFeeVM ConsultingFee { get; set; }
 }
